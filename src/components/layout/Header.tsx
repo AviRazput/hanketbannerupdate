@@ -83,7 +83,8 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  const headerHeight = isCompact ? "h-[60px]" : "h-[72px] md:h-[80px]";
+  const headerHeight = isCompact ? "h-[50px] md:h-[60px]" : "h-[58px] md:h-[80px]";
+  const mobileLogoHeight = isCompact ? "h-[36px]" : "h-[40px]";
 
   return (
     <header className="bg-flat-bg border-b border-flat-border fixed md:sticky top-0 left-0 right-0 w-full z-50 transition-all duration-300">
@@ -107,7 +108,7 @@ export function Header() {
 
           <Link
             href="/"
-            className="justify-self-center flex items-center min-w-0 max-w-[min(200px,60vw)] px-1 py-2"
+            className="justify-self-center flex items-center min-w-0 max-w-[min(200px,60vw)] px-1 py-1"
             aria-label="Hanket home"
           >
             <Image
@@ -116,7 +117,7 @@ export function Header() {
               width={160}
               height={64}
               priority
-              className="h-[54px] w-auto max-w-full object-contain"
+              className={[mobileLogoHeight, "w-auto max-w-full object-contain"].join(" ")}
             />
           </Link>
 

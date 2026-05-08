@@ -8,6 +8,8 @@ import { heroSlides } from "../../data/heroSlides";
 const AUTO_SLIDE_MS = 6000;
 const TRANSITION_S = 3;
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const PRELOAD_AHEAD = 5;
+const PRELOAD_LINKS_MAX = 6;
 
 export function Hero() {
   const slides = heroSlides;
@@ -39,32 +41,73 @@ export function Hero() {
     };
   }, [active, slides.length, goTo]);
 
-  // Preload next slides (desktop + mobile assets)
+  // Preload active + next slides (desktop + mobile assets)
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!slides.length) return;
 
-    const order = [
+    const indices = Array.from({ length: Math.min(PRELOAD_AHEAD + 1, slides.length) }, (_, i) => {
+      return (active + i) % slides.length;
+    });
+
+    const srcs = new Set<string>();
+    for (const idx of indices) {
+      const s = slides[idx];
+      if (!s) continue;
+      srcs.add(s.imageSrc);
+      srcs.add(s.mobileImageSrc ?? s.imageSrc);
+    }
+
+    for (const src of srcs) {
+      const img = new window.Image();
+      img.decoding = "async";
+      img.loading = "eager";
+      img.src = src;
+    }
+  }, [active, slides]);
+
+  // Add DOM preload hints for current + next (helps browser prioritize on prod/CDN)
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (!slides.length) return;
+
+    const indices = [
+      active,
       (active + 1) % slides.length,
-      (active + 2) % slides.length,
-      (active + 3) % slides.length,
     ];
 
-    for (const idx of order) {
-      const a = slides[idx];
-      const candidates = [a?.imageSrc, a?.mobileImageSrc].filter(Boolean) as string[];
-      for (const src of candidates) {
-        const img = new window.Image();
-        img.decoding = "async";
-        img.loading = "eager";
-        img.src = src;
-      }
+    const desired = new Set<string>();
+    for (const idx of indices) {
+      const s = slides[idx];
+      if (!s) continue;
+      desired.add(s.imageSrc);
+      desired.add(s.mobileImageSrc ?? s.imageSrc);
     }
+
+    const list = Array.from(desired).slice(0, PRELOAD_LINKS_MAX);
+    const created: HTMLLinkElement[] = [];
+
+    for (let i = 0; i < list.length; i++) {
+      const href = list[i];
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = href;
+      link.setAttribute("data-hero-preload", "true");
+      if (i === 0) link.setAttribute("fetchpriority", "high");
+      document.head.appendChild(link);
+      created.push(link);
+    }
+
+    return () => {
+      for (const link of created) link.remove();
+    };
   }, [active, slides]);
 
   const slide = slides[active];
   const desktopSrc = slide?.imageSrc ?? null;
   const mobileSrc = slide?.mobileImageSrc ?? slide?.imageSrc ?? null;
+  const isInitial = active === 0;
 
   const slideMotion = {
     initial: { x: "100%" },
@@ -82,7 +125,7 @@ export function Hero() {
           // Full-bleed: ignore the global max-width container on mobile
           "w-screen left-1/2 -translate-x-1/2",
           // Premium full look: tall + edge-to-edge, no blank bands
-          "h-[80vh] min-h-[320px] max-h-[760px]",
+          "h-[62vh] min-h-[260px] max-h-[560px]",
           "bg-flat-bg",
         ].join(" ")}
       >
@@ -100,8 +143,9 @@ export function Hero() {
                 src={mobileSrc}
                 alt={slide.imageAlt}
                 fill
-                priority
-                fetchPriority="high"
+                priority={isInitial}
+                fetchPriority={isInitial ? "high" : "auto"}
+                unoptimized
                 sizes="100vw"
                 className="object-cover object-center"
                 style={{ filter: slide.imageFilter }}
@@ -150,8 +194,9 @@ export function Hero() {
                   src={desktopSrc}
                   alt={slide.imageAlt}
                   fill
-                  priority
-                  fetchPriority="high"
+                  priority={isInitial}
+                  fetchPriority={isInitial ? "high" : "auto"}
+                  unoptimized
                   sizes="(max-width: 1536px) 100vw, 1500px"
                   className="object-cover object-center"
                   style={{ filter: slide.imageFilter }}
