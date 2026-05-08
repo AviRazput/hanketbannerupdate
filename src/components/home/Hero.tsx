@@ -176,7 +176,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 w-full min-w-0">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-7 w-full min-w-0">
 
         {/* Desktop (md+): wide banner only — hidden below md */}
         <div className="relative mt-6 md:mt-7 hidden md:block w-full overflow-hidden bg-flat-bg aspect-[16/5] max-h-[620px] min-h-[220px]">
@@ -197,7 +197,7 @@ export function Hero() {
                   priority={isInitial}
                   fetchPriority={isInitial ? "high" : "auto"}
                   unoptimized
-                  sizes="(max-width: 1536px) 100vw, 1500px"
+                  sizes="(max-width: 1536px) 100vw, 1600px"
                   className="object-cover object-center"
                   style={{ filter: slide.imageFilter }}
                 />
