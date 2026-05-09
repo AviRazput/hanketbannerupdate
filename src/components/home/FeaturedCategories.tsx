@@ -3,14 +3,14 @@ const categories = [
     title: "Mens",
     subtitle: "120 Products",
     img: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-kids-4.jpg",
-    className: "col-span-1 md:col-span-2 row-span-2",
+    className: "col-span-2 md:col-span-2 row-span-2",
     variant: "darkGradient" as const,
   },
   {
     title: "Womens",
     subtitle: "180 Products",
     img: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-woman.jpg",
-    className: "col-span-1 row-span-2",
+    className: "col-span-1 row-span-1 md:row-span-2",
     variant: "lightTop" as const,
   },
   {
@@ -43,7 +43,7 @@ export function FeaturedCategories() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[240px] gap-px bg-flat-border border border-flat-border">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[180px] sm:auto-rows-[220px] md:auto-rows-[240px] gap-px bg-flat-border border border-flat-border">
           {categories.map((c) => (
             <div
               key={c.title}
