@@ -49,26 +49,40 @@ export function FeaturedCategories() {
               key={c.title}
               className={[
                 c.className,
-                "relative bg-flat-bg group overflow-hidden cursor-pointer",
+                "relative bg-flat-bg group overflow-hidden cursor-pointer flex flex-col md:block",
               ].join(" ")}
             >
               <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                className="relative flex-1 overflow-hidden md:hidden"
+              >
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url('${c.img}')` }}
+                />
+              </div>
+
+              <div
+                className="hidden md:block absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
                 style={{ backgroundImage: `url('${c.img}')` }}
               />
 
+              <div className="md:hidden p-6 sm:p-8">
+                <h3 className="mb-1 text-[22px] text-flat-text">{c.title}</h3>
+                <p className="text-xs tracking-widest uppercase text-flat-muted">{c.subtitle}</p>
+              </div>
+
               {c.variant === "darkGradient" ? (
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-8 text-white">
+                <div className="hidden md:flex absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex-col justify-end p-8 text-white">
                   <h3 className="mb-1 text-[22px]">{c.title}</h3>
                   <p className="text-xs tracking-widest uppercase opacity-80">{c.subtitle}</p>
                 </div>
               ) : c.variant === "center" ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-flat-text text-center">
+                <div className="hidden md:flex absolute inset-0 flex-col items-center justify-center p-8 text-flat-text text-center">
                   <h3 className="mb-1 text-[22px]">{c.title}</h3>
                   <p className="text-xs tracking-widest uppercase text-flat-muted">{c.subtitle}</p>
                 </div>
               ) : (
-                <div className="absolute inset-0 flex flex-col justify-start p-8 text-flat-text">
+                <div className="hidden md:flex absolute inset-0 flex-col justify-start p-8 text-flat-text">
                   <h3 className="mb-1 text-[22px]">{c.title}</h3>
                   <p className="text-xs tracking-widest uppercase text-flat-muted">{c.subtitle}</p>
                 </div>
