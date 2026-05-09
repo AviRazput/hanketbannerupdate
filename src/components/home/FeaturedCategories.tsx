@@ -31,9 +31,9 @@ const categories = [
 
 export function FeaturedCategories() {
   return (
-    <section className="py-24 bg-flat-layer border-t border-flat-border">
+    <section className="py-10 md:py-24 bg-flat-layer border-t border-flat-border">
       <div className="max-w-[1500px] mx-auto px-8">
-        <div className="text-center mb-16 max-w-xl mx-auto">
+        <div className="text-center mb-10 md:mb-16 max-w-xl mx-auto">
           <div className="text-[0.75rem] leading-[1.5] tracking-[0.15em] text-flat-muted uppercase mb-4">
             Welcome to HANKET
           </div>
