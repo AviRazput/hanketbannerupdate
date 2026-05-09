@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Lato, Lora } from "next/font/google";
+import { RegisterServiceWorker } from "@/components/RegisterServiceWorker";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -20,6 +21,11 @@ export const metadata: Metadata = {
   description: "Hanket ecommerce marketplace",
   applicationName: "HANKET",
   manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "HANKET",
+    statusBarStyle: "default",
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -61,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lato.variable} ${lora.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-flat-bg text-flat-text antialiased min-w-0 overflow-x-clip">
+        <RegisterServiceWorker />
         {children}
       </body>
     </html>
