@@ -289,7 +289,7 @@ export function Hero() {
       {/* Mobile: full-bleed banner (hidden from md) */}
       <div
         className={[
-          "md:hidden relative mt-4 overflow-hidden touch-pan-y",
+          "md:hidden relative mt-0 overflow-hidden touch-pan-y",
           // Full-bleed: ignore the global max-width container on mobile
           "w-screen left-1/2 -translate-x-1/2",
           // Premium full look: tall + edge-to-edge, no blank bands

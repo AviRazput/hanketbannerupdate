@@ -62,21 +62,11 @@ const navLinks = [
 export function Header() {
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isCompact, setIsCompact] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const cartCount = 0;
 
   const drawerLinks = navLinks;
   const drawerAccountLinks = ["Login / Register", "Wishlist", "Cart"];
-
-  useEffect(() => {
-    function onScroll() {
-      setIsCompact(window.scrollY > 20);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -85,67 +75,75 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    function onMobileSearchOpen() {
-      setMobileOpen(true);
-      window.setTimeout(() => {
-        mobileSearchInputRef.current?.focus();
-      }, 0);
-    }
-    window.addEventListener("hanket:mobile-search", onMobileSearchOpen);
-    return () => window.removeEventListener("hanket:mobile-search", onMobileSearchOpen);
-  }, []);
-
-  const headerHeight = isCompact ? "h-[56px] md:h-auto" : "h-[66px] md:h-auto";
-  const mobileLogoHeight = isCompact ? "h-[42px]" : "h-[48px]";
-
   return (
-    <header className="bg-flat-bg border-b border-flat-border fixed md:sticky top-0 left-0 right-0 w-full z-50 transition-all duration-300">
-      <div
-        className={[
-          "max-w-[1500px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 transition-[height] duration-300 md:py-4",
-          headerHeight,
-        ].join(" ")}
-      >
-        {/* Mobile: hamburger left, logo centered, cart right */}
-        <div className="md:hidden grid grid-cols-3 items-center h-full">
-          <button
-            type="button"
-            className="justify-self-start text-flat-text w-11 h-11 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Menu"
-            aria-expanded={mobileOpen}
-          >
-            <IconMenu />
-          </button>
+    <header className="bg-flat-bg border-b border-flat-border fixed md:sticky top-0 left-0 right-0 w-full z-50 md:transition-all md:duration-300">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-2 md:py-4">
+        {/* Mobile: top bar + search under header */}
+        <div className="md:hidden">
+          <div className="grid grid-cols-3 items-center min-h-[48px]">
+            <button
+              type="button"
+              className="justify-self-start text-flat-text w-11 h-11 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label="Menu"
+              aria-expanded={mobileOpen}
+            >
+              <IconMenu />
+            </button>
 
-          <Link
-            href="/"
-            className="justify-self-center flex items-center min-w-0 max-w-[min(260px,68vw)] px-1 py-1"
-            aria-label="Hanket home"
-          >
-            <Image
-              src="/logo.png"
-              alt="Hanket"
-              width={320}
-              height={128}
-              sizes="(max-width: 767px) min(68vw, 260px), 300px"
-              quality={85}
-              preload
-              className={[mobileLogoHeight, "w-auto max-w-full object-contain"].join(" ")}
-            />
-          </Link>
+            <Link
+              href="/"
+              className="justify-self-center flex items-center min-w-0 max-w-[min(260px,68vw)] px-1 py-1"
+              aria-label="Hanket home"
+            >
+              <Image
+                src="/logo.png"
+                alt="Hanket"
+                width={320}
+                height={128}
+                sizes="(max-width: 767px) min(68vw, 260px), 300px"
+                quality={85}
+                preload
+                className="h-[48px] w-auto max-w-full object-contain"
+              />
+            </Link>
 
-          <Link
-            href="/cart"
-            className="justify-self-end relative text-flat-text w-11 h-11 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
-            aria-label="Cart"
+            <Link
+              href="/cart"
+              className="justify-self-end relative text-flat-text w-11 h-11 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
+              aria-label="Cart"
+            >
+              <IconCart />
+              <span className="absolute -top-1 -right-1 bg-flat-text text-flat-bg text-[10px] px-[6px] py-[2px] flex items-center justify-center min-w-[20px]">
+                {cartCount}
+              </span>
+            </Link>
+          </div>
+
+          <form
+            className="mt-2 w-full"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+            role="search"
+            aria-label="Site search"
           >
-            <IconCart />
-            <span className="absolute -top-1 -right-1 bg-flat-text text-flat-bg text-[10px] px-[6px] py-[2px] flex items-center justify-center min-w-[20px]">
-              {cartCount}
-            </span>
-          </Link>
+            <div className="relative w-full">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-flat-muted pointer-events-none">
+                <IconSearch />
+              </span>
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for products, brands and more"
+                className={[
+                  "h-10 w-full pl-10 pr-4",
+                  "rounded-md bg-flat-layer border border-flat-text/20 text-flat-text placeholder:text-flat-text/50",
+                  "outline-none focus:border-flat-text/40 focus:ring-2 focus:ring-flat-text/15 transition-colors",
+                ].join(" ")}
+              />
+            </div>
+          </form>
         </div>
 
         {/* Tablet / desktop */}
@@ -157,24 +155,14 @@ export function Header() {
               aria-label="HANKET home"
             >
               <Image
-                src="/homeicon.png"
-                alt=""
-                width={500}
-                height={500}
-                sizes="(max-width: 1023px) 56px, 64px"
+                src="/logo.png"
+                alt="Hanket"
+                width={320}
+                height={128}
+                sizes="(max-width: 1023px) 200px, 240px"
                 quality={90}
                 preload
                 className="h-14 md:h-16 w-auto shrink-0 object-contain"
-              />
-              <Image
-                src="/tagline.png"
-                alt=""
-                width={1500}
-                height={900}
-                sizes="(max-width: 1023px) min(160px, 28vw), 200px"
-                quality={90}
-                preload
-                className="h-9 md:h-10 w-auto max-w-[min(200px,30vw)] shrink-0 object-contain"
               />
             </Link>
 
@@ -341,4 +329,3 @@ export function Header() {
     </header>
   );
 }
-

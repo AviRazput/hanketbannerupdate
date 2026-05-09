@@ -13,26 +13,29 @@ function IconHome() {
     <Image
       src="/homeicon.png"
       alt="Home"
-      width={20}
-      height={20}
+      width={40}
+      height={40}
       className="w-5 h-5 object-contain"
     />
   );
 }
 
-function IconSearch() {
+function IconWishlist() {
   return (
     <svg className="w-5 h-5 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
-      <circle cx="11" cy="11" r="7" />
-      <path d="m20 20-3.5-3.5" />
+      <path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" />
     </svg>
   );
 }
 
-function IconGrid() {
+function IconShop() {
   return (
     <svg className="w-5 h-5 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
-      <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.5 10V9a4 4 0 10-8 0v1M20 21H4a2 2 0 01-2-2v-8a2 2 0 012-2h16a2 2 0 012 2v8a2 2 0 01-2 2z"
+      />
     </svg>
   );
 }
@@ -46,60 +49,35 @@ function IconUser() {
   );
 }
 
-type NavItem =
-  | {
-      kind: "link";
-      href: string;
-      label: string;
-      icon: React.ReactNode;
-      match?: (pathname: string) => boolean;
-    }
-  | { kind: "search"; label: string; icon: React.ReactNode };
-
-const items: NavItem[] = [
-  { kind: "link", href: "/", label: "Home", icon: <IconHome />, match: (p) => p === "/" },
-  { kind: "search", label: "Search", icon: <IconSearch /> },
-  { kind: "link", href: "/product", label: "Shop", icon: <IconGrid />, match: (p) => p.startsWith("/product") },
-  { kind: "link", href: "/auth/login", label: "Account", icon: <IconUser />, match: (p) => p.startsWith("/auth") },
-];
+const items = [
+  { href: "/", label: "Home", icon: <IconHome />, match: (p: string) => p === "/" },
+  { href: "#", label: "Wishlist", icon: <IconWishlist />, match: () => false },
+  { href: "/product", label: "Shop", icon: <IconShop />, match: (p: string) => p.startsWith("/product") },
+  {
+    href: "/auth/login",
+    label: "Account",
+    icon: <IconUser />,
+    match: (p: string) => p.startsWith("/auth"),
+  },
+] as const;
 
 export function MobileBottomNav() {
   const pathname = usePathname() ?? "/";
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[80] bg-flat-bg/95 backdrop-blur border-t border-flat-border max-w-[100vw]">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[80] bg-flat-bg/95 backdrop-blur border-t border-flat-border max-w-[100vw] pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-[1500px] mx-auto px-4">
-        <div
-          className="h-[64px] grid grid-cols-4"
-          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-        >
+        <div className="h-16 min-h-[4rem] max-h-[4rem] grid grid-cols-4 items-center shrink-0">
           {items.map((it) => {
-            if (it.kind === "search") {
-              return (
-                <button
-                  key="search"
-                  type="button"
-                  onClick={() => window.dispatchEvent(new Event("hanket:mobile-search"))}
-                  className={[
-                    "flex flex-col items-center justify-center gap-1",
-                    "text-[9px] uppercase tracking-[0.18em] font-bold",
-                    "text-flat-muted hover:text-flat-text transition-colors",
-                  ].join(" ")}
-                >
-                  <NavIcon>{it.icon}</NavIcon>
-                  <span>{it.label}</span>
-                </button>
-              );
-            }
-            const active = it.match ? it.match(pathname) : pathname === it.href;
+            const active = it.match(pathname);
             return (
               <Link
-                key={it.href}
+                key={it.href + it.label}
                 href={it.href}
                 className={[
                   "flex flex-col items-center justify-center gap-1",
                   "text-[9px] uppercase tracking-[0.18em] font-bold",
-                  active ? "text-flat-text" : "text-flat-muted",
+                  active ? "text-flat-text" : "text-flat-muted hover:text-flat-text transition-colors",
                 ].join(" ")}
               >
                 <NavIcon>{it.icon}</NavIcon>
@@ -112,4 +90,3 @@ export function MobileBottomNav() {
     </nav>
   );
 }
-
