@@ -71,44 +71,6 @@ const SWIPE_VELOCITY_PX_S = 450;
 /** Require horizontal movement to clearly dominate vertical (avoids fighting page scroll). */
 const SWIPE_DOMINANCE = 1.25;
 
-function IconChevronLeft({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      aria-hidden
-    >
-      <path
-        d="m15 18-6-6 6-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconChevronRight({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      aria-hidden
-    >
-      <path
-        d="m9 18 6-6-6-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function getSlideMotion(interactionSource: InteractionSource) {
   if (interactionSource === "auto") {
     return {
@@ -214,7 +176,6 @@ export function Hero() {
     return () => window.clearInterval(id);
   }, [active, slideCount]);
 
-  // Preload active + next slides (desktop + mobile assets)
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!slides.length) return;
@@ -239,15 +200,11 @@ export function Hero() {
     }
   }, [active, slides]);
 
-  // Add DOM preload hints for current + next (helps browser prioritize on prod/CDN)
   useEffect(() => {
     if (typeof document === "undefined") return;
     if (!slides.length) return;
 
-    const indices = [
-      active,
-      (active + 1) % slides.length,
-    ];
+    const indices = [active, (active + 1) % slides.length];
 
     const desired = new Set<string>();
     for (const idx of indices) {
@@ -281,108 +238,88 @@ export function Hero() {
   const desktopSrc = slide?.imageSrc ?? null;
   const mobileSrc = slide?.mobileImageSrc ?? slide?.imageSrc ?? null;
   const isInitial = active === 0;
-
   const slideMotion = getSlideMotion(interactionSource);
 
-  return (
-    <section className="bg-flat-bg w-full min-w-0 overflow-hidden">
-      {/* Mobile: full-bleed banner (hidden from md) */}
-      <div
-        className={[
-          "md:hidden relative mt-0 overflow-hidden touch-pan-y",
-          // Full-bleed: ignore the global max-width container on mobile
-          "w-screen left-1/2 -translate-x-1/2",
-          // Premium full look: tall + edge-to-edge, no blank bands
-          "h-[62vh] min-h-[260px] max-h-[560px]",
-          "bg-flat-bg",
-        ].join(" ")}
-        style={{ touchAction: "pan-y" }}
-      >
-        <motion.div
-          className="absolute inset-0 touch-pan-y"
-          style={{ touchAction: "pan-y" }}
-          drag={slideCount > 1 ? "x" : false}
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.12}
-          dragSnapToOrigin
-          onDragEnd={onMobileSwipeEnd}
-        >
-          <AnimatePresence initial={false} mode="popLayout">
-            {slide && mobileSrc ? (
-              <motion.div
-                key={`m-${slide.id}`}
-                className="absolute inset-0"
-                initial={slideMotion.initial}
-                animate={slideMotion.animate}
-                exit={slideMotion.exit}
-                transition={slideMotion.transition}
-              >
-                <Image
-                  src={mobileSrc}
-                  alt={slide.imageAlt}
-                  fill
-                  priority={isInitial}
-                  fetchPriority={isInitial ? "high" : "auto"}
-                  unoptimized
-                  sizes="100vw"
-                  className="object-cover object-center pointer-events-none select-none"
-                  style={{ filter: slide.imageFilter }}
-                  draggable={false}
-                />
-                {/* subtle overlay helps text-like banners pop while staying “full” */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/10 pointer-events-none" />
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
-        </motion.div>
+  const dotClass = (idx: number) =>
+    [
+      "h-2.5 shrink-0 rounded-full border-2 transition-all",
+      idx === active
+        ? "w-7 border-[#333] bg-[#333]"
+        : "w-2.5 border-[#bbb] bg-[#d4d4d4] hover:bg-[#bbb]",
+    ].join(" ");
 
-        {/* Mobile dots + prev/next (overlaid; arrows match light dot treatment on imagery) */}
-        <div className="absolute inset-x-0 bottom-3 z-10 flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
-          {slides.length > 1 ? (
-            <button
-              type="button"
-              aria-label="Previous slide"
-              onClick={goPrev}
-              className="min-h-11 min-w-11 inline-flex shrink-0 items-center justify-center rounded-sm text-white/70 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
-            >
-              <IconChevronLeft className="h-5 w-5" />
-            </button>
-          ) : null}
-          <div className="flex max-w-[min(100%,220px)] flex-wrap items-center justify-center gap-2 sm:max-w-none">
+  return (
+    <section className="bg-flat-bg w-full min-w-0">
+      {/* Mobile */}
+      <div className="md:hidden w-full">
+        <div
+          className="relative w-full overflow-hidden touch-pan-y h-[50vh] min-h-[240px] max-h-[460px] bg-flat-bg"
+          style={{ touchAction: "pan-y" }}
+        >
+          <motion.div
+            className="absolute inset-0 touch-pan-y"
+            style={{ touchAction: "pan-y" }}
+            drag={slideCount > 1 ? "x" : false}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.12}
+            dragSnapToOrigin
+            onDragEnd={onMobileSwipeEnd}
+          >
+            <AnimatePresence initial={false}>
+              {slide && mobileSrc ? (
+                <motion.div
+                  key={`m-${slide.id}`}
+                  className="absolute inset-0"
+                  initial={slideMotion.initial}
+                  animate={slideMotion.animate}
+                  exit={slideMotion.exit}
+                  transition={slideMotion.transition}
+                >
+                  <Image
+                    src={mobileSrc}
+                    alt={slide.imageAlt}
+                    fill
+                    priority={isInitial}
+                    fetchPriority={isInitial ? "high" : "auto"}
+                    unoptimized
+                    sizes="100vw"
+                    className="object-cover object-center pointer-events-none select-none"
+                    style={{ filter: slide.imageFilter }}
+                    draggable={false}
+                  />
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+
+        {slides.length > 1 ? (
+          <div
+            className="flex min-h-12 items-center justify-center gap-2.5 border-b border-flat-border bg-flat-bg px-4 py-3"
+            role="tablist"
+            aria-label="Hero slides"
+          >
             {slides.map((s, idx) => (
               <button
                 key={`${s.id}-dot-m`}
                 type="button"
+                role="tab"
+                aria-selected={idx === active}
                 aria-label={`Go to slide ${idx + 1}`}
-                onClick={() => {
-                  goToDot(idx);
-                }}
-                className={[
-                  "h-2.5 w-2.5 shrink-0 rounded-full border border-white/60 transition-all",
-                  idx === active ? "bg-white w-6" : "bg-white/20 hover:bg-white/40",
-                ].join(" ")}
+                onClick={() => goToDot(idx)}
+                className={dotClass(idx)}
               />
             ))}
           </div>
-          {slides.length > 1 ? (
-            <button
-              type="button"
-              aria-label="Next slide"
-              onClick={goNext}
-              className="min-h-11 min-w-11 inline-flex shrink-0 items-center justify-center rounded-sm text-white/70 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80"
-            >
-              <IconChevronRight className="h-5 w-5" />
-            </button>
-          ) : null}
-        </div>
+        ) : null}
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-7 w-full min-w-0">
-
-        {/* Desktop (md+): wide banner only — hidden below md */}
-        <div className="relative mt-6 md:mt-7 hidden md:block w-full overflow-hidden bg-flat-bg aspect-[16/5] max-h-[620px] min-h-[220px]">
-          <AnimatePresence initial={false} mode="popLayout">
-            {slide && desktopSrc ? (
+      {/* Desktop */}
+      <div className="hidden md:block w-full">
+        <div className="relative w-full overflow-hidden bg-flat-bg h-[min(58vh,640px)] min-h-[380px]">
+          <div className="absolute inset-0">
+            <AnimatePresence initial={false}>
+              {slide && desktopSrc ? (
               <motion.div
                 key={`d-${slide.id}`}
                 className="absolute inset-0"
@@ -398,55 +335,35 @@ export function Hero() {
                   priority={isInitial}
                   fetchPriority={isInitial ? "high" : "auto"}
                   unoptimized
-                  sizes="(max-width: 1536px) 100vw, 1600px"
+                  sizes="100vw"
                   className="object-cover object-center"
                   style={{ filter: slide.imageFilter }}
                 />
               </motion.div>
-            ) : null}
-          </AnimatePresence>
+              ) : null}
+            </AnimatePresence>
+          </div>
         </div>
 
-        <div className="hidden md:flex items-center justify-center gap-2 py-3 md:gap-3 md:py-5">
-          {slides.length > 1 ? (
-            <button
-              type="button"
-              aria-label="Previous slide"
-              onClick={goPrev}
-              className="text-flat-muted hover:text-flat-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flat-text/30 min-h-11 min-w-11 inline-flex shrink-0 items-center justify-center rounded-sm transition-colors hover:bg-flat-text/5"
-            >
-              <IconChevronLeft className="h-5 w-5" />
-            </button>
-          ) : null}
-          <div className="flex flex-wrap items-center justify-center gap-2">
+        {slides.length > 1 ? (
+          <div
+            className="flex min-h-14 items-center justify-center gap-3 border-b border-flat-border bg-flat-bg px-6 py-4"
+            role="tablist"
+            aria-label="Hero slides"
+          >
             {slides.map((s, idx) => (
               <button
                 key={`${s.id}-dot`}
                 type="button"
+                role="tab"
+                aria-selected={idx === active}
                 aria-label={`Go to slide ${idx + 1}`}
-                onClick={() => {
-                  goToDot(idx);
-                }}
-                className={[
-                  "h-2.5 w-2.5 shrink-0 rounded-full border border-flat-text/30 transition-all",
-                  idx === active
-                    ? "bg-flat-text w-6"
-                    : "bg-transparent hover:bg-flat-text/20",
-                ].join(" ")}
+                onClick={() => goToDot(idx)}
+                className={dotClass(idx)}
               />
             ))}
           </div>
-          {slides.length > 1 ? (
-            <button
-              type="button"
-              aria-label="Next slide"
-              onClick={goNext}
-              className="text-flat-muted hover:text-flat-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flat-text/30 min-h-11 min-w-11 inline-flex shrink-0 items-center justify-center rounded-sm transition-colors hover:bg-flat-text/5"
-            >
-              <IconChevronRight className="h-5 w-5" />
-            </button>
-          ) : null}
-        </div>
+        ) : null}
       </div>
     </section>
   );

@@ -7,6 +7,7 @@
   --flat-text: #212121;
   --flat-border: #eeeeee;
   --flat-muted: #888888;
+  --flat-pink: #e11d48;
 }
 
 @theme inline {
@@ -15,6 +16,7 @@
   --color-flat-text: var(--flat-text);
   --color-flat-border: var(--flat-border);
   --color-flat-muted: var(--flat-muted);
+  --color-flat-pink: var(--flat-pink);
 
   --font-sans: var(--font-lato);
   --font-serif: var(--font-lora);
@@ -133,6 +135,9 @@ h6 {
   position: relative;
   transition: color 0.3s;
 }
+.nav-link:hover {
+  color: var(--flat-pink);
+}
 .nav-link::after {
   content: "";
   position: absolute;
@@ -145,6 +150,7 @@ h6 {
 }
 .nav-link:hover::after {
   width: 100%;
+  background-color: var(--flat-pink);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -153,4 +159,74 @@ h6 {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.auth-drawer-input {
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  border: 1px solid var(--flat-border);
+  background: var(--flat-bg);
+  color: var(--flat-text);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-drawer-input:focus {
+  border-color: var(--flat-pink);
+  box-shadow: 0 0 0 3px rgb(225 29 72 / 0.1);
+}
+
+.auth-drawer-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0 1.5rem;
+  background-color: var(--flat-text);
+  color: var(--flat-bg);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 1px solid transparent;
+  transition: all 0.25s ease-out;
+  cursor: pointer;
+}
+
+.auth-drawer-submit:hover {
+  background-color: var(--flat-pink);
+  color: #fff;
+}
+
+.auth-drawer-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+  height: 3rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1px solid transparent;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.auth-drawer-social:hover {
+  opacity: 0.92;
+}
+
+.auth-drawer-social--facebook {
+  background-color: #3b5998;
+  color: #fff;
+}
+
+.auth-drawer-social--google {
+  background-color: #e8f0fe;
+  color: var(--flat-text);
+  border-color: var(--flat-border);
 }

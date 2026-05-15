@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthDrawer } from "@/components/auth/AuthDrawerContext";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,26 +50,21 @@ function IconUser() {
   );
 }
 
-const items = [
+const linkItems = [
   { href: "/", label: "Home", icon: <IconHome />, match: (p: string) => p === "/" },
   { href: "#", label: "Wishlist", icon: <IconWishlist />, match: () => false },
   { href: "/product", label: "Shop", icon: <IconShop />, match: (p: string) => p.startsWith("/product") },
-  {
-    href: "/auth/login",
-    label: "Account",
-    icon: <IconUser />,
-    match: (p: string) => p.startsWith("/auth"),
-  },
 ] as const;
 
 export function MobileBottomNav() {
   const pathname = usePathname() ?? "/";
+  const { openAuthDrawer } = useAuthDrawer();
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[80] bg-flat-bg/95 backdrop-blur border-t border-flat-border max-w-[100vw] pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-[1500px] mx-auto px-4">
         <div className="h-16 min-h-[4rem] max-h-[4rem] grid grid-cols-4 items-center shrink-0">
-          {items.map((it) => {
+          {linkItems.map((it) => {
             const active = it.match(pathname);
             return (
               <Link
@@ -85,6 +81,23 @@ export function MobileBottomNav() {
               </Link>
             );
           })}
+
+          <button
+            type="button"
+            onClick={() => openAuthDrawer("sign-in")}
+            className={[
+              "flex flex-col items-center justify-center gap-1",
+              "text-[9px] uppercase tracking-[0.18em] font-bold",
+              pathname.startsWith("/auth")
+                ? "text-flat-text"
+                : "text-flat-muted hover:text-flat-text transition-colors",
+            ].join(" ")}
+          >
+            <NavIcon>
+              <IconUser />
+            </NavIcon>
+            <span>Account</span>
+          </button>
         </div>
       </div>
     </nav>
