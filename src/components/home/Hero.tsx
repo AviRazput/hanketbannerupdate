@@ -253,7 +253,7 @@ export function Hero() {
       {/* Mobile */}
       <div className="md:hidden w-full">
         <div
-          className="relative w-full overflow-hidden touch-pan-y h-[50vh] min-h-[240px] max-h-[460px] bg-flat-bg"
+          className="relative w-full overflow-hidden touch-pan-y h-[56vh] min-h-[280px] max-h-[520px] bg-flat-bg"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
@@ -316,7 +316,7 @@ export function Hero() {
 
       {/* Desktop */}
       <div className="hidden md:block w-full">
-        <div className="relative w-full overflow-hidden bg-flat-bg h-[min(58vh,640px)] min-h-[380px]">
+        <div className="relative w-full overflow-hidden bg-flat-bg h-[min(65vh,720px)] min-h-[420px]">
           <div className="absolute inset-0">
             <AnimatePresence initial={false}>
               {slide && desktopSrc ? (
