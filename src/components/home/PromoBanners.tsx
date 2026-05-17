@@ -1,5 +1,8 @@
+import Image from "next/image";
+
 const promos = [
   {
+    id: "summer-mens",
     eyebrow: "Hot list",
     title: (
       <>
@@ -9,8 +12,10 @@ const promos = [
       </>
     ),
     img: "https://woodmart.xtemos.com/wp-content/uploads/2017/03/baner-flat-fashion-500x375.jpg",
+    alt: "Summer men's wear collection",
   },
   {
+    id: "special-shoes",
     eyebrow: "Category",
     title: (
       <>
@@ -20,8 +25,10 @@ const promos = [
       </>
     ),
     img: "https://woodmart.xtemos.com/wp-content/uploads/2017/03/baner-flat-fashion-5-500x375.jpg",
+    alt: "Special shoes collection",
   },
   {
+    id: "bags-handbags",
     eyebrow: "Women's",
     title: (
       <>
@@ -31,8 +38,10 @@ const promos = [
       </>
     ),
     img: "https://woodmart.xtemos.com/wp-content/uploads/2017/03/baner-flat-fashion-7-500x375.jpg",
+    alt: "Bags and handbags collection",
   },
   {
+    id: "mid-season",
     eyebrow: "Summertime",
     title: (
       <>
@@ -42,8 +51,9 @@ const promos = [
       </>
     ),
     img: "https://woodmart.xtemos.com/wp-content/uploads/2017/03/baner-flat-fashion-9-500x375.jpg",
+    alt: "Women's mid-season collection",
   },
-];
+] as const;
 
 export function PromoBanners() {
   return (
@@ -52,13 +62,17 @@ export function PromoBanners() {
         <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory md:grid md:grid-cols-2 md:overflow-visible md:snap-none xl:grid-cols-4 gap-px bg-flat-border border border-flat-border">
           {promos.map((p) => (
             <div
-              key={p.img}
+              key={p.id}
               className="relative bg-flat-bg group overflow-hidden cursor-pointer aspect-[1/1] md:aspect-[4/3] min-h-[260px] md:min-h-0 w-full min-w-full flex-none snap-start md:w-auto md:min-w-0 md:flex-auto"
             >
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
-                style={{ backgroundImage: `url('${p.img}')` }}
+              <Image
+                src={p.img}
+                alt={p.alt}
+                fill
+                sizes="(max-width: 767px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                className="object-cover object-center transition-transform duration-1000 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/55 to-transparent" />
               <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-center">
                 <p className="text-[0.75rem] leading-[1.5] tracking-[0.15em] text-flat-text/80 mb-2 uppercase">
                   {p.eyebrow}
@@ -75,4 +89,3 @@ export function PromoBanners() {
     </section>
   );
 }
-
