@@ -12,7 +12,7 @@ const brands = [
 export function BrandStrip() {
   return (
     <section className="py-12 bg-white border-t border-flat-border overflow-hidden">
-      <div className="max-w-[1500px] mx-auto px-8">
+      <div className="max-w-[1920px] mx-auto px-8">
         <div className="flex items-center justify-between gap-8 opacity-50 grayscale hover:grayscale-0 transition-all duration-500 overflow-x-auto no-scrollbar">
           {brands.map((src) => (
             <Image

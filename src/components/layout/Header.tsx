@@ -167,7 +167,7 @@ export function Header() {
 
   return (
     <header className="bg-white border-b border-[#ebebeb] fixed md:sticky top-0 left-0 right-0 w-full z-50">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-2 md:py-0">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-2 md:py-0">
         {/* Mobile */}
         <div className="md:hidden">
           <div className="grid grid-cols-[auto_1fr_auto] items-center min-h-[48px] gap-2">

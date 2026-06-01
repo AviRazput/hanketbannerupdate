@@ -4,7 +4,7 @@ import { blogPosts } from "../../data/products";
 export function BlogSection() {
   return (
     <section className="py-24 bg-flat-bg border-t border-flat-border">
-      <div className="max-w-[1500px] mx-auto px-8">
+      <div className="max-w-[1920px] mx-auto px-8">
         <div className="text-center mb-16 max-w-xl mx-auto">
           <div className="text-[0.75rem] leading-[1.5] tracking-[0.15em] text-flat-muted uppercase mb-4">
             Read Our Journal

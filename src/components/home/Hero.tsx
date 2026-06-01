@@ -343,8 +343,8 @@ export function Hero() {
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:block w-full max-w-[1500px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 mt-8 lg:mt-10 mb-6 lg:mb-8">
-        <div className="relative group w-full overflow-hidden rounded-xl bg-flat-bg h-[280px] md:h-[320px] lg:h-[360px] xl:h-[400px]">
+      <div className="hidden md:block w-full max-w-[1920px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 mt-8 lg:mt-10 mb-6 lg:mb-8">
+        <div className="relative group w-full overflow-hidden rounded-xl bg-flat-bg h-[320px] md:h-[400px] lg:h-[480px] xl:h-[550px]">
           <div className="absolute inset-0 rounded-xl overflow-hidden">
             <AnimatePresence initial={false} custom={interactionSource}>
               {slide && desktopSrc ? (

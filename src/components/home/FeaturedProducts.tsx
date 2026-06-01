@@ -15,7 +15,7 @@ export function FeaturedProducts() {
 
   return (
     <section className="py-14 sm:py-24 bg-flat-bg border-t border-flat-border">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-8">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-8">
         <div className="text-center mb-8 sm:mb-12 max-w-xl mx-auto">
           <h2 className="mb-3 sm:mb-4 text-flat-text text-[2rem] sm:text-[2.5rem] leading-[1.2]">
             Featured Products

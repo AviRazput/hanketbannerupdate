@@ -63,7 +63,7 @@ export function FeaturedCategories() {
 
   return (
     <section className="py-10 md:py-14 bg-white border-t border-flat-border">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="font-sans text-[1.25rem] md:text-[1.375rem] font-medium text-flat-text tracking-tight mb-6 md:mb-8">
           Top Categories
         </h2>

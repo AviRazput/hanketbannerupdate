@@ -6,7 +6,7 @@ const WHY_HANKET_IMAGE = "/whyHanket/whyHanket.png";
 export function WhyHanketSection() {
   return (
     <section className="bg-white border-y border-flat-border">
-      <div className="max-w-[1500px] mx-auto">
+      <div className="max-w-[1920px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 md:min-h-[min(52vh,560px)]">
           <div className="relative aspect-[16/10] w-full md:aspect-auto md:min-h-full">
             <Image

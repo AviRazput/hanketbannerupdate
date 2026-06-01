@@ -66,7 +66,7 @@ export function MobileBottomNav() {
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[80] bg-flat-bg/95 backdrop-blur border-t border-flat-border max-w-[100vw] pb-[env(safe-area-inset-bottom)]">
-      <div className="max-w-[1500px] mx-auto px-4">
+      <div className="max-w-[1920px] mx-auto px-4">
         <div className="h-16 min-h-[4rem] max-h-[4rem] grid grid-cols-4 items-center shrink-0">
           {linkItems.map((it) => {
             const active = it.match(pathname);

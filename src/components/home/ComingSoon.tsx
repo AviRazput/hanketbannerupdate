@@ -29,7 +29,7 @@ export function ComingSoon() {
         <div className="absolute inset-0 bg-gradient-to-b from-flat-layer/60 via-flat-bg to-flat-bg" />
       </motion.div>
 
-      <div className="relative mx-auto flex max-w-[1500px] flex-col items-center justify-center px-6 py-20 text-center md:py-28 lg:py-32">
+      <div className="relative mx-auto flex max-w-[1920px] flex-col items-center justify-center px-6 py-20 text-center md:py-28 lg:py-32">
         <motion.p
           initial={{ opacity: 0, letterSpacing: "0.5em" }}
           animate={{ opacity: 1, letterSpacing: "0.35em" }}

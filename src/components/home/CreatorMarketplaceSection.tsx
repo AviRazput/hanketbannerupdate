@@ -6,7 +6,7 @@ import { HorizontalScrollRow } from "./HorizontalScrollRow";
 export function CreatorMarketplaceSection() {
   return (
     <section className="bg-[#fdf8f4] pt-6 pb-6 md:pt-10 md:pb-10">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <header className="mb-5 md:mb-7">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h2 className="font-serif text-[1.5rem] font-medium leading-[1.15] tracking-[-0.02em] text-[#1a1a1a] md:text-[2rem]">

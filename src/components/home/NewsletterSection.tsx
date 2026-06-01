@@ -1,7 +1,7 @@
 export function NewsletterSection() {
   return (
     <section className="bg-black text-white">
-      <div className="max-w-[1500px] mx-auto">
+      <div className="max-w-[1920px] mx-auto">
         <div className="flex min-h-[300px] items-center justify-center px-4 py-12">
           <div className="text-center">
             <h2 className="font-serif text-[1.5rem] font-medium tracking-[-0.02em] sm:text-[2rem] md:text-[2.5rem]">
