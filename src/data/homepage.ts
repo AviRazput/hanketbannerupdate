@@ -1,28 +1,50 @@
-export const mainNav = [
-  "Men",
-  "Women",
-  "Kids",
-  "Lifestyle",
-  "Brands",
-  "New Arrivals",
-  "Creators",
-  "Sale",
-] as const;
+export type NavItem = {
+  label: string;
+  href: string;
+  dropdownItems?: { label: string; href: string }[];
+};
+
+export const mainNav: NavItem[] = [
+  {
+    label: "WOMEN",
+    href: "/search?category=women",
+    dropdownItems: [
+      { label: "Clothing", href: "/search?category=women&type=clothing" },
+      { label: "Footwear", href: "/search?category=women&type=footwear" },
+      { label: "Jewelry", href: "/search?category=women&type=jewelry" },
+      { label: "Accessories", href: "/search?category=women&type=accessories" },
+    ],
+  },
+  {
+    label: "MEN",
+    href: "/search?category=men",
+    dropdownItems: [
+      { label: "Clothing", href: "/search?category=men&type=clothing" },
+      { label: "Footwear", href: "/search?category=men&type=footwear" },
+      { label: "Accessories", href: "/search?category=men&type=accessories" },
+    ],
+  },
+  { label: "KIDS", href: "/search?category=kids" },
+  { label: "BEAUTY", href: "/search?category=beauty" },
+  { label: "HOME DECOR", href: "/search?category=home-decor" },
+  { label: "WEDDING", href: "/search?category=wedding" },
+  { label: "CREATORS", href: "/search?category=creators" },
+];
 
 export const homeCategories = [
-  {
-    slug: "men",
-    label: "Men",
-    tagline: "Essentials & streetwear",
-    href: "/search?category=men",
-    image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-man.jpg",
-  },
   {
     slug: "women",
     label: "Women",
     tagline: "Curated everyday style",
     href: "/search?category=women",
     image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-woman.jpg",
+  },
+  {
+    slug: "men",
+    label: "Men",
+    tagline: "Essentials & streetwear",
+    href: "/search?category=men",
+    image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-man.jpg",
   },
   {
     slug: "kids",
@@ -32,13 +54,20 @@ export const homeCategories = [
     image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-kids-4.jpg",
   },
   {
-    slug: "lifestyle",
-    label: "Lifestyle",
-    tagline: "Accessories & home",
-    href: "/search?category=lifestyle",
-    image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-glass.jpg",
+    slug: "beauty",
+    label: "Beauty",
+    tagline: "Cosmetics & Skincare",
+    href: "/search?category=beauty",
+    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&auto=format&fit=crop&q=80",
   },
-] as const;
+  {
+    slug: "home-decor",
+    label: "Home Decor",
+    tagline: "Artisan Living & Textiles",
+    href: "/search?category=home-decor",
+    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&auto=format&fit=crop&q=80",
+  },
+];
 
 export const trendingItems = [
   {

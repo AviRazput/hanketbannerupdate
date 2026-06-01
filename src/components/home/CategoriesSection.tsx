@@ -14,7 +14,7 @@ export function CategoriesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 md:gap-6 lg:grid-cols-4 lg:gap-6">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-5 xl:gap-6">
           {homeCategories.map((cat) => (
             <div key={cat.slug} className="min-w-0">
               <CategoryCard

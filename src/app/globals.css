@@ -54,10 +54,7 @@ h6 {
   font-weight: 700;
 }
 
-* {
-  border-radius: 0;
-  box-shadow: none;
-}
+/* Keep default layout box sizes */
 
 .btn-flat {
   display: inline-flex;

@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 const searchInputBase =
   "w-full rounded-full bg-[#f0f0f0] border border-[#e0e0e0] text-[#333] placeholder:text-[#999] outline-none focus:border-[#ccc] focus:ring-1 focus:ring-[#ddd] transition-colors";
 const searchInputMobile = `${searchInputBase} h-10 pl-4 pr-11 text-[13px]`;
-const searchInputDesktop = `${searchInputBase} h-[46px] pl-5 pr-12 text-[14px]`;
+const searchInputDesktop = `${searchInputBase} h-[38px] pl-4 pr-11 text-[13px]`;
 
 function SearchField({
   className,
@@ -138,7 +138,15 @@ export function Header() {
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const drawerLinks = categoryNav;
+
+  const toggleSubmenu = (label: string) => {
+    setOpenSubmenus((prev) => ({
+      ...prev,
+      [label]: !prev[label],
+    }));
+  };
   const drawerAccountLinks: { label: string; href?: string; action?: "auth" }[] = [
     { label: "Login / Register", action: "auth" },
     { label: "Wishlist", href: "#" },
@@ -215,7 +223,7 @@ export function Header() {
 
         {/* Desktop: WoodMart-style */}
         <div className="hidden md:flex flex-col w-full min-w-0">
-          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 lg:gap-8 py-4 lg:py-5">
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 lg:gap-8 py-2 lg:py-2.5">
             <Link href="/" className="flex items-center shrink-0 overflow-visible -ml-8 lg:-ml-14" aria-label="Hanket home">
               <Image
                 src="/logo.png"
@@ -273,16 +281,43 @@ export function Header() {
             </div>
           </div>
 
-          <div className="border-t border-[#f0f0f0] flex items-center justify-between gap-4 py-3 pb-4">
-            <nav className="flex items-center gap-6 lg:gap-8 overflow-x-auto no-scrollbar flex-1 min-w-0">
-              {categoryNav.map((label) => (
-                <a
-                  key={label}
-                  href="#"
-                  className="shrink-0 text-[13px] font-semibold text-[#333] hover:text-flat-pink transition-colors whitespace-nowrap"
-                >
-                  {label}
-                </a>
+          <div className="border-t border-[#f0f0f0] flex items-center justify-between gap-4 py-1.5 pb-2 overflow-visible">
+            <nav className="flex items-center gap-6 lg:gap-8 overflow-visible flex-1 min-w-0">
+              {categoryNav.map((item) => (
+                <div key={item.label} className="relative group shrink-0 py-0.5">
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-1.5 text-[13px] font-semibold text-[#333] hover:text-flat-pink transition-colors whitespace-nowrap"
+                  >
+                    <span>{item.label}</span>
+                    {item.dropdownItems && (
+                      <span className="text-[8px] text-gray-400 group-hover:text-flat-pink group-hover:rotate-180 transition-transform duration-300 shrink-0">
+                        ▼
+                      </span>
+                    )}
+                  </Link>
+
+                  {item.dropdownItems && (
+                    <div className="absolute left-0 top-full pt-3.5 w-52 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 ease-out z-50">
+                      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100/80 overflow-hidden p-2">
+                        {item.dropdownItems.map((subItem) => (
+                          <Link
+                            key={subItem.label}
+                            href={subItem.href}
+                            className="group/item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13px] font-medium text-[#444] hover:bg-flat-pink/5 hover:text-flat-pink transition-all duration-200"
+                          >
+                            <span className="transform group-hover/item:translate-x-1 transition-transform duration-200">
+                              {subItem.label}
+                            </span>
+                            <span className="opacity-0 group-hover/item:opacity-100 -translate-x-1 group-hover/item:translate-x-0 transition-all duration-200 text-flat-pink text-xs">
+                              →
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
             </nav>
           </div>
@@ -342,16 +377,46 @@ export function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </form>
-          <div className="flex flex-col gap-5">
-            {drawerLinks.map((label) => (
-              <a
-                key={label}
-                href="#"
-                onClick={() => setMobileOpen(false)}
-                className="text-xs font-bold uppercase tracking-widest text-flat-text hover:text-flat-pink transition-colors"
-              >
-                {label}
-              </a>
+          <div className="flex flex-col gap-4">
+            {drawerLinks.map((item) => (
+              <div key={item.label} className="flex flex-col">
+                {item.dropdownItems ? (
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => toggleSubmenu(item.label)}
+                      className="w-full flex items-center justify-between py-1 text-xs font-bold uppercase tracking-widest text-flat-text hover:text-flat-pink transition-colors text-left"
+                    >
+                      <span>{item.label}</span>
+                      <span className={`text-[9px] text-gray-400 transition-transform duration-200 ${openSubmenus[item.label] ? "rotate-180" : ""}`}>
+                        ▼
+                      </span>
+                    </button>
+                    {openSubmenus[item.label] && (
+                      <div className="flex flex-col gap-3 pl-4 mt-2.5 mb-2.5 border-l border-gray-200">
+                        {item.dropdownItems.map((subItem) => (
+                          <Link
+                            key={subItem.label}
+                            href={subItem.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="text-[13px] text-flat-text/80 hover:text-flat-pink transition-colors font-medium"
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="py-1 text-xs font-bold uppercase tracking-widest text-flat-text hover:text-flat-pink transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
 

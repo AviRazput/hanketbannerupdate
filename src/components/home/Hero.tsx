@@ -119,29 +119,26 @@ function HeroDots({
   );
 }
 
-function getSlideMotion(interactionSource: InteractionSource) {
-  if (interactionSource === "auto") {
-    return {
-      initial: { opacity: 0 },
-      animate: { opacity: 1, x: "0%" },
-      exit: { opacity: 0 },
-      transition: { duration: TRANSITION_AUTO_S, ease: EASE },
-    };
+const slideVariants = {
+  initial: (source: InteractionSource) => {
+    if (source === "auto") return { opacity: 0, x: "0%" };
+    return { opacity: 1, x: source === "manual-next" ? "100%" : "-100%" };
+  },
+  animate: {
+    opacity: 1,
+    x: "0%",
+  },
+  exit: (source: InteractionSource) => {
+    if (source === "auto") return { opacity: 0, x: "0%" };
+    return { opacity: 1, x: source === "manual-next" ? "-100%" : "100%" };
+  },
+};
+
+function getTransition(source: InteractionSource) {
+  if (source === "auto") {
+    return { duration: TRANSITION_AUTO_S, ease: EASE };
   }
-  if (interactionSource === "manual-next") {
-    return {
-      initial: { opacity: 1, x: "100%" },
-      animate: { opacity: 1, x: "0%" },
-      exit: { opacity: 1, x: "-100%" },
-      transition: { duration: TRANSITION_MANUAL_S, ease: EASE_SNAP },
-    };
-  }
-  return {
-    initial: { opacity: 1, x: "-100%" },
-    animate: { opacity: 1, x: "0%" },
-    exit: { opacity: 1, x: "100%" },
-    transition: { duration: TRANSITION_MANUAL_S, ease: EASE_SNAP },
-  };
+  return { duration: TRANSITION_MANUAL_S, ease: EASE_SNAP };
 }
 
 export function Hero() {
@@ -286,14 +283,13 @@ export function Hero() {
   const desktopSrc = slide?.imageSrc ?? null;
   const mobileSrc = slide?.mobileImageSrc ?? slide?.imageSrc ?? null;
   const isInitial = active === 0;
-  const slideMotion = getSlideMotion(interactionSource);
 
   return (
     <section className="bg-flat-bg w-full min-w-0">
       {/* Mobile */}
-      <div className="md:hidden w-full">
+      <div className="md:hidden w-full px-4 mt-3">
         <div
-          className="relative w-full overflow-hidden touch-pan-y h-[56vh] min-h-[280px] max-h-[520px] bg-flat-bg"
+          className="relative w-full overflow-hidden rounded-3xl touch-pan-y h-[56vh] min-h-[280px] max-h-[520px] bg-flat-bg"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
@@ -305,15 +301,17 @@ export function Hero() {
             dragSnapToOrigin
             onDragEnd={onMobileSwipeEnd}
           >
-            <AnimatePresence initial={false}>
+            <AnimatePresence initial={false} custom={interactionSource}>
               {slide && mobileSrc ? (
                 <motion.div
                   key={`m-${slide.id}`}
-                  className="absolute inset-0"
-                  initial={slideMotion.initial}
-                  animate={slideMotion.animate}
-                  exit={slideMotion.exit}
-                  transition={slideMotion.transition}
+                  className="absolute inset-0 rounded-3xl overflow-hidden"
+                  custom={interactionSource}
+                  variants={slideVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={getTransition(interactionSource)}
                 >
                   <Image
                     src={mobileSrc}
@@ -323,7 +321,7 @@ export function Hero() {
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
                     sizes="100vw"
-                    className="object-cover object-center pointer-events-none select-none"
+                    className="object-cover object-center pointer-events-none select-none rounded-3xl"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />
@@ -334,25 +332,27 @@ export function Hero() {
         </div>
 
         {slides.length > 1 ? (
-          <div className="flex min-h-[44px] items-center justify-center bg-white px-4 py-2">
+          <div className="flex min-h-[44px] items-center justify-center bg-transparent px-4 py-2">
             <HeroDots slides={slides} active={active} onSelect={goToDot} />
           </div>
         ) : null}
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:block w-full">
-        <div className="relative w-full overflow-hidden bg-flat-bg h-[min(65vh,720px)] min-h-[420px]">
-          <div className="absolute inset-0">
-            <AnimatePresence initial={false}>
+      <div className="hidden md:block w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div className="relative group w-full overflow-hidden rounded-3xl bg-flat-bg h-[380px] lg:h-[460px] xl:h-[520px]">
+          <div className="absolute inset-0 rounded-3xl overflow-hidden">
+            <AnimatePresence initial={false} custom={interactionSource}>
               {slide && desktopSrc ? (
               <motion.div
                 key={`d-${slide.id}`}
-                className="absolute inset-0"
-                initial={slideMotion.initial}
-                animate={slideMotion.animate}
-                exit={slideMotion.exit}
-                transition={slideMotion.transition}
+                className="absolute inset-0 rounded-3xl overflow-hidden"
+                custom={interactionSource}
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={getTransition(interactionSource)}
               >
                 <Image
                   src={desktopSrc}
@@ -361,18 +361,36 @@ export function Hero() {
                   priority={isInitial}
                   fetchPriority={isInitial ? "high" : "auto"}
                   unoptimized
-                  sizes="100vw"
-                  className="object-cover object-center"
+                  sizes="(max-width: 1440px) 100vw, 1440px"
+                  className="object-cover object-center rounded-3xl"
                   style={{ filter: slide.imageFilter }}
                 />
               </motion.div>
               ) : null}
             </AnimatePresence>
           </div>
+          {slides.length > 1 && (
+            <>
+              <button
+                onClick={goPrev}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-transparent text-white opacity-0 transition-all group-hover:opacity-100 hover:bg-black/30"
+                aria-label="Previous slide"
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))" }}><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <button
+                onClick={goNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-transparent text-white opacity-0 transition-all group-hover:opacity-100 hover:bg-black/30"
+                aria-label="Next slide"
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))" }}><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </>
+          )}
         </div>
 
         {slides.length > 1 ? (
-          <div className="flex min-h-[48px] items-center justify-center bg-white px-6 py-2.5">
+          <div className="flex min-h-[48px] items-center justify-center bg-transparent px-6 py-2.5">
             <HeroDots slides={slides} active={active} onSelect={goToDot} />
           </div>
         ) : null}
