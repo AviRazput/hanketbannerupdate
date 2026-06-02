@@ -325,7 +325,7 @@ export function Hero() {
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
                     sizes="100vw"
-                    className="object-cover object-center pointer-events-none select-none rounded-xl"
+                    className="object-cover object-[center_20%] pointer-events-none select-none rounded-xl"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />
@@ -361,7 +361,7 @@ export function Hero() {
                   fetchPriority={isInitial ? "high" : "auto"}
                   unoptimized
                   sizes="100vw"
-                  className="object-cover object-center rounded-xl"
+                  className="object-cover object-[center_20%] rounded-xl"
                   style={{ filter: slide.imageFilter }}
                 />
               </motion.div>

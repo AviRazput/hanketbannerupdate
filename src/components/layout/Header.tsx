@@ -134,6 +134,35 @@ const categoryNav = mainNav;
 
 const logoImageBoost = "contrast-[1.28] saturate-[1.12] brightness-[0.96]";
 
+const navSubcategories: Record<string, string[]> = {
+  WOMEN: ["Ethnic Wear", "Western Wear", "Dresses", "Co-ords", "Tops & Shirts", "Bottom Wear", "Plus Size", "Maternity"],
+  MEN: ["Shirts", "T-Shirts", "Ethnic Wear", "Co-ords", "Jeans & Trousers", "Jackets & Blazers"],
+  KIDS: ["Boys Wear", "Girls Wear", "Baby Wear", "Ethnic Wear", "Party Wear"],
+  GLAM: ["Makeup", "Skincare", "Haircare", "Fragrances", "Beauty Tools", "Wellness"],
+  "HOME DECOR": ["Wall Decor", "Home Furnishings", "Lighting", "Decorative Accents", "Kitchen & Dining", "Handmade Decor"],
+  "WEDDING & OCCASION": [
+    "Bridal Wear",
+    "Groom Wear",
+    "Bridesmaid Collection",
+    "Wedding Guest Outfits",
+    "Festive Wear",
+    "Wedding Accessories",
+  ],
+  FOOTWEAR: ["Women Footwear", "Men Footwear", "Kids Footwear", "Sneakers", "Heels", "Flats", "Boots"],
+  JEWELRY: ["Fashion Jewelry", "Fine Jewelry", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewelry"],
+  ACCESSORIES: ["Handbags", "Wallets", "Backpacks", "Watches", "Sunglasses", "Belts", "Scarves", "Tech Accessories"],
+};
+
+function getNavSubcategories(item: (typeof mainNav)[number]) {
+  return navSubcategories[item.label] ?? item.dropdownItems?.map((subItem) => subItem.label) ?? [];
+}
+
+function subcategoryHref(parentHref: string, label: string) {
+  const separator = parentHref.includes("?") ? "&" : "?";
+  const slug = label.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-");
+  return `${parentHref}${separator}subcategory=${encodeURIComponent(slug)}`;
+}
+
 export function Header() {
   const { openAuthDrawer } = useAuthDrawer();
   const pathname = usePathname();
@@ -315,24 +344,24 @@ export function Header() {
                     ].join(" ")}
                   >
                     <span>{item.label}</span>
-                    {item.dropdownItems && (
+                    {getNavSubcategories(item).length > 0 && (
                       <span className="text-[8px] text-gray-400 group-hover:text-flat-pink group-hover:rotate-180 transition-transform duration-300 shrink-0">
                         ▼
                       </span>
                     )}
                   </Link>
 
-                  {item.dropdownItems && (
+                  {getNavSubcategories(item).length > 0 && (
                     <div className="absolute left-0 top-full pt-3.5 w-52 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 ease-out z-50">
-                      <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100/80 overflow-hidden p-2">
-                        {item.dropdownItems.map((subItem) => (
+                      <div className="bg-white/98 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100/80 overflow-hidden p-2">
+                        {getNavSubcategories(item).map((label) => (
                           <Link
-                            key={subItem.label}
-                            href={subItem.href}
-                            className="group/item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[13px] font-medium text-[#444] hover:bg-flat-pink/5 hover:text-flat-pink transition-all duration-200"
+                            key={label}
+                            href={subcategoryHref(item.href, label)}
+                            className="group/item flex items-center justify-between px-3.5 py-2.5 rounded-none font-sans text-[12px] lg:text-[13px] font-semibold uppercase text-[#333] hover:bg-flat-pink/5 hover:text-flat-pink transition-all duration-200"
                           >
                             <span className="transform group-hover/item:translate-x-1 transition-transform duration-200">
-                              {subItem.label}
+                              {label}
                             </span>
                             <span className="opacity-0 group-hover/item:opacity-100 -translate-x-1 group-hover/item:translate-x-0 transition-all duration-200 text-flat-pink text-xs">
                               →
@@ -405,7 +434,7 @@ export function Header() {
           <div className="flex flex-col gap-4">
             {drawerLinks.map((item) => (
               <div key={item.label} className="flex flex-col">
-                {item.dropdownItems ? (
+                {getNavSubcategories(item).length > 0 ? (
                   <div>
                     <button
                       type="button"
@@ -422,14 +451,14 @@ export function Header() {
                     </button>
                     {openSubmenus[item.label] && (
                       <div className="flex flex-col gap-3 pl-4 mt-2.5 mb-2.5 border-l border-gray-200">
-                        {item.dropdownItems.map((subItem) => (
+                        {getNavSubcategories(item).map((label) => (
                           <Link
-                            key={subItem.label}
-                            href={subItem.href}
+                            key={label}
+                            href={subcategoryHref(item.href, label)}
                             onClick={() => setMobileOpen(false)}
-                            className="text-[13px] text-flat-text/80 hover:text-flat-pink transition-colors font-medium"
+                            className="font-sans text-[12px] font-semibold uppercase text-flat-text/80 hover:text-flat-pink transition-colors"
                           >
-                            {subItem.label}
+                            {label}
                           </Link>
                         ))}
                       </div>

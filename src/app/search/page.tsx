@@ -11,7 +11,7 @@ const categoryLabels: Record<string, string> = {
   kids: "KIDS",
   glam: "GLAM",
   "home-decor": "HOME DECOR",
-  "wedding-occasion": "WEDDING OCCASION",
+  "wedding-occasion": "WEDDING & OCCASION",
 };
 
 const typeLabels: Record<string, string> = {
@@ -37,23 +37,53 @@ const typeBanners: Record<string, string> = {
 
 const sizes = ["XS", "S", "M", "L", "XL"];
 
-const filters = [
-  {
-    title: "SHOP",
-    options: ["Womenswear", "Menswear", "Kidswear", "Home Decor", "Footwear", "Jewelry", "Accessories"],
-  },
-  {
-    title: "CATEGORY",
-    options: ["Sarees", "Kurta Sets", "Lehengas", "Dresses", "Shirts", "Bags", "Earrings", "Sandals"],
-  },
-  {
-    title: "GENDER",
-    options: ["Women", "Men", "Girls", "Boys"],
-  },
-  {
-    title: "PRICE",
-    options: ["Under ₹999", "₹1,000 - ₹2,499", "₹2,500 - ₹4,999", "₹5,000+"],
-  },
+const categoryOptions: Record<string, string[]> = {
+  women: [
+    "Ethnic Wear",
+    "Western Wear",
+    "Dresses",
+    "Co-ords",
+    "Tops & Shirts",
+    "Bottom Wear",
+    "Plus Size",
+    "Maternity",
+  ],
+  men: ["Shirts", "T-Shirts", "Ethnic Wear", "Co-ords", "Jeans & Trousers", "Jackets & Blazers"],
+  kids: ["Boys Wear", "Girls Wear", "Baby Wear", "Ethnic Wear", "Party Wear"],
+  glam: ["Makeup", "Skincare", "Haircare", "Fragrances", "Beauty Tools", "Wellness"],
+  "home-decor": [
+    "Wall Decor",
+    "Home Furnishings",
+    "Lighting",
+    "Decorative Accents",
+    "Kitchen & Dining",
+    "Handmade Decor",
+  ],
+  "wedding-occasion": [
+    "Bridal Wear",
+    "Groom Wear",
+    "Bridesmaid Collection",
+    "Wedding Guest Outfits",
+    "Festive Wear",
+    "Wedding Accessories",
+  ],
+  footwear: ["Women Footwear", "Men Footwear", "Kids Footwear", "Sneakers", "Heels", "Flats", "Boots"],
+  jewelry: ["Fashion Jewelry", "Fine Jewelry", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewelry"],
+  accessories: ["Handbags", "Wallets", "Backpacks", "Watches", "Sunglasses", "Belts", "Scarves", "Tech Accessories"],
+};
+
+const brandOptions = ["Vishudh", "Royal Export", "KALINI", "FFU", "SURUKH", "AKRITIK", "PANIT", "KAVINDI"];
+const colorOptions = ["Pink", "Green", "Navy Blue", "Black", "Mustard", "Brown", "Yellow"];
+const discountOptions = [
+  "10% and above",
+  "20% and above",
+  "30% and above",
+  "40% and above",
+  "50% and above",
+  "60% and above",
+  "70% and above",
+  "80% and above",
+  "90% and above",
 ];
 
 function firstParam(value: string | string[] | undefined) {
@@ -76,6 +106,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
   const type = firstParam(params.type);
   const title = (type && typeLabels[type]) || (category && categoryLabels[category]) || "SHOP";
   const bannerImage = (type && typeBanners[type]) || (category && categoryBanners[category]) || "/banner.png";
+  const activeCategoryKey = type || category || "women";
+  const activeCategoryOptions = categoryOptions[activeCategoryKey] || categoryOptions.women;
   const products = [...mainCollection, ...mainCollection].slice(0, 12);
 
   return (
@@ -94,45 +126,76 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
 
           <div className="grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[300px_minmax(0,1fr)]">
             <aside className="hidden lg:block">
-              <div className="sticky top-6 space-y-8 pr-5">
-                <div>
-                  <div className="mb-3 grid grid-cols-4 gap-3">
-                    {sizes.map((size) => (
-                      <button
-                        key={size}
-                        type="button"
-                        className="h-11 border border-[#a8a8a8] bg-white font-sans text-[13px] font-semibold text-flat-text transition-colors hover:border-flat-text hover:bg-flat-text hover:text-white"
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
-                  <label className="mt-6 flex items-center gap-2 font-sans text-[13px] text-flat-text">
-                    <span className="h-3.5 w-3.5 border border-[#777]" />
-                    Ready To Ship <span className="text-flat-muted">(19000)</span>
-                  </label>
+              <div className="sticky top-6 border-r border-flat-border pr-5">
+                <div className="mb-5 flex items-center justify-between border-b border-flat-border pb-4">
+                  <h2 className="font-sans text-[14px] font-bold uppercase tracking-[0.08em] text-flat-text">Filters</h2>
+                  <button type="button" className="font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-flat-pink">
+                    Clear All
+                  </button>
                 </div>
 
-                {filters.map((group) => (
-                  <div key={group.title}>
-                    <h2 className="mb-4 font-sans text-[15px] font-semibold uppercase tracking-[0.04em] text-flat-text">
-                      {group.title}
-                    </h2>
-                    <div className="space-y-3">
-                      {group.title === "CATEGORY" ? (
-                        <div className="mb-4 border-b border-flat-border pb-2 font-sans text-[13px] text-flat-muted">
-                          Search
-                        </div>
-                      ) : null}
-                      {group.options.map((option, index) => (
+                <div className="space-y-0">
+                  <div className="border-b border-flat-border pb-5">
+                    <h3 className="mb-3 font-sans text-[13px] font-bold text-flat-text">Categories</h3>
+                    <div className="space-y-2.5">
+                      {activeCategoryOptions.map((option, index) => (
                         <label key={option} className="flex items-center gap-2 font-sans text-[13px] text-flat-text">
-                          <span className="h-3.5 w-3.5 border border-[#777]" />
-                          {option} <span className="text-flat-muted">({(index + 2) * 847})</span>
+                          <span className="h-3.5 w-3.5 border border-[#9a9a9a]" />
+                          <span>{option}</span>
+                          <span className="text-flat-muted">({(index + 2) * 14})</span>
                         </label>
                       ))}
                     </div>
                   </div>
-                ))}
+
+                  <div className="border-b border-flat-border py-5">
+                    <h3 className="mb-3 font-sans text-[13px] font-bold text-flat-text">Brand</h3>
+                    <div className="space-y-2.5">
+                      {brandOptions.map((option, index) => (
+                        <label key={option} className="flex items-center gap-2 font-sans text-[13px] text-flat-text">
+                          <span className="h-3.5 w-3.5 border border-[#9a9a9a]" />
+                          <span>{option}</span>
+                          <span className="text-flat-muted">({index < 2 ? 37 - index * 13 : 6 - index})</span>
+                        </label>
+                      ))}
+                      <button type="button" className="font-sans text-[13px] font-semibold text-flat-pink">+ 2 more</button>
+                    </div>
+                  </div>
+
+                  <div className="border-b border-flat-border py-5">
+                    <h3 className="mb-3 font-sans text-[13px] font-bold text-flat-text">Price</h3>
+                    <div className="font-sans text-[13px] text-flat-text">₹100 - ₹700+</div>
+                    <div className="mt-4 h-1.5 rounded-full bg-[#eeeeee]">
+                      <div className="h-1.5 w-2/3 rounded-full bg-flat-pink" />
+                    </div>
+                  </div>
+
+                  <div className="border-b border-flat-border py-5">
+                    <h3 className="mb-3 font-sans text-[13px] font-bold text-flat-text">Color</h3>
+                    <div className="space-y-2.5">
+                      {colorOptions.map((option, index) => (
+                        <label key={option} className="flex items-center gap-2 font-sans text-[13px] text-flat-text">
+                          <span className="h-3.5 w-3.5 border border-[#9a9a9a]" />
+                          <span>{option}</span>
+                          <span className="text-flat-muted">({index < 2 ? 9 : 9 - index})</span>
+                        </label>
+                      ))}
+                      <button type="button" className="font-sans text-[13px] font-semibold text-flat-pink">+ 17 more</button>
+                    </div>
+                  </div>
+
+                  <div className="py-5">
+                    <h3 className="mb-3 font-sans text-[13px] font-bold text-flat-text">Discount Range</h3>
+                    <div className="space-y-2.5">
+                      {discountOptions.map((option) => (
+                        <label key={option} className="flex items-center gap-2 font-sans text-[13px] text-flat-text">
+                          <span className="h-3.5 w-3.5 border border-[#9a9a9a]" />
+                          <span>{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </aside>
 
@@ -162,7 +225,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
                     {size}
                   </button>
                 ))}
-                {filters[0].options.slice(0, 5).map((option) => (
+                {activeCategoryOptions.slice(0, 6).map((option) => (
                   <button
                     key={option}
                     type="button"
