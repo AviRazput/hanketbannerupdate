@@ -16,7 +16,7 @@ const categoryLabels: Record<string, string> = {
 
 const typeLabels: Record<string, string> = {
   footwear: "FOOTWEAR",
-  jewelry: "JEWELRY",
+  jewelry: "JEWELLERY",
   accessories: "ACCESSORIES",
 };
 
@@ -68,7 +68,7 @@ const categoryOptions: Record<string, string[]> = {
     "Wedding Accessories",
   ],
   footwear: ["Women Footwear", "Men Footwear", "Kids Footwear", "Sneakers", "Heels", "Flats", "Boots"],
-  jewelry: ["Fashion Jewelry", "Fine Jewelry", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewelry"],
+  jewelry: ["Fashion Jewellery", "Fine Jewellery", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewellery"],
   accessories: ["Handbags", "Wallets", "Backpacks", "Watches", "Sunglasses", "Belts", "Scarves", "Tech Accessories"],
 };
 

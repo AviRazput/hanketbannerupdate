@@ -149,7 +149,7 @@ const navSubcategories: Record<string, string[]> = {
     "Wedding Accessories",
   ],
   FOOTWEAR: ["Women Footwear", "Men Footwear", "Kids Footwear", "Sneakers", "Heels", "Flats", "Boots"],
-  JEWELRY: ["Fashion Jewelry", "Fine Jewelry", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewelry"],
+  JEWELLERY: ["Fashion Jewellery", "Fine Jewellery", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewellery"],
   ACCESSORIES: ["Handbags", "Wallets", "Backpacks", "Watches", "Sunglasses", "Belts", "Scarves", "Tech Accessories"],
 };
 

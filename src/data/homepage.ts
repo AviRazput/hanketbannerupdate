@@ -12,7 +12,7 @@ export const mainNav: NavItem[] = [
   { label: "HOME DECOR", href: "/search?category=home-decor" },
   { label: "WEDDING & OCCASION", href: "/search?category=wedding-occasion" },
   { label: "FOOTWEAR", href: "/search?type=footwear" },
-  { label: "JEWELRY", href: "/search?type=jewelry" },
+  { label: "JEWELLERY", href: "/search?type=jewelry" },
   { label: "ACCESSORIES", href: "/search?type=accessories" },
 ];
 
@@ -61,7 +61,7 @@ export const homeCategories = [
   },
   {
     slug: "jewelry",
-    label: "JEWELRY",
+    label: "JEWELLERY",
     tagline: "Statement finishing touches",
     href: "/search?type=jewelry",
     image: "/catogery/JEWELRY.jpg",
