@@ -269,7 +269,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
 
               <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-4 sm:gap-y-8 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-6">
                 {products.map((product, index) => (
-                  <article key={`${product.id}-${index}`} className="group min-w-0">
+                  <Link key={`${product.id}-${index}`} href={`/product/${product.id}`} className="group block min-w-0">
                     <div className="relative mb-2 aspect-[3/4] overflow-hidden bg-flat-layer sm:mb-3">
                       {index % 3 === 0 ? (
                         <span className="absolute right-0 top-0 z-10 bg-[#f4b84a] px-1.5 py-1 font-sans text-[8px] font-bold uppercase text-white sm:px-2 sm:text-[10px]">
@@ -295,7 +295,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
                       <span className="text-flat-muted line-through">{productOldPrice(index)}</span>
                       <span className="font-semibold text-flat-pink">{index % 2 === 0 ? "25%" : "15%"} OFF</span>
                     </div>
-                  </article>
+                  </Link>
                 ))}
               </div>
             </div>
