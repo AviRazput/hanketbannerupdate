@@ -5,67 +5,73 @@ export type NavItem = {
 };
 
 export const mainNav: NavItem[] = [
-  {
-    label: "WOMEN",
-    href: "/search?category=women",
-    dropdownItems: [
-      { label: "Clothing", href: "/search?category=women&type=clothing" },
-      { label: "Footwear", href: "/search?category=women&type=footwear" },
-      { label: "Jewelry", href: "/search?category=women&type=jewelry" },
-      { label: "Accessories", href: "/search?category=women&type=accessories" },
-    ],
-  },
-  {
-    label: "MEN",
-    href: "/search?category=men",
-    dropdownItems: [
-      { label: "Clothing", href: "/search?category=men&type=clothing" },
-      { label: "Footwear", href: "/search?category=men&type=footwear" },
-      { label: "Accessories", href: "/search?category=men&type=accessories" },
-    ],
-  },
+  { label: "WOMEN", href: "/search?category=women" },
+  { label: "MEN", href: "/search?category=men" },
   { label: "KIDS", href: "/search?category=kids" },
-  { label: "BEAUTY", href: "/search?category=beauty" },
+  { label: "GLAM", href: "/search?category=glam" },
   { label: "HOME DECOR", href: "/search?category=home-decor" },
-  { label: "WEDDING", href: "/search?category=wedding" },
-  { label: "CREATORS", href: "/search?category=creators" },
+  { label: "WEDDING OCCASION", href: "/search?category=wedding-occasion" },
+  { label: "FOOTWEAR", href: "/search?type=footwear" },
+  { label: "JEWELRY", href: "/search?type=jewelry" },
+  { label: "ACCESSORIES", href: "/search?type=accessories" },
 ];
 
 export const homeCategories = [
   {
     slug: "women",
-    label: "Women",
+    label: "WOMEN",
     tagline: "Curated everyday style",
     href: "/search?category=women",
-    image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-woman.jpg",
+    image: "/catogery/women.jpg",
   },
   {
     slug: "men",
-    label: "Men",
+    label: "MEN",
     tagline: "Essentials & streetwear",
     href: "/search?category=men",
-    image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-man.jpg",
+    image: "/catogery/men.jpg",
   },
   {
     slug: "kids",
-    label: "Kids",
+    label: "KIDS",
     tagline: "Comfort & playful fits",
     href: "/search?category=kids",
-    image: "https://woodmart.xtemos.com/wp-content/uploads/2017/01/cat-img-kids-4.jpg",
+    image: "/catogery/kids.jpg",
   },
   {
-    slug: "beauty",
-    label: "Beauty",
-    tagline: "Cosmetics & Skincare",
-    href: "/search?category=beauty",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&auto=format&fit=crop&q=80",
+    slug: "glam",
+    label: "GLAM",
+    tagline: "Beauty & occasion edits",
+    href: "/search?category=glam",
+    image: "/catogery/glam.jpg",
   },
   {
     slug: "home-decor",
-    label: "Home Decor",
+    label: "HOME DECOR",
     tagline: "Artisan Living & Textiles",
     href: "/search?category=home-decor",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&auto=format&fit=crop&q=80",
+    image: "/catogery/homedecor.jpg",
+  },
+  {
+    slug: "footwear",
+    label: "FOOTWEAR",
+    tagline: "Shoes, sandals & more",
+    href: "/search?type=footwear",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80",
+  },
+  {
+    slug: "jewelry",
+    label: "JEWELRY",
+    tagline: "Statement finishing touches",
+    href: "/search?type=jewelry",
+    image: "/catogery/JEWELRY.jpg",
+  },
+  {
+    slug: "accessories",
+    label: "ACCESSORIES",
+    tagline: "Bags, belts & extras",
+    href: "/search?type=accessories",
+    image: "/catogery/x.jpg",
   },
 ];
 

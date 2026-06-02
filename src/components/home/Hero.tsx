@@ -335,11 +335,6 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {slides.length > 1 ? (
-          <div className="flex min-h-[44px] items-center justify-center bg-transparent px-4 py-2">
-            <HeroDots slides={slides} active={active} onSelect={goToDot} />
-          </div>
-        ) : null}
       </div>
 
       {/* Desktop */}

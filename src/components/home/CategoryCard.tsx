@@ -20,21 +20,22 @@ export function CategoryCard({
   size?: "grid" | "scroll";
 }) {
   const isGrid = size === "grid";
+  const imagePositionClass = item.slug === "women" || item.slug === "men" ? "object-[center_10%]" : "object-center";
 
   return (
     <Link
       href={item.href}
-      className={["block h-full w-full min-w-0", className].filter(Boolean).join(" ")}
+      className={["group block h-full w-full min-w-0", className].filter(Boolean).join(" ")}
       aria-label={item.tagline ? `${item.label} — ${item.tagline}` : item.label}
     >
       <article
         className={[
-          "flex h-full w-full min-w-0 flex-col",
-          isGrid ? "gap-2 sm:gap-3.5" : "gap-1.5 sm:gap-3.5",
+          "flex h-full w-full min-w-0 flex-col transition-transform duration-300 ease-out group-hover:-translate-y-1",
+          isGrid ? "gap-1.5 sm:gap-2.5" : "gap-1.5 sm:gap-3.5",
         ].join(" ")}
       >
-        <div className="relative aspect-square w-full shrink-0 bg-transparent">
-          <div className="absolute inset-0">
+        <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-transparent">
+          <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04]">
             <Image
               src={item.image}
               alt=""
@@ -46,8 +47,8 @@ export function CategoryCard({
               }
               className={
                 imageFill === "cover"
-                  ? "object-cover object-center"
-                  : "object-contain object-center"
+                  ? `object-cover ${imagePositionClass}`
+                  : `object-contain ${imagePositionClass}`
               }
             />
           </div>
@@ -56,14 +57,14 @@ export function CategoryCard({
         <div
           className={[
             "flex flex-col items-center justify-center px-0.5 pb-0.5 text-center",
-            isGrid ? "min-h-[2.75rem] sm:min-h-[3rem]" : "min-h-[2rem] sm:min-h-[2.75rem] md:min-h-[3rem]",
+            isGrid ? "min-h-[2.25rem] sm:min-h-[2.5rem]" : "min-h-[2rem] sm:min-h-[2.75rem] md:min-h-[3rem]",
           ].join(" ")}
         >
           <h3
             className={[
-              "font-serif font-medium text-flat-text tracking-[-0.02em]",
+              "font-sans font-semibold uppercase text-flat-text tracking-normal transition-colors duration-300 group-hover:text-flat-pink",
               isGrid
-                ? "text-[1.125rem] leading-tight sm:text-[1.2rem] md:text-[1.28rem]"
+                ? "text-[12px] leading-tight lg:text-[13px]"
                 : "text-[0.8125rem] leading-[1.2] sm:text-[1.125rem] md:text-[1.2rem] lg:text-[1.28rem]",
             ].join(" ")}
           >

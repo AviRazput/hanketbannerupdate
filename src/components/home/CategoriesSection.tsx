@@ -1,11 +1,12 @@
 import { homeCategories } from "@/data/homepage";
 import { CategoryCard } from "./CategoryCard";
+import { HorizontalScrollRow } from "./HorizontalScrollRow";
 
 export function CategoriesSection() {
   return (
-    <section className="bg-white pt-5 pb-5 md:pt-6 md:pb-6">
-      <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-5 md:mb-6">
+    <section className="bg-white pt-2 pb-5 md:pt-6 md:pb-6">
+      <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-5 md:px-6 lg:px-8">
+        <div className="mb-3 md:mb-6">
           <h2 className="font-serif text-[1.625rem] md:text-[2rem] font-medium text-flat-text leading-[1.15] tracking-[-0.02em]">
             Top Categories
           </h2>
@@ -14,9 +15,16 @@ export function CategoriesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-5 xl:gap-6">
+        <HorizontalScrollRow
+          arrowTop="42%"
+          arrowInset
+          scrollClassName="flex gap-3 overflow-x-auto no-scrollbar scroll-smooth pb-1 pr-1 lg:gap-4"
+        >
           {homeCategories.map((cat) => (
-            <div key={cat.slug} className="min-w-0">
+            <div
+              key={cat.slug}
+              className="w-[112px] shrink-0 sm:w-[132px] md:w-[148px] lg:w-[calc((100%_-_7rem)/8)] lg:min-w-[156px]"
+            >
               <CategoryCard
                 imageFill="cover"
                 size="grid"
@@ -29,7 +37,7 @@ export function CategoriesSection() {
               />
             </div>
           ))}
-        </div>
+        </HorizontalScrollRow>
       </div>
     </section>
   );

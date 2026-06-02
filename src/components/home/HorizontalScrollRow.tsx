@@ -24,10 +24,12 @@ const arrowClass =
 export function HorizontalScrollRow({
   children,
   arrowTop = "42%",
+  arrowInset = false,
   scrollClassName = "flex gap-2 sm:gap-4 md:gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-1",
 }: {
   children: ReactNode;
   arrowTop?: string;
+  arrowInset?: boolean;
   scrollClassName?: string;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -83,7 +85,7 @@ export function HorizontalScrollRow({
             onClick={() => scrollByStep(-1)}
             disabled={!canScrollLeft}
             aria-label="Scroll left"
-            className={`${arrowClass} left-0 -translate-x-1/2`}
+            className={`${arrowClass} ${arrowInset ? "left-2" : "left-0 -translate-x-1/2"}`}
           >
             <IconChevronLeft />
           </button>
@@ -92,7 +94,7 @@ export function HorizontalScrollRow({
             onClick={() => scrollByStep(1)}
             disabled={!canScrollRight}
             aria-label="Scroll right"
-            className={`${arrowClass} right-0 translate-x-1/2`}
+            className={`${arrowClass} ${arrowInset ? "right-2" : "right-0 translate-x-1/2"}`}
           >
             <IconChevronRight />
           </button>

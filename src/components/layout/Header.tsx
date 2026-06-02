@@ -4,10 +4,11 @@ import { useAuthDrawer } from "@/components/auth/AuthDrawerContext";
 import { mainNav } from "@/data/homepage";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const searchInputBase =
-  "w-full rounded-full bg-[#f0f0f0] border border-[#e0e0e0] text-[#333] placeholder:text-[#999] outline-none focus:border-[#ccc] focus:ring-1 focus:ring-[#ddd] transition-colors";
+  "w-full rounded-full bg-[#f0f0f0] border border-[#e0e0e0] font-sans text-[#333] placeholder:text-[#999] outline-none focus:border-[#ccc] focus:ring-1 focus:ring-[#ddd] transition-colors";
 const searchInputMobile = `${searchInputBase} h-10 pl-4 pr-11 text-[13px]`;
 const searchInputDesktop = `${searchInputBase} h-[38px] pl-4 pr-11 text-[13px]`;
 
@@ -33,7 +34,7 @@ function SearchField({
         ref={inputRef}
         value={value}
         onChange={onChange}
-        placeholder="Search for products"
+        placeholder="SEARCH FOR PRODUCTS"
         className={inputClassName}
       />
       <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#c4c4c4] pointer-events-none md:right-4">
@@ -84,11 +85,11 @@ function CartLink({ labelClassName }: { labelClassName: string }) {
   return (
     <Link
       href="/cart"
-      className="relative inline-flex items-center gap-1.5 text-[#333] hover:text-[#666] transition-colors shrink-0"
-      aria-label="Cart"
+      className="relative inline-flex items-center gap-1.5 font-sans text-[#333] hover:text-[#666] transition-colors shrink-0"
+      aria-label="CART"
     >
       <IconCart />
-      <span className={labelClassName}>Cart</span>
+      <span className={labelClassName}>CART</span>
       {cartCount > 0 ? <CountBadge count={cartCount} /> : null}
     </Link>
   );
@@ -131,10 +132,12 @@ function CountBadge({ count }: { count: number }) {
 
 const categoryNav = mainNav;
 
-const logoImageBoost = "contrast-[1.14] saturate-[1.06]";
+const logoImageBoost = "contrast-[1.28] saturate-[1.12] brightness-[0.96]";
 
 export function Header() {
   const { openAuthDrawer } = useAuthDrawer();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -149,13 +152,29 @@ export function Header() {
   };
   const drawerAccountLinks: { label: string; href?: string; action?: "auth" }[] = [
     { label: "Login / Register", action: "auth" },
-    { label: "Wishlist", href: "#" },
-    { label: "Cart", href: "/cart" },
+    { label: "WISHLIST", href: "#" },
+    { label: "CART", href: "/cart" },
   ];
 
   const openAuth = () => {
     setMobileOpen(false);
     openAuthDrawer("sign-in");
+  };
+
+  const isNavActive = (href: string) => {
+    if (pathname !== "/search") return false;
+
+    const [, queryString] = href.split("?");
+    if (!queryString) return false;
+
+    const itemParams = new URLSearchParams(queryString);
+    const itemCategory = itemParams.get("category");
+    const itemType = itemParams.get("type");
+
+    return (
+      (itemCategory && itemCategory === searchParams.get("category")) ||
+      (itemType && itemType === searchParams.get("type"))
+    );
   };
 
   useEffect(() => {
@@ -187,7 +206,7 @@ export function Header() {
               aria-label="Hanket home"
             >
               <Image
-                src="/logo.png"
+                src="/brandlogo/logo.png"
                 alt="Hanket"
                 width={320}
                 height={128}
@@ -205,7 +224,7 @@ export function Header() {
                 type="button"
                 onClick={() => openAuthDrawer("sign-in")}
                 className="text-[#333] w-11 h-11 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
-                aria-label="Profile"
+                aria-label="PROFILE"
               >
                 <IconUser />
               </button>
@@ -226,7 +245,7 @@ export function Header() {
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 lg:gap-8 py-2 lg:py-2.5">
             <Link href="/" className="flex items-center shrink-0 overflow-visible -ml-8 lg:-ml-14" aria-label="Hanket home">
               <Image
-                src="/logo.png"
+                src="/brandlogo/logo.png"
                 alt="Hanket"
                 width={320}
                 height={128}
@@ -253,41 +272,47 @@ export function Header() {
             <div className="flex items-center gap-4 lg:gap-6 shrink-0">
               <button
                 type="button"
-                className="relative flex h-10 w-10 items-center justify-center text-[#333] hover:text-[#666] transition-colors"
-                aria-label="Wishlist"
+                className="relative inline-flex h-10 items-center justify-center gap-1.5 font-sans text-[#333] hover:text-[#666] transition-colors"
+                aria-label="WISHLIST"
               >
                 <IconHeart />
+                <span className="text-[13px] font-normal">WISHLIST</span>
                 <CountBadge count={0} />
               </button>
 
               <button
                 type="button"
                 onClick={() => openAuthDrawer("sign-in")}
-                className="hidden lg:inline-flex items-center gap-2 text-[#333] hover:text-[#666] transition-colors whitespace-nowrap"
+                className="hidden lg:inline-flex items-center gap-2 font-sans text-[#333] hover:text-[#666] transition-colors whitespace-nowrap"
               >
                 <IconUser />
-                <span className="text-[13px] font-normal">Profile</span>
+                <span className="font-sans text-[13px] font-normal">PROFILE</span>
               </button>
               <button
                 type="button"
                 onClick={() => openAuthDrawer("sign-in")}
                 className="lg:hidden relative flex h-10 w-10 items-center justify-center text-[#333] hover:text-[#666] transition-colors"
-                aria-label="Profile"
+                aria-label="PROFILE"
               >
                 <IconUser />
               </button>
 
-              <CartLink labelClassName="text-[13px] font-normal" />
+              <CartLink labelClassName="font-sans text-[13px] font-normal" />
             </div>
           </div>
 
           <div className="border-t border-[#f0f0f0] flex items-center justify-between gap-4 py-1.5 pb-2 overflow-visible">
-            <nav className="flex items-center gap-6 lg:gap-8 overflow-visible flex-1 min-w-0">
+            <nav className="flex items-center gap-3 lg:gap-5 xl:gap-7 overflow-visible flex-1 min-w-0">
               {categoryNav.map((item) => (
                 <div key={item.label} className="relative group shrink-0 py-0.5">
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1.5 text-[13px] font-semibold text-[#333] hover:text-flat-pink transition-colors whitespace-nowrap"
+                    className={[
+                      "flex items-center gap-1.5 border-b-2 pb-1 text-[12px] lg:text-[13px] font-semibold transition-colors whitespace-nowrap",
+                      isNavActive(item.href)
+                        ? "border-flat-pink text-flat-pink"
+                        : "border-transparent text-[#333] hover:text-flat-pink",
+                    ].join(" ")}
                   >
                     <span>{item.label}</span>
                     {item.dropdownItems && (
@@ -343,7 +368,7 @@ export function Header() {
         <div className="flex justify-between items-center p-6 border-b border-flat-border">
           <span className="flex items-center overflow-visible">
             <Image
-              src="/logo.png"
+              src="/brandlogo/logo.png"
               alt="Hanket"
               width={340}
               height={96}
@@ -385,7 +410,10 @@ export function Header() {
                     <button
                       type="button"
                       onClick={() => toggleSubmenu(item.label)}
-                      className="w-full flex items-center justify-between py-1 text-xs font-bold uppercase tracking-widest text-flat-text hover:text-flat-pink transition-colors text-left"
+                      className={[
+                        "w-full flex items-center justify-between py-1 text-xs font-bold uppercase tracking-widest hover:text-flat-pink transition-colors text-left",
+                        isNavActive(item.href) ? "text-flat-pink" : "text-flat-text",
+                      ].join(" ")}
                     >
                       <span>{item.label}</span>
                       <span className={`text-[9px] text-gray-400 transition-transform duration-200 ${openSubmenus[item.label] ? "rotate-180" : ""}`}>
@@ -411,7 +439,10 @@ export function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="py-1 text-xs font-bold uppercase tracking-widest text-flat-text hover:text-flat-pink transition-colors"
+                    className={[
+                      "py-1 text-xs font-bold uppercase tracking-widest hover:text-flat-pink transition-colors",
+                      isNavActive(item.href) ? "text-flat-pink" : "text-flat-text",
+                    ].join(" ")}
                   >
                     {item.label}
                   </Link>
