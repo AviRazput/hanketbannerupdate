@@ -30,7 +30,7 @@ function FooterColumn({ title, links }: { title: string; links: readonly { label
 export function Footer() {
   return (
     <footer className="bg-black text-[#a8a8a8] border-t border-white/10 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
-      <div className="max-w-[1920px] mx-auto px-8 pt-12 pb-8 md:pt-20 md:pb-12">
+      <div className="w-full px-8 pt-12 pb-8 md:pt-20 md:pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-1">
             <a href="#" className="font-serif font-bold text-[30px] tracking-widest text-white inline-block mb-6">

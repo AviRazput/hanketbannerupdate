@@ -177,22 +177,19 @@ export const creatorServices = [
     slug: "photography",
     title: "Photography",
     description: "Premium product shoots for emerging fashion brands.",
-    image:
-      "https://woodmart.xtemos.com/wp-content/uploads/2017/03/baner-flat-fashion-500x375.jpg",
+    image: "/Creator Marketplace/Photography.jpg",
   },
   {
     slug: "branding",
     title: "Branding",
     description: "Identity, packaging, and storytelling for your label.",
-    image:
-      "https://woodmart.xtemos.com/wp-content/uploads/2017/03/baner-flat-fashion-5-500x375.jpg",
+    image: "/Creator Marketplace/Branding.jpg",
   },
   {
     slug: "marketplace-growth",
     title: "Marketplace Growth",
     description: "Listing, SEO, and launch support on Hanket.",
-    image:
-      "https://woodmart.xtemos.com/wp-content/uploads/2017/03/baner-flat-fashion-7-500x375.jpg",
+    image: "/Creator Marketplace/Marketplace Growth Updated.jpg",
   },
 ] as const;
 
@@ -216,49 +213,61 @@ export const instagramPosts = [
   {
     slug: "street-style",
     title: "Street style edit",
-    image: "fashion-product-3.jpg",
+    image: "/instagram/1.jpg",
     href: "/search",
   },
   {
     slug: "creator-shoot",
     title: "Creator shoot drop",
-    image: "fashion-product-5.jpg",
+    image: "/instagram/2.jpg",
     href: "/search",
   },
   {
     slug: "evening-wear",
     title: "Evening wear picks",
-    image: "fashion-product-6.jpg",
+    image: "/instagram/3.jpg",
     href: "/search",
   },
   {
     slug: "hanket-creators",
     title: "Hanket x Creators",
-    image: "fashion-product-10.jpg",
+    image: "/instagram/4.jpg",
     href: "/search",
   },
   {
     slug: "customer-look",
     title: "Customer style",
-    image: "fashion-product-11.jpg",
+    image: "/instagram/5.jpg",
     href: "/search",
   },
   {
     slug: "brand-launch",
     title: "Brand launch",
-    image: "fashion-product-12.jpg",
+    image: "/instagram/6.jpg",
     href: "/search",
   },
   {
     slug: "reels-edit",
     title: "Reels highlight",
-    image: "fashion-product-3-2-430x491.jpg",
+    image: "/instagram/7.jpg",
     href: "/search",
   },
   {
-    slug: "shop-the-look",
-    title: "Shop the look",
-    image: "fashion-product-5-2-430x491.jpg",
+    slug: "editorial-look",
+    title: "Editorial look",
+    image: "/instagram/10.jpg",
+    href: "/search",
+  },
+  {
+    slug: "daily-style",
+    title: "Daily style",
+    image: "/instagram/9.jpg",
+    href: "/search",
+  },
+  {
+    slug: "new-drop",
+    title: "New drop",
+    image: "/instagram/8.jpg",
     href: "/search",
   },
 ] as const;

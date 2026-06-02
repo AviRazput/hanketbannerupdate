@@ -325,7 +325,7 @@ export function Hero() {
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
                     sizes="100vw"
-                    className="object-cover object-[center_20%] pointer-events-none select-none rounded-xl"
+                    className="object-cover object-center pointer-events-none select-none rounded-xl"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />
@@ -338,7 +338,7 @@ export function Hero() {
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:block w-full max-w-[1920px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 mt-8 lg:mt-10 mb-6 lg:mb-8">
+      <div className="hidden md:block w-full px-4 sm:px-5 md:px-6 lg:px-8 mt-8 lg:mt-10 mb-6 lg:mb-8">
         <div className="relative group w-full overflow-hidden rounded-xl bg-flat-bg aspect-[3/1] md:aspect-[16/5] lg:aspect-[3.5/1] xl:aspect-[3.75/1]">
           <div className="absolute inset-0 rounded-xl overflow-hidden">
             <AnimatePresence initial={false} custom={interactionSource}>
@@ -361,7 +361,7 @@ export function Hero() {
                   fetchPriority={isInitial ? "high" : "auto"}
                   unoptimized
                   sizes="100vw"
-                  className="object-cover object-[center_20%] rounded-xl"
+                  className="object-cover object-center rounded-xl"
                   style={{ filter: slide.imageFilter }}
                 />
               </motion.div>

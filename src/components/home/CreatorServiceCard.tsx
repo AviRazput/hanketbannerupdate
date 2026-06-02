@@ -16,6 +16,8 @@ export function CreatorServiceCard({
   className?: string;
 }) {
   const href = `/search?service=${service.slug}`;
+  const objectPosition =
+    service.slug === "photography" ? "center 28%" : "center center";
 
   return (
     <article
@@ -32,6 +34,7 @@ export function CreatorServiceCard({
             fill
             sizes="(max-width: 640px) 78vw, (max-width: 1024px) 340px, 420px"
             className="object-cover object-center"
+            style={{ objectPosition }}
           />
         </div>
 

@@ -215,7 +215,7 @@ export function Header() {
 
   return (
     <header className="bg-white border-b border-[#ebebeb] fixed md:sticky top-0 left-0 right-0 w-full z-50">
-      <div className="max-w-[1920px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8 py-2 md:py-0">
+      <div className="w-full px-4 sm:px-5 md:px-6 lg:px-8 py-2 md:py-0">
         {/* Mobile */}
         <div className="md:hidden">
           <div className="grid grid-cols-[auto_1fr_auto] items-center min-h-[48px] gap-2">
@@ -272,7 +272,11 @@ export function Header() {
         {/* Desktop: WoodMart-style */}
         <div className="hidden md:flex flex-col w-full min-w-0">
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 lg:gap-8 py-2 lg:py-2.5">
-            <Link href="/" className="flex items-center shrink-0 overflow-visible -ml-8 lg:-ml-14" aria-label="Hanket home">
+            <Link
+              href="/"
+              className="flex w-[250px] lg:w-[290px] xl:w-[320px] items-center shrink-0 overflow-visible -ml-8 lg:-ml-14"
+              aria-label="Hanket home"
+            >
               <Image
                 src="/brandlogo/logo.png"
                 alt="Hanket"
@@ -286,7 +290,7 @@ export function Header() {
             </Link>
 
             <form
-              className="w-full max-w-xl lg:max-w-[42rem] justify-self-center"
+              className="w-full max-w-[min(42rem,46vw)] xl:max-w-[42rem] justify-self-center"
               onSubmit={(e) => e.preventDefault()}
               role="search"
               aria-label="Site search"
@@ -394,16 +398,16 @@ export function Header() {
           mobileOpen ? "translate-x-0" : "-translate-x-full",
         ].join(" ")}
       >
-        <div className="flex justify-between items-center p-6 border-b border-flat-border">
-          <span className="flex items-center overflow-visible">
+        <div className="flex justify-between items-center px-5 py-5 border-b border-flat-border">
+          <span className="flex min-w-0 flex-1 items-center overflow-visible">
             <Image
               src="/brandlogo/logo.png"
               alt="Hanket"
-              width={340}
-              height={96}
-              sizes="280px"
-              quality={85}
-              className={["h-[54px] w-auto object-contain origin-left scale-[1.36]", logoImageBoost].join(" ")}
+              width={420}
+              height={140}
+              sizes="260px"
+              quality={100}
+              className="h-[68px] w-auto max-w-[210px] object-contain origin-left scale-[1.58] contrast-[1.55] saturate-[1.35] brightness-[0.9]"
             />
           </span>
           <button
@@ -440,12 +444,12 @@ export function Header() {
                       type="button"
                       onClick={() => toggleSubmenu(item.label)}
                       className={[
-                        "w-full flex items-center justify-between py-1 text-xs font-bold uppercase tracking-widest hover:text-flat-pink transition-colors text-left",
+                        "w-full flex items-center justify-between py-1 font-sans text-[17px] font-bold uppercase tracking-[0.06em] hover:text-flat-pink transition-colors text-left",
                         isNavActive(item.href) ? "text-flat-pink" : "text-flat-text",
                       ].join(" ")}
                     >
                       <span>{item.label}</span>
-                      <span className={`text-[9px] text-gray-400 transition-transform duration-200 ${openSubmenus[item.label] ? "rotate-180" : ""}`}>
+                      <span className={`text-[10px] text-gray-400 transition-transform duration-200 ${openSubmenus[item.label] ? "rotate-180" : ""}`}>
                         ▼
                       </span>
                     </button>
@@ -456,7 +460,7 @@ export function Header() {
                             key={label}
                             href={subcategoryHref(item.href, label)}
                             onClick={() => setMobileOpen(false)}
-                            className="font-sans text-[12px] font-semibold uppercase text-flat-text/80 hover:text-flat-pink transition-colors"
+                            className="font-sans text-[15px] font-semibold uppercase tracking-[0.03em] text-flat-text/80 hover:text-flat-pink transition-colors"
                           >
                             {label}
                           </Link>
@@ -469,7 +473,7 @@ export function Header() {
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
                     className={[
-                      "py-1 text-xs font-bold uppercase tracking-widest hover:text-flat-pink transition-colors",
+                      "py-1 font-sans text-[17px] font-bold uppercase tracking-[0.06em] hover:text-flat-pink transition-colors",
                       isNavActive(item.href) ? "text-flat-pink" : "text-flat-text",
                     ].join(" ")}
                   >
@@ -489,7 +493,7 @@ export function Header() {
                   key={label}
                   type="button"
                   onClick={openAuth}
-                  className="text-left text-xs uppercase tracking-widest text-flat-text/90 hover:text-flat-pink transition-colors"
+                  className="text-left font-sans text-[15px] font-semibold uppercase tracking-[0.06em] text-flat-text/90 hover:text-flat-pink transition-colors"
                 >
                   {label}
                 </button>
@@ -498,7 +502,7 @@ export function Header() {
                   key={label}
                   href={href ?? "#"}
                   onClick={() => setMobileOpen(false)}
-                  className="text-xs uppercase tracking-widest text-flat-text/90 hover:text-flat-muted transition-colors"
+                  className="font-sans text-[15px] font-semibold uppercase tracking-[0.06em] text-flat-text/90 hover:text-flat-muted transition-colors"
                 >
                   {label}
                 </Link>
