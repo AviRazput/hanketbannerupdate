@@ -25,7 +25,7 @@ export function HorizontalScrollRow({
   children,
   arrowTop = "42%",
   arrowInset = false,
-  scrollClassName = "flex gap-2 sm:gap-4 md:gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-1",
+  scrollClassName = "flex justify-center gap-2 sm:gap-4 md:gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-1",
 }: {
   children: ReactNode;
   arrowTop?: string;

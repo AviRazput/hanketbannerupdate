@@ -46,7 +46,7 @@ function SearchField({
 
 function IconUser() {
   return (
-    <svg className="w-5 h-5 stroke-[#333] fill-none stroke-[1.6] shrink-0" viewBox="0 0 24 24">
+    <svg className="w-6 h-6 stroke-[#222] fill-none stroke-[2.05] shrink-0" viewBox="0 0 24 24">
       <circle cx="12" cy="8" r="4" />
       <path d="M4 21c0-4 4-7 8-7s8 3 8 7" />
     </svg>
@@ -106,7 +106,7 @@ function IconSearch() {
 
 function IconMenu() {
   return (
-    <svg className="w-6 h-6 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
+    <svg className="w-7 h-7 stroke-current fill-none stroke-[2.7]" viewBox="0 0 24 24">
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
@@ -242,9 +242,7 @@ export function Header() {
                 sizes="(max-width: 767px) min(96vw, 400px), 300px"
                 quality={90}
                 preload
-                className={["h-[48px] w-auto max-w-full object-contain origin-center scale-[1.62]", logoImageBoost].join(
-                  " ",
-                )}
+                className="h-[48px] w-auto max-w-full object-contain origin-center scale-[1.85] contrast-[1.5] saturate-[1.28] brightness-[0.9]"
               />
             </Link>
 
