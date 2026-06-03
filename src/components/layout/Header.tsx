@@ -11,6 +11,14 @@ const searchInputBase =
   "w-full rounded-full bg-[#f0f0f0] border border-[#e0e0e0] font-sans text-[#333] placeholder:text-[#999] outline-none focus:border-[#ccc] focus:ring-1 focus:ring-[#ddd] transition-colors";
 const searchInputMobile = `${searchInputBase} h-10 pl-4 pr-11 text-[13px]`;
 const searchInputDesktop = `${searchInputBase} h-[38px] pl-4 pr-11 text-[13px]`;
+const searchPlaceholderPhrases = [
+  "SEARCH FOR PRODUCTS",
+  "SEARCH WOMEN",
+  "SEARCH MEN",
+  "SEARCH FOOTWEAR",
+  "SEARCH JEWELLERY",
+  "SEARCH ACCESSORIES",
+];
 
 function SearchField({
   className,
@@ -27,6 +35,46 @@ function SearchField({
   id?: string;
   inputRef?: React.RefObject<HTMLInputElement | null>;
 }) {
+  const [placeholder, setPlaceholder] = useState(searchPlaceholderPhrases[0]);
+
+  useEffect(() => {
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
+      const phrase = searchPlaceholderPhrases[phraseIndex];
+      const nextText = phrase.slice(0, charIndex);
+      setPlaceholder(nextText || " ");
+
+      if (!deleting && charIndex < phrase.length) {
+        charIndex += 1;
+        timeoutId = setTimeout(tick, 72);
+        return;
+      }
+
+      if (!deleting && charIndex === phrase.length) {
+        deleting = true;
+        timeoutId = setTimeout(tick, 1300);
+        return;
+      }
+
+      if (deleting && charIndex > 0) {
+        charIndex -= 1;
+        timeoutId = setTimeout(tick, 34);
+        return;
+      }
+
+      deleting = false;
+      phraseIndex = (phraseIndex + 1) % searchPlaceholderPhrases.length;
+      timeoutId = setTimeout(tick, 260);
+    };
+
+    timeoutId = setTimeout(tick, 500);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <div className={["relative w-full", className].filter(Boolean).join(" ")}>
       <input
@@ -34,7 +82,7 @@ function SearchField({
         ref={inputRef}
         value={value}
         onChange={onChange}
-        placeholder="SEARCH FOR PRODUCTS"
+        placeholder={value ? "SEARCH FOR PRODUCTS" : placeholder}
         className={inputClassName}
       />
       <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#c4c4c4] pointer-events-none md:right-4">
