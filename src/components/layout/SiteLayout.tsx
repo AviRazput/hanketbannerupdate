@@ -14,7 +14,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
         <Suspense fallback={null}>
           <Header />
         </Suspense>
-        <main className="flex-1 pt-[114px] pb-20 md:pt-0 md:pb-0 min-w-0 w-full overflow-x-clip">
+        <main className="flex-1 pt-[80px] pb-20 md:pt-0 md:pb-0 min-w-0 w-full overflow-x-clip">
           {children}
         </main>
         <Footer />

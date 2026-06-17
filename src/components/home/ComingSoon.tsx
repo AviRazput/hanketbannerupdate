@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const TITLE = "Coming Soon";
 const TAGLINE = ["click", "shop", "smile"] as const;
-const INSTAGRAM_URL = "https://www.instagram.com/hanket.in/";
+const INSTAGRAM_URL = "https://www.instagram.com/hanketstudio/";
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 function IconInstagram() {
@@ -105,7 +105,7 @@ export function ComingSoon() {
           target="_blank"
           rel="noopener noreferrer"
           className="group mt-8 inline-flex items-center gap-3 rounded-full border border-flat-border bg-white py-2 pl-2 pr-5 text-flat-text shadow-[0_2px_14px_rgba(0,0,0,0.07)] transition-colors hover:border-flat-pink"
-          aria-label="Follow @hanket.in on Instagram"
+          aria-label="Follow @hanketstudio on Instagram"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.38, ease: EASE }}
@@ -116,7 +116,7 @@ export function ComingSoon() {
             <IconInstagram />
           </span>
           <span className="font-serif text-[1.35rem] font-medium tracking-wide transition-colors group-hover:text-flat-pink">
-            hanket.in
+            hanketstudio
           </span>
         </motion.a>
 

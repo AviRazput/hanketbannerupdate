@@ -2,6 +2,7 @@ import { instaImages } from "@/data/products";
 import { trendingItems } from "@/data/homepage";
 import { CategoryCard, scrollCategoryCardClass } from "./CategoryCard";
 import { HorizontalScrollRow } from "./HorizontalScrollRow";
+import { sectionHeadingClass } from "./sectionHeadingStyle";
 
 const SHOWCASE_IMAGE_BASE = "https://woodmart.xtemos.com/wp-content/uploads/2017/04/";
 const MOBILE_GRID_PAGE_SIZE = 4;
@@ -21,7 +22,7 @@ export function TrendingNowSection() {
     <section className="bg-white pt-5 pb-5 md:pt-6 md:pb-6">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="mb-5 md:mb-6">
-          <h2 className="font-serif text-[1.625rem] md:text-[2rem] font-medium text-flat-text leading-[1.15] tracking-[-0.02em]">
+          <h2 className={sectionHeadingClass}>
             Trending Now
           </h2>
           <p className="mt-2 font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-flat-muted">

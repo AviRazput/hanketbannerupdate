@@ -1,25 +1,80 @@
-import { footerLinks } from "@/data/homepage";
+import Link from "next/link";
 
-const INSTAGRAM_URL = "https://www.instagram.com/hanket.in/";
+const footerGroups = [
+  {
+    title: "Shop",
+    links: [
+      { label: "Women", href: "/search?category=women" },
+      { label: "Men", href: "/search?category=men" },
+      { label: "Kids", href: "/search?category=kids" },
+      { label: "Home Decor", href: "/search?category=home-decor" },
+      { label: "Jewellery", href: "/search?type=jewelry" },
+      { label: "Accessories", href: "/search?type=accessories" },
+      { label: "Wedding & Occasion", href: "/search?category=wedding-occasion" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About Hanket", href: "#" },
+      { label: "Our Story", href: "#" },
+      { label: "Become a Seller", href: "#launch-with-hanket" },
+      { label: "Careers", href: "#" },
+      { label: "Contact Us", href: "#" },
+    ],
+  },
+  {
+    title: "Customer Support",
+    links: [
+      { label: "Help Center", href: "#" },
+      { label: "Track Order", href: "#" },
+      { label: "Shipping Policy", href: "#" },
+      { label: "Returns & Refunds", href: "#" },
+      { label: "FAQs", href: "#" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms & Conditions", href: "#" },
+      { label: "Cancellation Policy", href: "#" },
+    ],
+  },
+] as const;
 
-function IconInstagram() {
-  return (
-    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-    </svg>
-  );
-}
+const socialLinks = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/hanketstudio/",
+    external: true,
+  },
+  { label: "Facebook", href: "#", external: false },
+  { label: "YouTube", href: "#", external: false },
+  { label: "Pinterest", href: "#", external: false },
+] as const;
 
-function FooterColumn({ title, links }: { title: string; links: readonly { label: string; href: string }[] }) {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: readonly { label: string; href: string }[];
+}) {
   return (
     <div>
-      <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">{title}</h4>
-      <ul className="space-y-3 text-[13px]">
+      <h3 className="mb-5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+        {title}
+      </h3>
+      <ul className="space-y-2.5">
         {links.map((link) => (
           <li key={link.label}>
-            <a href={link.href} className="hover:text-white transition-colors">
+            <Link
+              href={link.href}
+              className="font-sans text-[13px] text-[#5f5a54] transition-colors hover:text-[#9a753f]"
+            >
               {link.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -27,41 +82,98 @@ function FooterColumn({ title, links }: { title: string; links: readonly { label
   );
 }
 
+function AppButton({
+  store,
+  label,
+}: {
+  store: "Apple" | "Play";
+  label: string;
+}) {
+  return (
+    <a
+      href="#"
+      className="flex min-h-12 items-center gap-3 border border-[#1a1a1a] bg-[#1a1a1a] px-4 text-white transition-colors hover:bg-[#3a332d]"
+      aria-label={`Download Hanket on ${label}`}
+    >
+      <span className="text-[20px] leading-none" aria-hidden>
+        {store === "Apple" ? "A" : "G"}
+      </span>
+      <span>
+        <span className="block font-sans text-[8px] uppercase tracking-[0.12em] text-white/70">
+          Download on the
+        </span>
+        <span className="block font-sans text-[13px] font-bold leading-tight">
+          {label}
+        </span>
+      </span>
+    </a>
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="bg-black text-[#a8a8a8] border-t border-white/10 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
-      <div className="w-full px-8 pt-12 pb-8 md:pt-20 md:pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-          <div className="lg:col-span-1">
-            <a href="#" className="font-serif font-bold text-[30px] tracking-widest text-white inline-block mb-6">
-              Hanket<span className="text-flat-muted">.</span>
-            </a>
-            <p className="text-[13px] leading-relaxed mb-6">
-              India&apos;s marketplace for emerging fashion brands, creators, and curated style.
-            </p>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 border border-[#333] inline-flex items-center justify-center hover:bg-white hover:text-black transition-colors"
-              aria-label="Instagram @hanket.in"
+    <footer className="border-t border-[#e6dfd7] bg-white text-[#1a1a1a] pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
+      <div className="mx-auto w-full max-w-[1600px] px-5 py-12 sm:px-7 md:py-16 lg:px-10 xl:px-14">
+        <div className="grid gap-10 border-b border-[#dfd6cc] pb-12 md:grid-cols-2 lg:grid-cols-[1.35fr_repeat(4,1fr)_1.2fr] lg:gap-7 lg:pb-16">
+          <div className="max-w-[330px]">
+            <Link
+              href="/"
+              className="inline-block font-serif text-[2rem] font-medium lowercase tracking-[0.08em] text-[#1a1a1a]"
+              aria-label="Hanket home"
             >
-              <IconInstagram />
-            </a>
+              hanket
+            </Link>
+            <p className="mt-5 font-sans text-[13px] leading-6 text-[#625d57]">
+              Discover India&apos;s curated fashion marketplace featuring
+              independent labels, handcrafted collections, contemporary
+              fashion, home decor, and lifestyle products.
+            </p>
+            <div className="mt-6 h-px w-12 bg-[#c9a66b]" />
           </div>
-          <FooterColumn title="About" links={footerLinks.about} />
-          <FooterColumn title="Shop" links={footerLinks.shop} />
-          <FooterColumn title="Creators" links={footerLinks.creators} />
-          <FooterColumn title="Support" links={footerLinks.support} />
+
+          {footerGroups.map((group) => (
+            <FooterColumn
+              key={group.title}
+              title={group.title}
+              links={group.links}
+            />
+          ))}
+
+          <div className="space-y-8">
+            <div>
+              <h3 className="mb-5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+                Download App
+              </h3>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+                <AppButton store="Apple" label="App Store" />
+                <AppButton store="Play" label="Google Play" />
+              </div>
+            </div>
+
+            <div>
+              <h3 className="mb-4 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+                Follow Us
+              </h3>
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={social.external ? "_blank" : undefined}
+                    rel={social.external ? "noopener noreferrer" : undefined}
+                    className="border-b border-transparent font-sans text-[12px] text-[#5f5a54] transition-colors hover:border-[#c9a66b] hover:text-[#9a753f]"
+                  >
+                    {social.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="border-t border-[#333] pt-6 flex flex-col md:flex-row justify-between items-center text-[11px] uppercase tracking-widest gap-4">
-          <div>© 2026 HANKET. All rights reserved.</div>
-          <div className="flex gap-4">
-            <span>VISA</span>
-            <span>MC</span>
-            <span>UPI</span>
-          </div>
+        <div className="flex flex-col gap-3 pt-7 text-center font-sans text-[10px] uppercase tracking-[0.12em] text-[#777069] md:flex-row md:items-center md:justify-between md:text-left">
+          <p>&copy; 2026 Hanket. All Rights Reserved.</p>
+          <p>Designed for India&apos;s Emerging Fashion Brands.</p>
         </div>
       </div>
     </footer>

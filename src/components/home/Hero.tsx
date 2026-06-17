@@ -289,11 +289,11 @@ export function Hero() {
   const isInitial = active === 0;
 
   return (
-    <section className="bg-flat-bg w-full min-w-0">
+    <section className="bg-white w-full min-w-0">
       {/* Mobile */}
-      <div className="md:hidden w-full px-4 mt-3">
+      <div className="md:hidden relative left-1/2 w-screen -translate-x-1/2 pb-2">
         <div
-          className="relative w-full overflow-hidden rounded-xl touch-pan-y h-[56vh] min-h-[280px] max-h-[520px] bg-flat-bg"
+          className="relative w-full overflow-hidden touch-pan-y aspect-[4/5] bg-white"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
@@ -309,7 +309,7 @@ export function Hero() {
               {slide && mobileSrc ? (
                 <motion.div
                   key={`m-${slide.id}`}
-                  className="absolute inset-0 rounded-xl overflow-hidden"
+                  className="absolute inset-0 overflow-hidden"
                   custom={interactionSource}
                   variants={slideVariants}
                   initial="initial"
@@ -325,7 +325,7 @@ export function Hero() {
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
                     sizes="100vw"
-                    className="object-cover object-center pointer-events-none select-none rounded-xl"
+                    className="object-cover object-center pointer-events-none select-none"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />
@@ -338,14 +338,14 @@ export function Hero() {
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:block w-full px-4 sm:px-5 md:px-6 lg:px-8 mt-8 lg:mt-10 mb-6 lg:mb-8">
-        <div className="relative group w-full overflow-hidden rounded-xl bg-flat-bg aspect-[3/1] md:aspect-[16/5] lg:aspect-[3.5/1] xl:aspect-[3.75/1]">
-          <div className="absolute inset-0 rounded-xl overflow-hidden">
+      <div className="hidden md:block w-full mb-6 lg:mb-8">
+        <div className="relative group w-full overflow-hidden bg-white aspect-[3/1]">
+          <div className="absolute inset-0 overflow-hidden">
             <AnimatePresence initial={false} custom={interactionSource}>
               {slide && desktopSrc ? (
               <motion.div
                 key={`d-${slide.id}`}
-                className="absolute inset-0 rounded-xl overflow-hidden"
+                className="absolute inset-0 overflow-hidden"
                 custom={interactionSource}
                 variants={slideVariants}
                 initial="initial"
@@ -361,7 +361,7 @@ export function Hero() {
                   fetchPriority={isInitial ? "high" : "auto"}
                   unoptimized
                   sizes="100vw"
-                  className="object-cover object-center rounded-xl"
+                  className="object-cover object-center"
                   style={{ filter: slide.imageFilter }}
                 />
               </motion.div>

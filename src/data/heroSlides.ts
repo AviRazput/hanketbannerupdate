@@ -8,6 +8,12 @@ export type HeroSlide = {
 
 export const heroSlides: HeroSlide[] = [
   {
+    id: "hero-banner-5",
+    imageSrc: "/hero_section_banner/banner5/pc.png",
+    mobileImageSrc: "/hero_section_banner/banner5/mobile.png",
+    imageAlt: "Hanket hero banner 5",
+  },
+  {
     id: "hero-banner-1",
     imageSrc: "/hero_section_banner/banner1/pc.png",
     mobileImageSrc: "/hero_section_banner/banner1/mobile.png",
@@ -24,11 +30,5 @@ export const heroSlides: HeroSlide[] = [
     imageSrc: "/hero_section_banner/banner4/pc.png",
     mobileImageSrc: "/hero_section_banner/banner4/mobile.png",
     imageAlt: "Hanket hero banner 4",
-  },
-  {
-    id: "hero-banner-5",
-    imageSrc: "/hero_section_banner/banner5/pc.png",
-    mobileImageSrc: "/hero_section_banner/banner5/mobile.png",
-    imageAlt: "Hanket hero banner 5",
   },
 ];

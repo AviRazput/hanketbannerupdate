@@ -2,15 +2,14 @@
 
 import { useAuthDrawer } from "@/components/auth/AuthDrawerContext";
 import { mainNav } from "@/data/homepage";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const searchInputBase =
-  "w-full rounded-full bg-[#f0f0f0] border border-[#e0e0e0] font-sans text-[#333] placeholder:text-[#999] outline-none focus:border-[#ccc] focus:ring-1 focus:ring-[#ddd] transition-colors";
-const searchInputMobile = `${searchInputBase} h-10 pl-4 pr-11 text-[13px]`;
-const searchInputDesktop = `${searchInputBase} h-[38px] pl-4 pr-11 text-[13px]`;
+  "w-full rounded-full bg-white border border-[#d8d8d8] font-sans text-[#222] placeholder:text-[#9a9a9a] outline-none focus:border-[#888] focus:ring-0 transition-colors";
+const searchInputMobile = `${searchInputBase} h-8 pl-4 pr-10 text-[11px] shadow-[0_2px_10px_rgba(0,0,0,0.06)]`;
+const searchInputDesktop = `${searchInputBase} h-[34px] pl-5 pr-11 text-[11px] font-bold tracking-[0.08em]`;
 const searchPlaceholderPhrases = [
   "SEARCH FOR PRODUCTS",
   "SEARCH WOMEN",
@@ -27,6 +26,7 @@ function SearchField({
   onChange,
   id,
   inputRef,
+  staticPlaceholder,
 }: {
   className?: string;
   inputClassName: string;
@@ -34,6 +34,7 @@ function SearchField({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id?: string;
   inputRef?: React.RefObject<HTMLInputElement | null>;
+  staticPlaceholder?: string;
 }) {
   const [placeholder, setPlaceholder] = useState(searchPlaceholderPhrases[0]);
 
@@ -82,10 +83,10 @@ function SearchField({
         ref={inputRef}
         value={value}
         onChange={onChange}
-        placeholder={value ? "SEARCH FOR PRODUCTS" : placeholder}
+        placeholder={staticPlaceholder ?? (value ? "SEARCH FOR PRODUCTS" : placeholder)}
         className={inputClassName}
       />
-      <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#c4c4c4] pointer-events-none md:right-4">
+      <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#777] pointer-events-none md:right-4">
         <IconSearch />
       </span>
     </div>
@@ -154,7 +155,7 @@ function IconSearch() {
 
 function IconMenu() {
   return (
-    <svg className="w-7 h-7 stroke-current fill-none stroke-[2.7]" viewBox="0 0 24 24">
+    <svg className="w-5 h-5 stroke-current fill-none stroke-[2.3]" viewBox="0 0 24 24">
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
@@ -180,7 +181,23 @@ function CountBadge({ count }: { count: number }) {
 
 const categoryNav = mainNav;
 
-const logoImageBoost = "contrast-[1.28] saturate-[1.12] brightness-[0.96]";
+function BrandLogo({ variant = "desktop" }: { variant?: "desktop" | "mobile" | "drawer" }) {
+  const isDrawer = variant === "drawer";
+  const isMobile = variant === "mobile";
+
+  return (
+    <span className="block text-flat-pink">
+      <span
+        className={[
+          "block font-serif font-medium leading-[0.82] tracking-[0.08em]",
+          isDrawer ? "text-[38px]" : isMobile ? "text-[20px]" : "text-[42px] lg:text-[46px] xl:text-[48px]",
+        ].join(" ")}
+      >
+        Hanket
+      </span>
+    </span>
+  );
+}
 
 const navSubcategories: Record<string, string[]> = {
   WOMEN: ["Ethnic Wear", "Western Wear", "Dresses", "Co-ords", "Tops & Shirts", "Bottom Wear", "Plus Size", "Maternity"],
@@ -262,14 +279,14 @@ export function Header() {
   }, [mobileOpen]);
 
   return (
-    <header className="bg-white border-b border-[#ebebeb] fixed md:sticky top-0 left-0 right-0 w-full z-50">
-      <div className="w-full px-4 sm:px-5 md:px-6 lg:px-8 py-2 md:py-0">
+    <header className="bg-white fixed md:sticky top-0 left-0 right-0 w-full z-50">
+      <div className="w-full px-3 sm:px-5 md:px-7 lg:px-10 xl:px-12 py-1.5 md:py-0">
         {/* Mobile */}
         <div className="md:hidden">
-          <div className="grid grid-cols-[auto_1fr_auto] items-center min-h-[48px] gap-2">
+          <div className="grid grid-cols-[auto_1fr_auto] items-center min-h-[34px] gap-2">
             <button
               type="button"
-              className="justify-self-start text-flat-text w-11 h-11 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
+              className="justify-self-start text-flat-text w-8 h-8 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
               aria-expanded={mobileOpen}
@@ -279,64 +296,53 @@ export function Header() {
 
             <Link
               href="/"
-              className="justify-self-center flex items-center min-w-0 max-w-[min(220px,58vw)] px-1 py-1 overflow-visible"
+              className="justify-self-start flex items-center min-w-0 max-w-[min(180px,46vw)] px-0.5 py-1 overflow-visible"
               aria-label="Hanket home"
             >
-              <Image
-                src="/brandlogo/logo.png"
-                alt="Hanket"
-                width={320}
-                height={128}
-                sizes="(max-width: 767px) min(96vw, 400px), 300px"
-                quality={90}
-                preload
-                className="h-[48px] w-auto max-w-full object-contain origin-center scale-[1.85] contrast-[1.5] saturate-[1.28] brightness-[0.9]"
-              />
+              <BrandLogo variant="mobile" />
             </Link>
 
-            <div className="justify-self-end flex items-center shrink-0">
+            <div className="justify-self-end flex items-center gap-2 shrink-0">
               <button
                 type="button"
-                onClick={() => openAuthDrawer("sign-in")}
-                className="text-[#333] w-11 h-11 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
-                aria-label="PROFILE"
+                className="text-[#333] w-8 h-8 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
+                aria-label="WISHLIST"
               >
-                <IconUser />
+                <IconHeart />
               </button>
+              <Link
+                href="/cart"
+                className="text-[#333] w-8 h-8 inline-flex items-center justify-center rounded-sm hover:bg-flat-layer transition-colors"
+                aria-label="CART"
+              >
+                <IconCart className="w-[21px] h-[21px]" />
+              </Link>
             </div>
           </div>
 
-          <form className="mt-2 w-full" onSubmit={(e) => e.preventDefault()} role="search" aria-label="Site search">
+          <form className="mt-1.5 w-full" onSubmit={(e) => e.preventDefault()} role="search" aria-label="Site search">
             <SearchField
               inputClassName={searchInputMobile}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              staticPlaceholder="Search for Casual Coords"
             />
           </form>
         </div>
 
         {/* Desktop: WoodMart-style */}
         <div className="hidden md:flex flex-col w-full min-w-0">
-          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 lg:gap-8 py-2 lg:py-2.5">
+          <div className="grid grid-cols-[minmax(180px,0.8fr)_minmax(260px,1fr)_auto] items-center gap-4 py-2.5 lg:grid-cols-[minmax(230px,1fr)_minmax(320px,0.95fr)_minmax(230px,1fr)] lg:gap-8 lg:py-3">
             <Link
               href="/"
-              className="flex w-[250px] lg:w-[290px] xl:w-[320px] items-center shrink-0 overflow-visible -ml-8 lg:-ml-14"
+              className="flex items-center justify-self-start overflow-visible"
               aria-label="Hanket home"
             >
-              <Image
-                src="/brandlogo/logo.png"
-                alt="Hanket"
-                width={320}
-                height={128}
-                sizes="180px"
-                quality={90}
-                preload
-                className={["h-11 lg:h-12 w-auto object-contain origin-left scale-[3]", logoImageBoost].join(" ")}
-              />
+              <BrandLogo />
             </Link>
 
             <form
-              className="w-full max-w-[min(42rem,46vw)] xl:max-w-[42rem] justify-self-center"
+              className="w-full max-w-[36rem] justify-self-center"
               onSubmit={(e) => e.preventDefault()}
               role="search"
               aria-label="Site search"
@@ -348,7 +354,7 @@ export function Header() {
               />
             </form>
 
-            <div className="flex items-center gap-4 lg:gap-6 shrink-0">
+            <div className="flex items-center justify-self-end gap-4 lg:gap-5 shrink-0">
               <button
                 type="button"
                 className="relative inline-flex h-10 items-center justify-center gap-1.5 font-sans text-[#333] hover:text-[#666] transition-colors"
@@ -380,14 +386,14 @@ export function Header() {
             </div>
           </div>
 
-          <div className="border-t border-[#f0f0f0] flex items-center justify-between gap-4 py-1.5 pb-2 overflow-visible">
-            <nav className="flex items-center gap-3 lg:gap-5 xl:gap-7 overflow-visible flex-1 min-w-0">
+          <div className="relative flex items-center py-1.5 lg:py-2 overflow-visible before:absolute before:left-1/2 before:top-0 before:h-px before:w-screen before:-translate-x-1/2 before:bg-[#ededed]">
+            <nav className="flex w-full items-center justify-center gap-3 lg:gap-5 xl:gap-7 overflow-visible min-w-0">
               {categoryNav.map((item) => (
                 <div key={item.label} className="relative group shrink-0 py-0.5">
                   <Link
                     href={item.href}
                     className={[
-                      "flex items-center gap-1.5 border-b-2 pb-1 text-[12px] lg:text-[13px] font-semibold transition-colors whitespace-nowrap",
+                      "flex items-center gap-1 border-b pb-1.5 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:text-[12px]",
                       isNavActive(item.href)
                         ? "border-flat-pink text-flat-pink"
                         : "border-transparent text-[#333] hover:text-flat-pink",
@@ -402,13 +408,13 @@ export function Header() {
                   </Link>
 
                   {getNavSubcategories(item).length > 0 && (
-                    <div className="absolute left-0 top-full pt-3.5 w-52 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 ease-out z-50">
-                      <div className="bg-white/98 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100/80 overflow-hidden p-2">
+                    <div className="absolute left-0 top-full pt-1.5 w-48 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 ease-out z-50">
+                      <div className="bg-white/98 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100/80 overflow-hidden p-1">
                         {getNavSubcategories(item).map((label) => (
                           <Link
                             key={label}
                             href={subcategoryHref(item.href, label)}
-                            className="group/item flex items-center justify-between px-3.5 py-2.5 rounded-none font-sans text-[12px] lg:text-[13px] font-semibold uppercase text-[#333] hover:bg-flat-pink/5 hover:text-flat-pink transition-all duration-200"
+                            className="group/item flex items-center justify-between px-3 py-1.5 rounded-none font-sans text-[11px] lg:text-[12px] font-semibold uppercase text-[#333] hover:bg-flat-pink/5 hover:text-flat-pink transition-all duration-200"
                           >
                             <span className="transform group-hover/item:translate-x-1 transition-transform duration-200">
                               {label}
@@ -446,15 +452,7 @@ export function Header() {
       >
         <div className="flex justify-between items-center px-5 py-5 border-b border-flat-border">
           <span className="flex min-w-0 flex-1 items-center overflow-visible">
-            <Image
-              src="/brandlogo/logo.png"
-              alt="Hanket"
-              width={420}
-              height={140}
-              sizes="260px"
-              quality={100}
-              className="h-[68px] w-auto max-w-[210px] object-contain origin-left scale-[1.58] contrast-[1.55] saturate-[1.35] brightness-[0.9]"
-            />
+            <BrandLogo variant="drawer" />
           </span>
           <button
             onClick={() => setMobileOpen(false)}
@@ -500,13 +498,13 @@ export function Header() {
                       </span>
                     </button>
                     {openSubmenus[item.label] && (
-                      <div className="flex flex-col gap-3 pl-4 mt-2.5 mb-2.5 border-l border-gray-200">
+                      <div className="flex flex-col gap-1.5 pl-4 mt-1.5 mb-1.5 border-l border-gray-200">
                         {getNavSubcategories(item).map((label) => (
                           <Link
                             key={label}
                             href={subcategoryHref(item.href, label)}
                             onClick={() => setMobileOpen(false)}
-                            className="font-sans text-[15px] font-semibold uppercase tracking-[0.03em] text-flat-text/80 hover:text-flat-pink transition-colors"
+                            className="font-sans text-[14px] font-semibold uppercase tracking-[0.03em] text-flat-text/80 hover:text-flat-pink transition-colors"
                           >
                             {label}
                           </Link>

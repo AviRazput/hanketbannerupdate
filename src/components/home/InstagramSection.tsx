@@ -18,7 +18,7 @@ export function InstagramSection() {
             Instagram
           </p>
           <p className="mt-2 font-sans text-[13px] font-bold uppercase tracking-normal text-[#b9b9b9]">
-            @hanket.in
+            @hanketstudio
           </p>
           <p className="mx-auto mt-5 max-w-[280px] font-sans text-[15px] leading-7 text-[#777]">
             Fresh fashion edits, creator looks, and new drops from the Hanket community.
