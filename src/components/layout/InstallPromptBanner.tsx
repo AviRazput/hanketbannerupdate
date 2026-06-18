@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -51,11 +51,29 @@ export function InstallPromptBanner() {
   const [mode, setMode] = useState<"idle" | "android" | "ios">("idle");
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [entered, setEntered] = useState(false);
+  const closeTimerRef = useRef<number | null>(null);
+  const enterFrameRef = useRef<number | null>(null);
+
+  const showEntered = useCallback(() => {
+    if (enterFrameRef.current !== null) {
+      cancelAnimationFrame(enterFrameRef.current);
+    }
+    enterFrameRef.current = requestAnimationFrame(() => {
+      enterFrameRef.current = null;
+      setEntered(true);
+    });
+  }, []);
 
   const dismiss = useCallback(() => {
     rememberDismiss();
     setEntered(false);
-    window.setTimeout(() => setMode("idle"), 250);
+    if (closeTimerRef.current !== null) {
+      window.clearTimeout(closeTimerRef.current);
+    }
+    closeTimerRef.current = window.setTimeout(() => {
+      closeTimerRef.current = null;
+      setMode("idle");
+    }, 250);
     setDeferred(null);
   }, []);
 
@@ -69,7 +87,7 @@ export function InstallPromptBanner() {
     if (ios) {
       const timer = window.setTimeout(() => {
         setMode("ios");
-        requestAnimationFrame(() => setEntered(true));
+        showEntered();
       }, 2200);
       return () => clearTimeout(timer);
     }
@@ -78,11 +96,22 @@ export function InstallPromptBanner() {
       e.preventDefault();
       setDeferred(e as BeforeInstallPromptEvent);
       setMode("android");
-      requestAnimationFrame(() => setEntered(true));
+      showEntered();
     };
 
     window.addEventListener("beforeinstallprompt", onBip);
     return () => window.removeEventListener("beforeinstallprompt", onBip);
+  }, [showEntered]);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current !== null) {
+        window.clearTimeout(closeTimerRef.current);
+      }
+      if (enterFrameRef.current !== null) {
+        cancelAnimationFrame(enterFrameRef.current);
+      }
+    };
   }, []);
 
   useEffect(() => {

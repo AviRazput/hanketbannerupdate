@@ -37,15 +37,15 @@ const featuredOnHanket = featuredBrandOrder.flatMap((slug) => {
 
 export function FeaturedOnHanketSection() {
   return (
-    <section className="bg-white px-4 py-5 sm:px-6 md:py-14 lg:px-10 lg:py-16 xl:px-14">
-      <div className="mx-auto w-full max-w-[1600px]">
-        <div className="mb-4 max-w-[560px] md:mb-8">
+    <section className="bg-white pt-7 pb-8 md:pt-9 md:pb-10">
+      <div className="w-full px-0 sm:px-6 lg:px-10 xl:px-14">
+        <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
             Featured On Hanket
           </h2>
         </div>
 
-        <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 no-scrollbar sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 lg:items-end lg:gap-6 xl:gap-8">
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 no-scrollbar sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:pb-0 lg:grid-cols-4 lg:items-end lg:gap-6 xl:gap-8">
           {featuredOnHanket.map((brand, index) => (
             <Link
               key={brand.slug}

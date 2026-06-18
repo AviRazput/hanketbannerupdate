@@ -291,7 +291,7 @@ export function Hero() {
   return (
     <section className="bg-white w-full min-w-0">
       {/* Mobile */}
-      <div className="md:hidden relative left-1/2 w-screen -translate-x-1/2 pb-2">
+      <div className="md:hidden relative w-full pb-2">
         <div
           className="relative w-full overflow-hidden touch-pan-y aspect-[4/5] bg-white"
           style={{ touchAction: "pan-y" }}
@@ -338,8 +338,8 @@ export function Hero() {
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:block w-full mb-6 lg:mb-8">
-        <div className="relative group w-full overflow-hidden bg-white aspect-[3/1]">
+      <div className="hidden md:block w-full mb-2 lg:mb-3">
+        <div className="relative group w-full overflow-hidden bg-white h-[320px] lg:h-[360px] xl:h-[430px]">
           <div className="absolute inset-0 overflow-hidden">
             <AnimatePresence initial={false} custom={interactionSource}>
               {slide && desktopSrc ? (

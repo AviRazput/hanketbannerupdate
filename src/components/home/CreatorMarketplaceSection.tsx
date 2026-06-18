@@ -1,21 +1,25 @@
 import Link from "next/link";
 import { creatorServices } from "@/data/homepage";
 import { CreatorServiceCard } from "./CreatorServiceCard";
-import { HorizontalScrollRow } from "./HorizontalScrollRow";
 import { sectionHeadingClass } from "./sectionHeadingStyle";
 
+const creatorServiceImages: Record<string, string> = {
+  photography: "/instagram/2.jpg",
+  branding: "/instagram/4.jpg",
+  "marketplace-growth": "/instagram/6.jpg",
+};
+
 export function CreatorMarketplaceSection() {
+  const [featuredService, ...sideServices] = creatorServices;
+
   return (
-    <section id="launch-with-hanket" className="bg-white pt-6 pb-8 md:pt-10 md:pb-12">
+    <section id="launch-with-hanket" className="bg-[#fff8f3] pt-7 pb-9 md:pt-10 md:pb-12">
       <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14">
         <header className="mb-5 flex flex-col gap-3 md:mb-8 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 className={sectionHeadingClass}>
               Launch With Hanket
             </h2>
-            <p className="mt-2 max-w-xl font-sans text-[13px] leading-relaxed text-[#5c5c5c] md:text-[15px]">
-              We do not just sell fashion brands. We help build them.
-            </p>
           </div>
           <Link
             href="/search?service=creator"
@@ -25,17 +29,26 @@ export function CreatorMarketplaceSection() {
           </Link>
         </header>
 
-        <HorizontalScrollRow
-          arrowTop="50%"
-          scrollClassName="flex gap-3 overflow-x-auto no-scrollbar scroll-smooth md:grid md:grid-cols-3 md:gap-5 lg:gap-7"
-        >
-          {creatorServices.map((service) => (
+        <div className="grid gap-4 md:grid-cols-[1.1fr_1fr] md:gap-6 lg:gap-8">
+          {featuredService ? (
             <CreatorServiceCard
-              key={service.slug}
-              service={service}
+              service={featuredService}
+              image={creatorServiceImages[featuredService.slug]}
+              featured
             />
-          ))}
-        </HorizontalScrollRow>
+          ) : null}
+
+          <div className="flex gap-4 overflow-x-auto no-scrollbar md:grid md:grid-rows-2 md:overflow-visible">
+            {sideServices.map((service) => (
+              <CreatorServiceCard
+                key={service.slug}
+                service={service}
+                image={creatorServiceImages[service.slug]}
+                className="md:w-full"
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,20 @@
-import { instaImages } from "@/data/products";
+import Image from "next/image";
+import Link from "next/link";
 import { trendingItems } from "@/data/homepage";
-import { CategoryCard, scrollCategoryCardClass } from "./CategoryCard";
 import { HorizontalScrollRow } from "./HorizontalScrollRow";
 import { sectionHeadingClass } from "./sectionHeadingStyle";
 
-const SHOWCASE_IMAGE_BASE = "https://woodmart.xtemos.com/wp-content/uploads/2017/04/";
 const MOBILE_GRID_PAGE_SIZE = 4;
+const trendingImages = [
+  "/instagram/2.jpg",
+  "/instagram/4.jpg",
+  "/catogery/women.jpg",
+  "/catogery/glam.jpg",
+  "/instagram/6.jpg",
+  "/instagram/1.jpg",
+  "/instagram/7.jpg",
+  "/instagram/8.jpg",
+] as const;
 
 function chunkBy<T>(items: readonly T[], size: number): T[][] {
   const pages: T[][] = [];
@@ -19,15 +28,12 @@ export function TrendingNowSection() {
   const mobilePages = chunkBy(trendingItems, MOBILE_GRID_PAGE_SIZE);
 
   return (
-    <section className="bg-white pt-5 pb-5 md:pt-6 md:pb-6">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="mb-5 md:mb-6">
+    <section className="bg-white pt-7 pb-8 md:pt-9 md:pb-10">
+      <div className="w-full px-0 sm:px-6 lg:px-10 xl:px-14">
+        <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
             Trending Now
           </h2>
-          <p className="mt-2 font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-flat-muted">
-            What&apos;s hot
-          </p>
         </div>
 
         {/* Mobile: 2×2 grid (4 per screen), swipe for more */}
@@ -43,17 +49,12 @@ export function TrendingNowSection() {
               {page.map((item, i) => {
                 const index = pageIndex * MOBILE_GRID_PAGE_SIZE + i;
                 return (
-                  <CategoryCard
+                  <TrendingCard
                     key={item.slug}
-                    size="grid"
-                    imageFill="cover"
-                    item={{
-                      slug: item.slug,
-                      label: item.label,
-                      tagline: item.tagline,
-                      href: item.href,
-                      image: `${SHOWCASE_IMAGE_BASE}${instaImages[index % instaImages.length]}`,
-                    }}
+                    href={item.href}
+                    title={item.label}
+                    image={trendingImages[index % trendingImages.length]}
+                    className="w-full"
                   />
                 );
               })}
@@ -63,24 +64,52 @@ export function TrendingNowSection() {
 
         {/* Tablet & desktop: horizontal row */}
         <div className="hidden md:block">
-          <HorizontalScrollRow arrowTop="42%">
+          <HorizontalScrollRow
+            arrowTop="50%"
+            scrollClassName="flex justify-start gap-5 overflow-x-auto no-scrollbar scroll-smooth pb-1 lg:gap-7"
+          >
             {trendingItems.map((item, i) => (
-              <CategoryCard
+              <TrendingCard
                 key={item.slug}
-                imageFill="cover"
-                className={scrollCategoryCardClass}
-                item={{
-                  slug: item.slug,
-                  label: item.label,
-                  tagline: item.tagline,
-                  href: item.href,
-                  image: `${SHOWCASE_IMAGE_BASE}${instaImages[i % instaImages.length]}`,
-                }}
+                href={item.href}
+                title={item.label}
+                image={trendingImages[i % trendingImages.length]}
+                className="w-[245px] lg:w-[285px] xl:w-[310px]"
               />
             ))}
           </HorizontalScrollRow>
         </div>
       </div>
     </section>
+  );
+}
+
+function TrendingCard({
+  href,
+  title,
+  image,
+  className = "",
+}: {
+  href: string;
+  title: string;
+  image: string;
+  className?: string;
+}) {
+  return (
+    <Link href={href} className={["group block shrink-0", className].join(" ")}>
+      <article className="relative aspect-[5/7] overflow-hidden rounded-[24px] bg-[#f4f4f4] shadow-[0_12px_30px_rgba(0,0,0,0.07)] transition-transform duration-300 group-hover:-translate-y-1">
+        <Image
+          src={image}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 285px, 310px"
+          className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/58 via-black/18 to-transparent" />
+        <h3 className="absolute inset-x-0 bottom-0 px-4 pb-7 text-center font-serif text-[1.25rem] font-semibold leading-tight text-white drop-shadow-sm md:text-[1.45rem]">
+          {title}
+        </h3>
+      </article>
+    </Link>
   );
 }

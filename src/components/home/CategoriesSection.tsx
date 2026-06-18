@@ -12,12 +12,20 @@ const categoryNotes = [
   "Modern celebrationwear",
   "Urban statement pieces",
 ];
+const categoryImages: Record<string, string> = {
+  "summer-escape": "/instagram/4.jpg",
+  "wedding-guest": "/instagram/2.jpg",
+  "everyday-luxury": "/instagram/6.jpg",
+  "resort-wear": "/instagram/7.jpg",
+  "festive-edit": "/catogery/JEWELRY.jpg",
+  "street-culture": "/instagram/8.jpg",
+};
 
 export function CategoriesSection() {
   return (
-    <section className="bg-white pt-4 pb-6 md:pt-8 md:pb-10">
-      <div className="w-full px-3 sm:px-5 md:px-8 lg:px-10 xl:px-12">
-        <div className="mb-5 md:mb-8">
+    <section className="bg-white pt-7 pb-8 md:pt-9 md:pb-10">
+      <div className="w-full px-0 sm:px-6 lg:px-10 xl:px-14">
+        <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
             Shop By Category
           </h2>
@@ -36,7 +44,7 @@ export function CategoriesSection() {
             >
               <div className="relative aspect-[4/4.45] w-full overflow-hidden bg-[#f7f1eb]">
                 <Image
-                  src={cat.image}
+                  src={categoryImages[cat.slug] ?? cat.image}
                   alt=""
                   fill
                   sizes="(max-width: 640px) 150px, (max-width: 1024px) 18vw, 220px"

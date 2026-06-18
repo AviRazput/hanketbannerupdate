@@ -6,7 +6,6 @@ import { FeaturedOnHanketSection } from "../components/home/FeaturedOnHanketSect
 import { CategoriesSection } from "../components/home/CategoriesSection";
 import { TrendingNowSection } from "../components/home/TrendingNowSection";
 import { NewArrivalsSection } from "../components/home/NewArrivalsSection";
-import { CreatorMarketplaceSection } from "../components/home/CreatorMarketplaceSection";
 import { BestsellersSection } from "../components/home/BestsellersSection";
 // import { WhyHanketSection } from "../components/home/WhyHanketSection";
 import { InstagramSection } from "../components/home/InstagramSection";
@@ -67,7 +66,6 @@ export default function Home() {
       <CategoriesSection />
       <TrendingNowSection />
       <NewArrivalsSection />
-      <CreatorMarketplaceSection />
       <BestsellersSection />
       {/* <WhyHanketSection /> */}
       <InstagramSection />

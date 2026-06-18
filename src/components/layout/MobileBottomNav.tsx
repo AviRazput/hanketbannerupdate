@@ -1,30 +1,26 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function NavIcon({ children }: { children: React.ReactNode }) {
-  return <span className="w-7 h-7 inline-flex items-center justify-center">{children}</span>;
+  return <span className="inline-flex h-6 w-6 items-center justify-center">{children}</span>;
 }
 
 function IconHome() {
   return (
-    <Image
-      src="/homeicon.png"
-      alt="Home"
-      width={40}
-      height={40}
-      className="w-6 h-6 object-contain contrast-[1.25] saturate-[1.2]"
-    />
+    <svg className="h-[21px] w-[21px] stroke-current fill-none stroke-[1.8]" viewBox="0 0 24 24" aria-hidden>
+      <path d="M3.5 10.8 12 4l8.5 6.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5.8 10.2V20h4.4v-5.2h3.6V20h4.4v-9.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
 function IconWishlist() {
   return (
-    <svg className="w-7 h-7 stroke-current fill-none stroke-[2.75]" viewBox="0 0 24 24" aria-hidden>
+    <svg className="h-[21px] w-[21px] stroke-current fill-none stroke-[1.8]" viewBox="0 0 24 24" aria-hidden>
       <path
-        d="M12 20.5s-7.75-4.45-9.35-9.28C1.6 8.05 3.7 5.1 6.94 5.1c1.86 0 3.32.9 4.06 2.05.74-1.15 2.2-2.05 4.06-2.05 3.24 0 5.34 2.95 4.29 6.12C17.75 16.05 12 20.5 12 20.5Z"
+        d="M12 20.2S4.3 15.7 2.8 10.9C1.9 8 3.8 5.4 6.8 5.4c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3 0 4.9 2.6 4 5.5C19.7 15.7 12 20.2 12 20.2Z"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -34,16 +30,16 @@ function IconWishlist() {
 
 function IconShop() {
   return (
-    <svg className="w-7 h-7 stroke-current fill-none stroke-[2.65]" viewBox="0 0 24 24" aria-hidden>
+    <svg className="h-[21px] w-[21px] stroke-current fill-none stroke-[1.8]" viewBox="0 0 24 24" aria-hidden>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M6.5 9.5V8.25a5.5 5.5 0 0 1 11 0V9.5"
+        d="M7 9V8a5 5 0 0 1 10 0v1"
       />
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M4.35 9.5h15.3l-1.05 10.05A2.2 2.2 0 0 1 16.42 21H7.58a2.2 2.2 0 0 1-2.18-1.45L4.35 9.5Z"
+        d="M5 9h14l-1 10.2A2 2 0 0 1 16 21H8a2 2 0 0 1-2-1.8L5 9Z"
       />
     </svg>
   );
@@ -51,14 +47,14 @@ function IconShop() {
 
 function IconCart() {
   return (
-    <svg className="w-7 h-7 stroke-current fill-none stroke-[2.6]" viewBox="0 0 24 24" aria-hidden>
+    <svg className="h-[21px] w-[21px] stroke-current fill-none stroke-[1.8]" viewBox="0 0 24 24" aria-hidden>
       <path
-        d="M3 4h2.45l2.1 10.15A2.35 2.35 0 0 0 9.85 16h7.95a2.35 2.35 0 0 0 2.25-1.68L21.5 8H6.35"
+        d="M3.5 4.5h2.2l2 10.1A2 2 0 0 0 9.7 16h7.8a2 2 0 0 0 1.9-1.4L21 8H6.4"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="10" cy="20" r="1.35" className="fill-current stroke-none" />
-      <circle cx="18" cy="20" r="1.35" className="fill-current stroke-none" />
+      <circle cx="10" cy="20" r="1.2" className="fill-current stroke-none" />
+      <circle cx="18" cy="20" r="1.2" className="fill-current stroke-none" />
     </svg>
   );
 }
@@ -84,9 +80,9 @@ export function MobileBottomNav() {
                 key={it.href + it.label}
                 href={it.href}
                 className={[
-                  "relative flex h-full flex-col items-center justify-center gap-0 rounded-xl transition-all duration-200",
-                  "font-sans text-[9px] uppercase tracking-[0.16em] font-bold",
-                  active ? "text-flat-pink" : "text-[#6f6f6f] hover:text-flat-text",
+                  "relative flex h-full flex-col items-center justify-center gap-0.5 rounded-xl transition-all duration-200",
+                  "font-sans text-[10px] font-semibold leading-none",
+                  active ? "text-flat-pink" : "text-[#444] hover:text-flat-text",
                 ].join(" ")}
               >
                 <NavIcon>{it.icon}</NavIcon>

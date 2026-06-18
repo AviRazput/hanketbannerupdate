@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { instaImages, mainCollection } from "@/data/products";
+import { mainCollection } from "@/data/products";
 import { HorizontalScrollRow } from "./HorizontalScrollRow";
 import { sectionHeadingClass } from "./sectionHeadingStyle";
 
-const INSTA_IMAGE_BASE = "https://woodmart.xtemos.com/wp-content/uploads/2017/04/";
 const arrivalBrands = [
   "Craft District",
   "Studio Nine",
@@ -15,49 +14,54 @@ const arrivalBrands = [
   "Mode House",
   "Thread Lab",
 ] as const;
+const arrivalImages = [
+  "/instagram/4.jpg",
+  "/instagram/6.jpg",
+  "/instagram/7.jpg",
+  "/instagram/8.jpg",
+  "/instagram/2.jpg",
+  "/instagram/1.jpg",
+] as const;
 
 export function NewArrivalsSection() {
-  const products = mainCollection.slice(0, 8);
+  const products = mainCollection.slice(0, 6);
 
   return (
-    <section id="new-arrivals" className="bg-white pt-5 pb-5 md:pt-6 md:pb-6">
-      <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="mb-5 md:mb-6">
+    <section id="new-arrivals" className="bg-white pt-7 pb-8 md:pt-9 md:pb-10">
+      <div className="w-full px-0 sm:px-6 lg:px-10 xl:px-14">
+        <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
             New Arrivals
           </h2>
-          <p className="mt-2 font-sans text-[11px] font-bold uppercase tracking-[0.22em] text-flat-muted">
-            Fresh drops from emerging brands on Hanket
-          </p>
         </div>
 
-        <HorizontalScrollRow arrowTop="42%">
+        <HorizontalScrollRow
+          arrowTop="50%"
+          scrollClassName="flex justify-start gap-4 overflow-x-auto no-scrollbar scroll-smooth pb-1 sm:gap-5 lg:gap-7"
+        >
           {products.map((p, i) => (
             <Link
               key={p.id}
               href={`/product/${p.id}`}
-              className="group block w-[150px] shrink-0 text-center sm:w-[168px] md:w-[180px] lg:w-[192px]"
+              className="group block w-[min(74vw,300px)] shrink-0 sm:w-[270px] md:w-[285px] lg:w-[305px] xl:w-[330px]"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#f7f7f7]">
+              <div className="relative aspect-[5/7] w-full overflow-hidden rounded-[22px] bg-[#f7f7f7] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
                 <Image
-                  src={`${INSTA_IMAGE_BASE}${instaImages[i % instaImages.length]}`}
+                  src={arrivalImages[i % arrivalImages.length]}
                   alt={p.title}
                   fill
-                  unoptimized
-                  sizes="(max-width: 640px) 150px, 192px"
-                  className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                  sizes="(max-width: 640px) 74vw, (max-width: 1024px) 285px, 330px"
+                  className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                 />
-              </div>
-              <div className="px-1 pt-3">
-                <p className="font-sans text-[12px] font-black uppercase leading-tight tracking-normal text-flat-text">
-                  {arrivalBrands[i % arrivalBrands.length]}
-                </p>
-                <p className="mt-1 font-sans text-[12px] uppercase leading-tight tracking-normal text-flat-text">
-                  {p.title}
-                </p>
-                <p className="mt-1 font-sans text-[11px] leading-none tracking-normal text-flat-muted">
-                  {p.price}
-                </p>
+                <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/62 via-black/18 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 px-4 pb-7 text-center text-white md:px-5">
+                  <p className="font-serif text-[1.3rem] font-semibold leading-tight drop-shadow-sm md:text-[1.45rem]">
+                    {arrivalBrands[i % arrivalBrands.length]}
+                  </p>
+                  <p className="mt-2 font-sans text-[13px] font-bold leading-tight drop-shadow-sm md:text-[14px]">
+                    {p.title}
+                  </p>
+                </div>
               </div>
             </Link>
           ))}

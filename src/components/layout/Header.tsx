@@ -180,6 +180,14 @@ function CountBadge({ count }: { count: number }) {
 }
 
 const categoryNav = mainNav;
+const mobileCategoryNav = [
+  { label: "Women", href: "/search?category=women" },
+  { label: "Men", href: "/search?category=men" },
+  { label: "Kids", href: "/search?category=kids" },
+  { label: "Glam", href: "/search?category=glam" },
+  { label: "Accessories", href: "/search?type=accessories" },
+  { label: "Jewellery", href: "/search?type=jewelry" },
+];
 
 function BrandLogo({ variant = "desktop" }: { variant?: "desktop" | "mobile" | "drawer" }) {
   const isDrawer = variant === "drawer";
@@ -320,14 +328,23 @@ export function Header() {
             </div>
           </div>
 
-          <form className="mt-1.5 w-full" onSubmit={(e) => e.preventDefault()} role="search" aria-label="Site search">
-            <SearchField
-              inputClassName={searchInputMobile}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              staticPlaceholder="Search for Casual Coords"
-            />
-          </form>
+          <nav
+            className="mt-1 flex w-full items-center justify-between gap-2 overflow-hidden px-1 pb-1 pt-1"
+            aria-label="Mobile category navigation"
+          >
+            {mobileCategoryNav.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={[
+                  "shrink-0 border-b py-1 text-center font-sans text-[13px] font-medium leading-none text-[#222] transition-colors hover:text-flat-pink",
+                  isNavActive(item.href) ? "border-flat-text text-flat-text" : "border-transparent",
+                ].join(" ")}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
         {/* Desktop: WoodMart-style */}
@@ -387,16 +404,16 @@ export function Header() {
           </div>
 
           <div className="relative flex items-center py-1.5 lg:py-2 overflow-visible before:absolute before:left-1/2 before:top-0 before:h-px before:w-screen before:-translate-x-1/2 before:bg-[#ededed]">
-            <nav className="flex w-full items-center justify-center gap-3 lg:gap-5 xl:gap-7 overflow-visible min-w-0">
+            <nav className="flex w-full min-w-0 items-center justify-start gap-1 overflow-visible">
               {categoryNav.map((item) => (
                 <div key={item.label} className="relative group shrink-0 py-0.5">
                   <Link
                     href={item.href}
                     className={[
-                      "flex items-center gap-1 border-b pb-1.5 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:text-[12px]",
+                      "flex items-center gap-1 border-b px-3 py-2 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:px-4 xl:text-[12px]",
                       isNavActive(item.href)
-                        ? "border-flat-pink text-flat-pink"
-                        : "border-transparent text-[#333] hover:text-flat-pink",
+                        ? "border-flat-pink bg-flat-pink/5 text-flat-pink"
+                        : "border-transparent text-[#222] hover:bg-[#f7f7f7] hover:text-flat-pink",
                     ].join(" ")}
                   >
                     <span>{item.label}</span>
