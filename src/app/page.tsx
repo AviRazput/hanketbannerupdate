@@ -38,21 +38,6 @@ function MobileHomeTop() {
           ))}
         </div>
       </div>
-
-      <Link
-        href="/search"
-        className="mt-3 flex min-h-[38px] w-full items-center justify-between overflow-hidden bg-[#fff2ec] px-3 shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
-      >
-        <span className="font-sans text-[17px] font-extrabold leading-none text-[#ff6d37]">
-          Get 25% Off
-          <span className="mt-0.5 block text-[9px] font-bold text-[#8e7b70]">Up To Rs 200 Off*</span>
-        </span>
-        <span className="rounded-md border border-dashed border-[#cbb8aa] bg-white px-3 py-1 text-center font-sans text-[8px] font-black uppercase leading-tight text-[#333]">
-          Coupon
-          <span className="block text-[11px]">HANKET25</span>
-        </span>
-        <span className="font-serif text-[26px] font-bold text-[#e19aa9]">%</span>
-      </Link>
     </section>
   );
 }

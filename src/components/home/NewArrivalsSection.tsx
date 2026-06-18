@@ -45,7 +45,7 @@ export function NewArrivalsSection() {
               href={`/product/${p.id}`}
               className="group block w-[min(74vw,300px)] shrink-0 sm:w-[270px] md:w-[285px] lg:w-[305px] xl:w-[330px]"
             >
-              <div className="relative aspect-[5/7] w-full overflow-hidden rounded-[22px] bg-[#f7f7f7] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
+              <div className="relative aspect-[5/7] w-full overflow-hidden rounded-[24px] bg-[#f7f7f7] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
                 <Image
                   src={arrivalImages[i % arrivalImages.length]}
                   alt={p.title}

@@ -293,7 +293,7 @@ export function Hero() {
       {/* Mobile */}
       <div className="md:hidden relative w-full pb-2 px-0">
         <div
-          className="relative w-full overflow-hidden touch-pan-y aspect-[3/4] bg-white"
+          className="relative w-full max-h-[calc(100dvh-350px)] overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
@@ -325,7 +325,7 @@ export function Hero() {
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
                     sizes="100vw"
-                    className="object-cover object-center pointer-events-none select-none"
+                    className="object-fill object-center pointer-events-none select-none"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />
@@ -339,7 +339,7 @@ export function Hero() {
 
       {/* Desktop */}
       <div className="hidden md:block w-full mb-2 px-0 sm:px-6 lg:mb-3 lg:px-10 xl:px-14">
-        <div className="relative group w-full overflow-hidden bg-white h-[380px] lg:h-[430px] xl:h-[500px]">
+        <div className="relative group w-full overflow-hidden rounded-[24px] bg-white h-[350px] lg:h-[400px] xl:h-[460px]">
           <div className="absolute inset-0 overflow-hidden">
             <AnimatePresence initial={false} custom={interactionSource}>
               {slide && desktopSrc ? (

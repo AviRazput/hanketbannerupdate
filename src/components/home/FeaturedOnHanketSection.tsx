@@ -45,15 +45,14 @@ export function FeaturedOnHanketSection() {
           </h2>
         </div>
 
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 no-scrollbar sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:pb-0 lg:grid-cols-4 lg:items-end lg:gap-6 xl:gap-8">
-          {featuredOnHanket.map((brand, index) => (
+        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 no-scrollbar sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:pb-0 lg:grid-cols-4 lg:gap-6 xl:gap-8">
+          {featuredOnHanket.map((brand) => (
             <Link
               key={brand.slug}
               href={`/search?brand=${brand.slug}`}
               className={[
-                "group relative block aspect-[3/4] w-[78vw] max-w-[290px] shrink-0 snap-start overflow-hidden rounded-[3px] bg-white shadow-[0_12px_32px_rgba(43,35,29,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(43,35,29,0.16)]",
+                "group relative block aspect-[3/4] w-[78vw] max-w-[290px] shrink-0 snap-start overflow-hidden rounded-[24px] bg-white shadow-[0_12px_32px_rgba(43,35,29,0.08)] transition-shadow duration-300 hover:shadow-[0_18px_45px_rgba(43,35,29,0.16)]",
                 "sm:w-auto sm:max-w-none sm:shrink md:border md:border-white/80 md:shadow-[0_18px_55px_rgba(43,35,29,0.12)]",
-                index === 1 ? "lg:translate-y-8" : index === 2 ? "lg:-translate-y-4" : "",
               ].join(" ")}
             >
               <Image

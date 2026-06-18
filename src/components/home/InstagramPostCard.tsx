@@ -35,7 +35,7 @@ export function InstagramPostCard({ post }: { post: InstagramPost }) {
   return (
     <Link
       href={post.href}
-      className="group relative block aspect-square w-full shrink-0 overflow-hidden bg-[#f3f3f3]"
+      className="group relative block aspect-square w-full shrink-0 overflow-hidden rounded-[24px] bg-[#f3f3f3]"
       aria-label={post.title}
     >
       <Image

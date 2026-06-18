@@ -1,8 +1,8 @@
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { InstallPromptBanner } from "./InstallPromptBanner";
 import { MobileBottomNav } from "./MobileBottomNav";
+import { NativeInstallPrompt } from "./NativeInstallPrompt";
 import { TopBar } from "./TopBar";
 import { Suspense } from "react";
 
@@ -19,7 +19,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
         </main>
         <Footer />
         <MobileBottomNav />
-        <InstallPromptBanner />
+        <NativeInstallPrompt />
       </div>
     </AuthProvider>
   );

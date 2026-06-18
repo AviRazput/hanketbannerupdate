@@ -16,54 +16,39 @@ function IconHome() {
   );
 }
 
-function IconWishlist() {
+function IconSearch() {
   return (
     <svg className="h-[21px] w-[21px] stroke-current fill-none stroke-[1.8]" viewBox="0 0 24 24" aria-hidden>
-      <path
-        d="M12 20.2S4.3 15.7 2.8 10.9C1.9 8 3.8 5.4 6.8 5.4c1.8 0 3.2.9 4 2.1.8-1.2 2.2-2.1 4-2.1 3 0 4.9 2.6 4 5.5C19.7 15.7 12 20.2 12 20.2Z"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <circle cx="10.8" cy="10.8" r="6.5" />
+      <path d="m16 16 4.2 4.2" strokeLinecap="round" />
     </svg>
   );
 }
 
-function IconShop() {
+function IconNewArrivals() {
   return (
     <svg className="h-[21px] w-[21px] stroke-current fill-none stroke-[1.8]" viewBox="0 0 24 24" aria-hidden>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M7 9V8a5 5 0 0 1 10 0v1"
-      />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M5 9h14l-1 10.2A2 2 0 0 1 16 21H8a2 2 0 0 1-2-1.8L5 9Z"
-      />
+      <path d="m12 3 1.4 4.1L17.5 8.5l-4.1 1.4L12 14l-1.4-4.1-4.1-1.4 4.1-1.4L12 3Z" strokeLinejoin="round" />
+      <path d="m18.5 14 0.8 2.2 2.2 0.8-2.2 0.8-0.8 2.2-0.8-2.2-2.2-0.8 2.2-0.8 0.8-2.2Z" strokeLinejoin="round" />
+      <path d="m5.5 14 0.6 1.7 1.7 0.6-1.7 0.6-0.6 1.7-0.6-1.7-1.7-0.6 1.7-0.6 0.6-1.7Z" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function IconCart() {
+function IconProfile() {
   return (
     <svg className="h-[21px] w-[21px] stroke-current fill-none stroke-[1.8]" viewBox="0 0 24 24" aria-hidden>
-      <path
-        d="M3.5 4.5h2.2l2 10.1A2 2 0 0 0 9.7 16h7.8a2 2 0 0 0 1.9-1.4L21 8H6.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="10" cy="20" r="1.2" className="fill-current stroke-none" />
-      <circle cx="18" cy="20" r="1.2" className="fill-current stroke-none" />
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4.5 21a7.5 7.5 0 0 1 15 0" strokeLinecap="round" />
     </svg>
   );
 }
 
 const linkItems = [
   { href: "/", label: "Home", icon: <IconHome />, match: (p: string) => p === "/" },
-  { href: "#", label: "Wishlist", icon: <IconWishlist />, match: () => false },
-  { href: "/product", label: "Shop", icon: <IconShop />, match: (p: string) => p.startsWith("/product") },
-  { href: "/cart", label: "Cart", icon: <IconCart />, match: (p: string) => p === "/cart" },
+  { href: "/search", label: "Search", icon: <IconSearch />, match: (p: string) => p.startsWith("/search") },
+  { href: "/#new-arrivals", label: "New", icon: <IconNewArrivals />, match: () => false },
+  { href: "/auth/login", label: "Profile", icon: <IconProfile />, match: (p: string) => p.startsWith("/auth") },
 ] as const;
 
 export function MobileBottomNav() {

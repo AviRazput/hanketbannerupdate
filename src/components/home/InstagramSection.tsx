@@ -13,7 +13,7 @@ export function InstagramSection() {
           ))}
         </div>
 
-        <div className="absolute left-1/2 top-1/2 z-10 w-[min(420px,82vw)] -translate-x-1/2 -translate-y-1/2 bg-white px-6 py-8 text-center shadow-[0_12px_35px_rgba(0,0,0,0.12)] sm:px-10 sm:py-9">
+        <div className="absolute left-1/2 top-1/2 z-10 w-[min(420px,82vw)] -translate-x-1/2 -translate-y-1/2 rounded-[24px] bg-white px-6 py-8 text-center shadow-[0_12px_35px_rgba(0,0,0,0.12)] sm:px-10 sm:py-9">
           <p className="font-sans text-[22px] font-black uppercase leading-none tracking-normal text-[#222]">
             Instagram
           </p>

@@ -40,7 +40,7 @@ export function CategoriesSection() {
             <Link
               key={cat.slug}
               href={cat.href}
-              className="group block w-[150px] shrink-0 bg-white p-1.5 shadow-[0_10px_30px_rgba(31,27,23,0.08)] ring-1 ring-[#eadfd4] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_38px_rgba(31,27,23,0.14)] hover:ring-[#c8a66e] sm:w-[178px] md:w-[calc((100%_-_6.25rem)/6)] md:min-w-0"
+              className="group block w-[150px] shrink-0 overflow-hidden rounded-[24px] bg-white p-1.5 ring-1 ring-inset ring-black/10 transition-transform duration-300 hover:-translate-y-1 sm:w-[178px] md:w-[calc((100%_-_6.25rem)/6)] md:min-w-0"
             >
               <div className="relative aspect-[4/4.45] w-full overflow-hidden bg-[#f7f1eb]">
                 <Image
@@ -52,7 +52,7 @@ export function CategoriesSection() {
                 />
                 <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/35 to-transparent opacity-70" />
               </div>
-              <div className="flex min-h-[104px] flex-col items-center justify-center border border-[#efe5da] border-t-0 px-2 py-3 text-center">
+              <div className="flex min-h-[104px] flex-col items-center justify-center bg-white px-2 py-3 text-center">
                 <h3 className="font-sans text-[12px] font-black uppercase leading-tight tracking-[0.08em] text-[#191714] sm:text-[13px] md:text-[14px]">
                   {cat.label}
                 </h3>
