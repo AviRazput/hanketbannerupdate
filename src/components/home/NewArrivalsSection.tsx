@@ -28,7 +28,7 @@ export function NewArrivalsSection() {
 
   return (
     <section id="new-arrivals" className="bg-white pt-7 pb-8 md:pt-9 md:pb-10">
-      <div className="w-full px-0 sm:px-6 lg:px-10 xl:px-14">
+      <div className="mx-auto w-full max-w-[1920px] px-0 sm:px-6 lg:px-10 xl:px-14">
         <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
             New Arrivals

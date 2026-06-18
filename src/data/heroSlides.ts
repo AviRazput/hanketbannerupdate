@@ -8,6 +8,12 @@ export type HeroSlide = {
 
 export const heroSlides: HeroSlide[] = [
   {
+    id: "hero-banner-7",
+    imageSrc: "/hero_section_banner/banner7/pc.png",
+    mobileImageSrc: "/hero_section_banner/banner7/mobile.png",
+    imageAlt: "Hanket hero banner 7",
+  },
+  {
     id: "hero-banner-5",
     imageSrc: "/hero_section_banner/banner5/pc.png",
     mobileImageSrc: "/hero_section_banner/banner5/mobile.png",

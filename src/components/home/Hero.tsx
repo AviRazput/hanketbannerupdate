@@ -338,8 +338,11 @@ export function Hero() {
       </div>
 
       {/* Desktop */}
-      <div className="hidden md:block w-full mb-2 px-0 sm:px-6 lg:mb-3 lg:px-10 xl:px-14">
-        <div className="relative group w-full overflow-hidden rounded-[24px] bg-white h-[350px] lg:h-[400px] xl:h-[460px]">
+      <div className="mx-auto hidden w-full max-w-[1920px] md:block mb-2 px-0 sm:px-6 lg:mb-3 lg:px-10 xl:px-14">
+        <div
+          className="relative group w-full overflow-hidden rounded-[24px] bg-white"
+          style={{ aspectRatio: "3 / 1" }}
+        >
           <div className="absolute inset-0 overflow-hidden">
             <AnimatePresence initial={false} custom={interactionSource}>
               {slide && desktopSrc ? (
@@ -361,8 +364,11 @@ export function Hero() {
                   fetchPriority={isInitial ? "high" : "auto"}
                   unoptimized
                   sizes="100vw"
-                  className="object-cover object-center"
-                  style={{ filter: slide.imageFilter }}
+                  style={{
+                    filter: slide.imageFilter,
+                    objectFit: "contain",
+                    objectPosition: "center top",
+                  }}
                 />
               </motion.div>
               ) : null}
