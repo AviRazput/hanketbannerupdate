@@ -288,7 +288,7 @@ export function Header() {
 
   return (
     <header className="bg-white fixed md:sticky top-0 left-0 right-0 w-full z-50">
-      <div className="w-full px-3 sm:px-5 md:px-7 lg:px-10 xl:px-12 py-1.5 md:py-0">
+      <div className="w-full px-3 sm:px-6 lg:px-10 xl:px-14 py-1.5 md:py-0">
         {/* Mobile */}
         <div className="md:hidden">
           <div className="grid grid-cols-[auto_1fr_auto] items-center min-h-[34px] gap-2">
@@ -404,7 +404,7 @@ export function Header() {
           </div>
 
           <div className="relative flex items-center py-1.5 lg:py-2 overflow-visible before:absolute before:left-1/2 before:top-0 before:h-px before:w-screen before:-translate-x-1/2 before:bg-[#ededed]">
-            <nav className="flex w-full min-w-0 items-center justify-start gap-1 overflow-visible">
+            <nav className="-mx-3 flex w-full min-w-0 items-center justify-start gap-1 overflow-visible xl:-mx-4">
               {categoryNav.map((item) => (
                 <div key={item.label} className="relative group shrink-0 py-0.5">
                   <Link

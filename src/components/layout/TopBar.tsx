@@ -50,7 +50,7 @@ function UtilityIcon({ icon }: { icon: (typeof utilityItems)[number]["icon"] }) 
 export function TopBar() {
   return (
     <div className="hidden border-b border-[#ededed] bg-white text-[#222] md:block">
-      <div className="mx-auto flex min-h-[34px] max-w-[1920px] items-center justify-between gap-8 px-6 lg:px-10">
+      <div className="mx-auto flex min-h-[34px] max-w-[1920px] items-center justify-between gap-8 px-0 sm:px-6 lg:px-10 xl:px-14">
         <div className="flex flex-1 items-center justify-between gap-8">
           {utilityItems.map((item) => (
             <div

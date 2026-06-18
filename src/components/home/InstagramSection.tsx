@@ -5,7 +5,7 @@ const mosaicPosts = instagramPosts.slice(0, 10);
 
 export function InstagramSection() {
   return (
-    <section className="relative w-full bg-white py-0">
+    <section className="relative w-full bg-white px-0 py-0 sm:px-6 lg:px-10 xl:px-14">
       <div className="relative">
         <div className="grid w-full grid-cols-2 gap-0 sm:grid-cols-5">
           {mosaicPosts.map((post, index) => (
