@@ -293,7 +293,7 @@ export function Hero() {
       {/* Mobile */}
       <div className="md:hidden relative w-full pb-2 px-0">
         <div
-          className="relative w-full max-h-[calc(100dvh-350px)] overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white"
+          className="relative w-full overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
@@ -325,7 +325,7 @@ export function Hero() {
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
                     sizes="100vw"
-                    className="object-fill object-center pointer-events-none select-none"
+                    className="object-cover object-center pointer-events-none select-none"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />
