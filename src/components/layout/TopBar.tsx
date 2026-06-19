@@ -1,5 +1,4 @@
 const utilityItems = [
-  { label: "Free shipping on orders above", amount: "\u20b91,300", icon: "truck" },
   { label: "Verified Brands", icon: "shield" },
   { label: "Secure Payments", icon: "lock" },
   { label: "Easy Returns", icon: "returns" },
@@ -7,17 +6,6 @@ const utilityItems = [
 
 function UtilityIcon({ icon }: { icon: (typeof utilityItems)[number]["icon"] }) {
   const className = "h-4 w-4 fill-none stroke-current stroke-[1.9]";
-
-  if (icon === "truck") {
-    return (
-      <svg className={className} viewBox="0 0 24 24" aria-hidden>
-        <path d="M3 7h11v9H3z" />
-        <path d="M14 10h4l3 3v3h-7z" />
-        <circle cx="7" cy="18" r="1.7" />
-        <circle cx="17" cy="18" r="1.7" />
-      </svg>
-    );
-  }
 
   if (icon === "shield") {
     return (
@@ -51,7 +39,7 @@ export function TopBar() {
   return (
     <div className="hidden border-b border-[#ededed] bg-white text-[#222] md:block">
       <div className="mx-auto flex min-h-[34px] max-w-[1920px] items-center justify-between gap-8 px-0 sm:px-6 lg:px-10 xl:px-14">
-        <div className="flex flex-1 items-center justify-between gap-8">
+        <div className="flex items-center gap-8">
           {utilityItems.map((item) => (
             <div
               key={`${item.label}${"amount" in item ? item.amount : ""}`}

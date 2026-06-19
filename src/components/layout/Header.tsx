@@ -189,20 +189,31 @@ const mobileCategoryNav = [
   { label: "Jewellery", href: "/search?type=jewelry" },
 ];
 
+const homeCategoryLabels: Record<string, string> = {
+  WOMEN: "Women",
+  MEN: "Men",
+  KIDS: "Kids",
+  GLAM: "Glam",
+  "HOME DECOR": "Home Decor",
+  "WEDDING & OCCASION": "Wedding & Occasion",
+  FOOTWEAR: "Footwear",
+  JEWELLERY: "Jewellery",
+  ACCESSORIES: "Accessories",
+};
+
 function BrandLogo({ variant = "desktop" }: { variant?: "desktop" | "mobile" | "drawer" }) {
-  const isDrawer = variant === "drawer";
   const isMobile = variant === "mobile";
 
   return (
-    <span className="block text-flat-pink">
-      <span
+    <span className={isMobile ? "relative block h-8 w-[120px] overflow-hidden" : "relative block h-12 w-[180px] overflow-hidden"}>
+      <img
+        src="/hanketlogo/logohanket.png"
+        alt="Hanket"
         className={[
-          "block font-serif font-medium leading-[0.82] tracking-[0.08em]",
-          isDrawer ? "text-[38px]" : isMobile ? "text-[20px]" : "text-[42px] lg:text-[46px] xl:text-[48px]",
+          "absolute block h-auto max-w-none",
+          isMobile ? "-left-10 -top-[90px] w-[200px]" : "-left-[60px] -top-[135px] w-[300px]",
         ].join(" ")}
-      >
-        Hanket
-      </span>
+      />
     </span>
   );
 }
@@ -242,6 +253,7 @@ export function Header() {
   const searchParams = useSearchParams();
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileHomeCategory, setMobileHomeCategory] = useState("Women");
   const [searchQuery, setSearchQuery] = useState("");
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const drawerLinks = categoryNav;
@@ -261,6 +273,11 @@ export function Header() {
   const openAuth = () => {
     setMobileOpen(false);
     openAuthDrawer("sign-in");
+  };
+
+  const selectMobileHomeCategory = (category: string) => {
+    setMobileHomeCategory(category);
+    window.dispatchEvent(new CustomEvent("hanket:mobile-category", { detail: category }));
   };
 
   const isNavActive = (href: string) => {
@@ -332,18 +349,32 @@ export function Header() {
             className="mt-1 flex w-full items-center justify-between gap-2 overflow-hidden px-1 pb-1 pt-1"
             aria-label="Mobile category navigation"
           >
-            {mobileCategoryNav.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={[
-                  "shrink-0 border-b py-1 text-center font-sans text-[13px] font-medium leading-none text-[#222] transition-colors hover:text-flat-pink",
-                  isNavActive(item.href) ? "border-flat-text text-flat-text" : "border-transparent",
-                ].join(" ")}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {mobileCategoryNav.map((item) => {
+              const isHomeSelector = pathname === "/";
+              const className = [
+                "shrink-0 border-b py-1 text-center font-sans text-[13px] font-medium leading-none text-[#222] transition-colors hover:text-flat-pink",
+                isHomeSelector && mobileHomeCategory === item.label
+                  ? "border-flat-pink text-flat-pink"
+                  : !isHomeSelector && isNavActive(item.href)
+                    ? "border-flat-text text-flat-text"
+                    : "border-transparent",
+              ].join(" ");
+
+              return isHomeSelector ? (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => selectMobileHomeCategory(item.label)}
+                  className={className}
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <Link key={item.label} href={item.href} className={className}>
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
@@ -407,12 +438,14 @@ export function Header() {
             <nav className="-mx-3 flex w-full min-w-0 items-center justify-start gap-1 overflow-visible xl:-mx-4">
               {categoryNav.map((item) => (
                 <div key={item.label} className="relative group shrink-0 py-0.5">
-                  <Link
-                    href={item.href}
+                  {pathname === "/" ? (
+                  <button
+                    type="button"
+                    onClick={() => selectMobileHomeCategory(homeCategoryLabels[item.label] ?? item.label)}
                     className={[
                       "flex items-center gap-1 border-b px-3 py-2 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:px-4 xl:text-[12px]",
-                      isNavActive(item.href)
-                        ? "border-flat-pink bg-flat-pink/5 text-flat-pink"
+                      mobileHomeCategory === (homeCategoryLabels[item.label] ?? item.label)
+                        ? "border-flat-pink text-flat-pink"
                         : "border-transparent text-[#222] hover:bg-[#f7f7f7] hover:text-flat-pink",
                     ].join(" ")}
                   >
@@ -422,7 +455,21 @@ export function Header() {
                         ▼
                       </span>
                     )}
-                  </Link>
+                  </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={[
+                        "flex items-center gap-1 border-b px-3 py-2 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:px-4 xl:text-[12px]",
+                        isNavActive(item.href)
+                          ? "border-flat-pink text-flat-pink"
+                          : "border-transparent text-[#222] hover:bg-[#f7f7f7] hover:text-flat-pink",
+                      ].join(" ")}
+                    >
+                      <span>{item.label}</span>
+                      {getNavSubcategories(item).length > 0 && <span className="text-[8px] text-gray-400">▼</span>}
+                    </Link>
+                  )}
 
                   {getNavSubcategories(item).length > 0 && (
                     <div className="absolute left-0 top-full pt-1.5 w-48 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 ease-out z-50">
