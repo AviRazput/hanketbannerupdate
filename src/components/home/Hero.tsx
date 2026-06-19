@@ -293,7 +293,7 @@ export function Hero() {
       {/* Mobile */}
       <div className="md:hidden relative w-full pb-2 px-0">
         <div
-          className="relative w-full overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white"
+          className="relative w-full max-h-[calc(100dvh-350px)] overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
