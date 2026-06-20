@@ -17,15 +17,31 @@ export const defaultHeroSlides: HeroSlide[] = [
 
 export const categoryHeroSlides: Record<string, HeroSlide[]> = {
   Women: [
-    ["banner2", "jpeg"],
-    ["banner3", "png"],
-    ["banner5", "png"],
-  ].map(([banner, extension]) => ({
-    id: `women-${banner}`,
-    imageSrc: `/category-pages/women/banner/${banner}/pc.${extension}`,
-    mobileImageSrc: `/category-pages/women/banner/${banner}/mobile.${extension}`,
-    imageAlt: `Women ${banner}`,
-  })),
+    {
+      id: "women-wedding-edit",
+      imageSrc: "/category-pages/wedding-occasion/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/wedding-occasion/banner/banner1/mobile.png",
+      imageAlt: "The Wedding Edit",
+    },
+    {
+      id: "women-banner2",
+      imageSrc: "/category-pages/women/banner/banner2/pc.jpeg",
+      mobileImageSrc: "/category-pages/women/banner/banner2/mobile.jpeg",
+      imageAlt: "Women banner2",
+    },
+    {
+      id: "women-banner3",
+      imageSrc: "/category-pages/women/banner/banner3/pc.png",
+      mobileImageSrc: "/category-pages/women/banner/banner3/mobile.png",
+      imageAlt: "Women banner3",
+    },
+    {
+      id: "women-banner5",
+      imageSrc: "/category-pages/women/banner/banner5/pc.png",
+      mobileImageSrc: "/category-pages/women/banner/banner5/mobile.png",
+      imageAlt: "Women banner5",
+    },
+  ],
   Men: [
     {
       id: "men-banner2",
