@@ -84,7 +84,7 @@ export function MobileHomeTop() {
               <span className="relative block aspect-[4/5] overflow-hidden rounded-xl bg-[#fff3f5] shadow-[0_2px_9px_rgba(225,20,80,0.18)]">
                 <Image src={categoryDetails[category].image} alt="" fill sizes="58px" className="object-cover object-top" />
               </span>
-              <span className="mt-1 block truncate font-sans text-[8px] font-bold uppercase leading-none text-[#333] md:mt-2 md:text-[10px]">
+              <span className="mt-1 block min-h-5 whitespace-normal break-words px-0.5 font-sans text-[8px] font-bold uppercase leading-[1.15] text-[#333] md:mt-2 md:min-h-6 md:text-[10px]">
                 {label}
               </span>
             </Link>

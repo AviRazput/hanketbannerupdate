@@ -21,24 +21,30 @@ const typeLabels: Record<string, string> = {
 };
 
 const categoryBanners: Record<string, string> = {
-  women: "/category-pages/women/banner/banner1/pc.png",
-  men: "/category-pages/men/banner/banner1/pc.png",
-  kids: "/category-pages/kids/banner/pc.png",
-  glam: "/banner6.png",
+  women: "/category-pages/women/banner/banner2/pc.jpeg",
+  men: "/category-pages/men/banner/banner2/pc.png",
+  kids: "/category-pages/kids/banner/banner1/pc.png",
+  glam: "/category-pages/glam/banner/banner1/pc.png",
   "home-decor": "/banner10.jpg",
-  "wedding-occasion": "/bannerx.png",
+  "wedding-occasion": "/category-pages/wedding-occasion/banner/banner1/pc.png",
 };
 
 const categoryMobileBanners: Record<string, string> = {
-  women: "/category-pages/women/banner/banner1/mobile.png",
-  men: "/category-pages/men/banner/banner1/mobile.png",
-  kids: "/category-pages/kids/banner/mobile.png",
+  women: "/category-pages/women/banner/banner2/mobile.jpeg",
+  men: "/category-pages/men/banner/banner2/mobile.png",
+  kids: "/category-pages/kids/banner/banner1/mobile.png",
+  glam: "/category-pages/glam/banner/banner1/mobile.png",
+  "wedding-occasion": "/category-pages/wedding-occasion/banner/banner1/mobile.png",
 };
 
 const typeBanners: Record<string, string> = {
-  footwear: "/banner4.png",
+  footwear: "/category-pages/footwear/banner/banner1/pc.png",
   jewelry: "/banner5.png",
   accessories: "/banner6.png",
+};
+
+const typeMobileBanners: Record<string, string> = {
+  footwear: "/category-pages/footwear/banner/banner1/mobile.png",
 };
 
 const sizes = ["XS", "S", "M", "L", "XL"];
@@ -112,7 +118,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
   const type = firstParam(params.type);
   const title = (type && typeLabels[type]) || (category && categoryLabels[category]) || "SHOP";
   const bannerImage = (type && typeBanners[type]) || (category && categoryBanners[category]) || "/banner.png";
-  const mobileBannerImage = (category && categoryMobileBanners[category]) || bannerImage;
+  const mobileBannerImage =
+    (type && typeMobileBanners[type]) || (category && categoryMobileBanners[category]) || bannerImage;
   const activeCategoryKey = type || category || "women";
   const activeCategoryOptions = categoryOptions[activeCategoryKey] || categoryOptions.women;
   const products = [...mainCollection, ...mainCollection].slice(0, 12);

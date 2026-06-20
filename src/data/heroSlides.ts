@@ -8,40 +8,15 @@ export type HeroSlide = {
 
 export const defaultHeroSlides: HeroSlide[] = [
   {
-    id: "hero-banner-7",
-    imageSrc: "/hero_section_banner/banner7/pc.png",
-    mobileImageSrc: "/hero_section_banner/banner7/mobile.png",
-    imageAlt: "Hanket hero banner 7",
-  },
-  {
     id: "hero-banner-5",
     imageSrc: "/hero_section_banner/banner5/pc.png",
     mobileImageSrc: "/hero_section_banner/banner5/mobile.png",
     imageAlt: "Hanket hero banner 5",
   },
-  {
-    id: "hero-banner-1",
-    imageSrc: "/hero_section_banner/banner1/pc.png",
-    mobileImageSrc: "/hero_section_banner/banner1/mobile.png",
-    imageAlt: "Hanket hero banner 1",
-  },
-  {
-    id: "hero-banner-3",
-    imageSrc: "/hero_section_banner/banner3/pc.png",
-    mobileImageSrc: "/hero_section_banner/banner3/mobile.png",
-    imageAlt: "Hanket hero banner 3",
-  },
-  {
-    id: "hero-banner-4",
-    imageSrc: "/hero_section_banner/banner4/pc.png",
-    mobileImageSrc: "/hero_section_banner/banner4/mobile.png",
-    imageAlt: "Hanket hero banner 4",
-  },
 ];
 
 export const categoryHeroSlides: Record<string, HeroSlide[]> = {
   Women: [
-    ["banner1", "png"],
     ["banner2", "jpeg"],
     ["banner3", "png"],
     ["banner4", "jpg"],
@@ -54,18 +29,54 @@ export const categoryHeroSlides: Record<string, HeroSlide[]> = {
   })),
   Men: [
     {
-      id: "men-banner1",
-      imageSrc: "/category-pages/men/banner/banner1/pc.png",
-      mobileImageSrc: "/category-pages/men/banner/banner1/mobile.png",
-      imageAlt: "Men banner",
+      id: "men-banner2",
+      imageSrc: "/category-pages/men/banner/banner2/pc.png",
+      mobileImageSrc: "/category-pages/men/banner/banner2/mobile.png",
+      imageAlt: "Men banner 2",
+    },
+    {
+      id: "men-banner3",
+      imageSrc: "/category-pages/men/banner/banner3/pc.png",
+      mobileImageSrc: "/category-pages/men/banner/banner3/mobile.png",
+      imageAlt: "Men banner 3",
     },
   ],
   Kids: [
     {
-      id: "kids-banner",
-      imageSrc: "/category-pages/kids/banner/pc.png",
-      mobileImageSrc: "/category-pages/kids/banner/mobile.png",
-      imageAlt: "Kids banner",
+      id: "kids-banner1",
+      imageSrc: "/category-pages/kids/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/banner1/mobile.png",
+      imageAlt: "Kids banner 1",
+    },
+    {
+      id: "kids-banner2",
+      imageSrc: "/category-pages/kids/banner/banner2/pc.png?v=2",
+      mobileImageSrc: "/category-pages/kids/banner/banner2/mobile.png",
+      imageAlt: "Kids banner 2",
+    },
+  ],
+  Glam: [
+    {
+      id: "glam-banner1",
+      imageSrc: "/category-pages/glam/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/glam/banner/banner1/mobile.png",
+      imageAlt: "Glam banner",
+    },
+  ],
+  "Wedding & Occasion": [
+    {
+      id: "wedding-occasion-banner1",
+      imageSrc: "/category-pages/wedding-occasion/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/wedding-occasion/banner/banner1/mobile.png",
+      imageAlt: "Wedding and occasion banner",
+    },
+  ],
+  Footwear: [
+    {
+      id: "footwear-banner1",
+      imageSrc: "/category-pages/footwear/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/footwear/banner/banner1/mobile.png",
+      imageAlt: "Footwear banner",
     },
   ],
 };
