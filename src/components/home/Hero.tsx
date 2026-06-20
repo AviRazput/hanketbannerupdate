@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useReducer, useRef } from "react";
-import { heroSlides } from "../../data/heroSlides";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { categoryHeroSlides, defaultHeroSlides, type HeroSlide } from "../../data/heroSlides";
 
 const AUTO_SLIDE_MS = 6000;
 /** Skip auto-advance for this long after any manual navigation (arrows/dots). */
@@ -21,6 +21,7 @@ type CarouselAction =
   | { type: "auto_next" }
   | { type: "manual_prev" }
   | { type: "manual_next" }
+  | { type: "reset" }
   | { type: "go_to"; index: number };
 
 function carouselReducer(
@@ -48,6 +49,9 @@ function carouselReducer(
         active: (state.active + 1) % slideCount,
         interactionSource: "manual-next",
       };
+    }
+    case "reset": {
+      return { active: 0, interactionSource: "auto" };
     }
     case "go_to": {
       if (action.index === state.active) return state;
@@ -77,7 +81,7 @@ function HeroDots({
   onSelect,
   invert = false,
 }: {
-  slides: typeof heroSlides;
+  slides: HeroSlide[];
   active: number;
   onSelect: (index: number) => void;
   invert?: boolean;
@@ -146,7 +150,8 @@ function getTransition(source: InteractionSource) {
 }
 
 export function Hero() {
-  const slides = heroSlides;
+  const [category, setCategory] = useState("Women");
+  const slides = categoryHeroSlides[category] ?? defaultHeroSlides;
   const slideCount = slides.length;
 
   const [{ active, interactionSource }, dispatch] = useReducer(
@@ -155,6 +160,17 @@ export function Hero() {
   );
 
   const lastUserActionRef = useRef(0);
+
+  useEffect(() => {
+    const onCategoryChange = (event: Event) => {
+      const selected = (event as CustomEvent<string>).detail;
+      setCategory(selected);
+      dispatch({ type: "reset" });
+    };
+
+    window.addEventListener("hanket:mobile-category", onCategoryChange);
+    return () => window.removeEventListener("hanket:mobile-category", onCategoryChange);
+  }, []);
 
   const goPrev = useCallback(() => {
     if (slideCount === 0) return;

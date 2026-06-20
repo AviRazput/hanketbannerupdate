@@ -6,7 +6,7 @@ export type HeroSlide = {
   imageFilter?: string;
 };
 
-export const heroSlides: HeroSlide[] = [
+export const defaultHeroSlides: HeroSlide[] = [
   {
     id: "hero-banner-7",
     imageSrc: "/hero_section_banner/banner7/pc.png",
@@ -38,3 +38,36 @@ export const heroSlides: HeroSlide[] = [
     imageAlt: "Hanket hero banner 4",
   },
 ];
+
+export const categoryHeroSlides: Record<string, HeroSlide[]> = {
+  Women: [
+    ["banner1", "png"],
+    ["banner2", "jpeg"],
+    ["banner3", "png"],
+    ["banner4", "jpg"],
+    ["banner5", "png"],
+  ].map(([banner, extension]) => ({
+    id: `women-${banner}`,
+    imageSrc: `/category-pages/women/banner/${banner}/pc.${extension}`,
+    mobileImageSrc: `/category-pages/women/banner/${banner}/mobile.${extension}`,
+    imageAlt: `Women ${banner}`,
+  })),
+  Men: [
+    {
+      id: "men-banner1",
+      imageSrc: "/category-pages/men/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/men/banner/banner1/mobile.png",
+      imageAlt: "Men banner",
+    },
+  ],
+  Kids: [
+    {
+      id: "kids-banner",
+      imageSrc: "/category-pages/kids/banner/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/mobile.png",
+      imageAlt: "Kids banner",
+    },
+  ],
+};
+
+export const heroSlides = categoryHeroSlides.Women ?? defaultHeroSlides;

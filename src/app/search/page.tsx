@@ -21,12 +21,18 @@ const typeLabels: Record<string, string> = {
 };
 
 const categoryBanners: Record<string, string> = {
-  women: "/banner.png",
-  men: "/banner4.png",
-  kids: "/banner5.png",
+  women: "/category-pages/women/banner/banner1/pc.png",
+  men: "/category-pages/men/banner/banner1/pc.png",
+  kids: "/category-pages/kids/banner/pc.png",
   glam: "/banner6.png",
   "home-decor": "/banner10.jpg",
   "wedding-occasion": "/bannerx.png",
+};
+
+const categoryMobileBanners: Record<string, string> = {
+  women: "/category-pages/women/banner/banner1/mobile.png",
+  men: "/category-pages/men/banner/banner1/mobile.png",
+  kids: "/category-pages/kids/banner/mobile.png",
 };
 
 const typeBanners: Record<string, string> = {
@@ -106,6 +112,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
   const type = firstParam(params.type);
   const title = (type && typeLabels[type]) || (category && categoryLabels[category]) || "SHOP";
   const bannerImage = (type && typeBanners[type]) || (category && categoryBanners[category]) || "/banner.png";
+  const mobileBannerImage = (category && categoryMobileBanners[category]) || bannerImage;
   const activeCategoryKey = type || category || "women";
   const activeCategoryOptions = categoryOptions[activeCategoryKey] || categoryOptions.women;
   const products = [...mainCollection, ...mainCollection].slice(0, 12);
@@ -238,12 +245,20 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
 
               <div className="relative mb-4 aspect-[4/3] min-h-[132px] overflow-hidden bg-[#f4efe9] sm:aspect-[16/5] sm:min-h-[150px] lg:mb-6">
                 <Image
+                  src={mobileBannerImage}
+                  alt={`${title} collection banner`}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="object-cover object-center sm:hidden"
+                />
+                <Image
                   src={bannerImage}
                   alt={`${title} collection banner`}
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 75vw"
-                  className="object-cover object-center"
+                  className="hidden object-cover object-center sm:block"
                 />
               </div>
 
