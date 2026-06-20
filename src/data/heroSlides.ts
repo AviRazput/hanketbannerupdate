@@ -19,7 +19,6 @@ export const categoryHeroSlides: Record<string, HeroSlide[]> = {
   Women: [
     ["banner2", "jpeg"],
     ["banner3", "png"],
-    ["banner4", "jpg"],
     ["banner5", "png"],
   ].map(([banner, extension]) => ({
     id: `women-${banner}`,
