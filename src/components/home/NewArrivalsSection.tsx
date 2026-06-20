@@ -14,6 +14,7 @@ const arrivalBrands = [
   "Mode House",
   "Thread Lab",
 ] as const;
+const arrivalPrices = ["₹2,499", "₹3,299", "₹1,899", "₹4,250", "₹999", "₹5,499"] as const;
 const arrivalImages = [
   "/instagram/4.jpg",
   "/instagram/6.jpg",
@@ -60,6 +61,9 @@ export function NewArrivalsSection() {
                   </p>
                   <p className="mt-2 font-sans text-[13px] font-bold leading-tight drop-shadow-sm md:text-[14px]">
                     {p.title}
+                  </p>
+                  <p className="mt-1.5 font-sans text-[12px] font-black tracking-[0.04em] drop-shadow-sm md:text-[13px]">
+                    {arrivalPrices[i % arrivalPrices.length]}
                   </p>
                 </div>
               </div>

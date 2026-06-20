@@ -18,8 +18,10 @@ const footerGroups = [
     links: [
       { label: "About Hanket", href: "#" },
       { label: "Our Story", href: "#" },
+      { label: "Brand Partners", href: "#" },
       { label: "Become a Seller", href: "#launch-with-hanket" },
       { label: "Careers", href: "#" },
+      { label: "Press", href: "#" },
       { label: "Contact Us", href: "#" },
     ],
   },

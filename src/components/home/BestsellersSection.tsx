@@ -30,7 +30,7 @@ export function BestsellersSection() {
       <div className="mx-auto w-full max-w-[1920px] px-0 sm:px-6 lg:px-10 xl:px-14">
         <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
-            Bestsellers
+            Curated Brands
           </h2>
         </div>
 

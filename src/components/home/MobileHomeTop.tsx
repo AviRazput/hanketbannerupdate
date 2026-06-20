@@ -52,6 +52,39 @@ const categoryDetails = {
   },
 };
 
+const previewImages = [
+  "/instagram/2.jpg",
+  "/instagram/4.jpg",
+  "/instagram/6.jpg",
+  "/instagram/7.jpg",
+  "/instagram/9.jpg",
+  "/instagram/10.jpg",
+  "/instagram/3.jpg",
+  "/instagram/5.jpg",
+  "/instagram/1.jpg",
+  "/instagram/8.jpg",
+  "/catogery/men.jpg",
+  "/catogery/kids.jpg",
+  "/catogery/glam.jpg",
+  "/catogery/JEWELRY.jpg",
+  "/catogery/homedecor.jpg",
+  "/Creator Marketplace/Photography.jpg",
+  "/Creator Marketplace/Branding.jpg",
+  "/Creator Marketplace/Marketplace Growth Updated.jpg",
+] as const;
+
+const categoryImageOffsets: Record<keyof typeof categoryDetails, number> = {
+  Women: 0,
+  Men: 8,
+  Kids: 10,
+  Glam: 4,
+  "Home Decor": 14,
+  "Wedding & Occasion": 1,
+  Footwear: 7,
+  Accessories: 12,
+  Jewellery: 13,
+};
+
 function itemHref(parentHref: string, label: string) {
   const separator = parentHref.includes("?") ? "&" : "?";
   const slug = label.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-");
@@ -75,14 +108,20 @@ export function MobileHomeTop() {
     <section className="bg-white pb-2 md:hidden">
       <div className="mx-auto w-full max-w-[1920px] overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory px-2 pt-2 sm:px-6 md:pt-4 lg:px-10 xl:px-14">
         <div className="flex min-w-max gap-2.5 pr-3 md:gap-5 md:pr-0">
-          {categoryDetails[category].items.map((label) => (
+          {categoryDetails[category].items.map((label, index) => (
             <Link
               key={label}
               href={itemHref(categoryDetails[category].href, label)}
               className="w-[58px] shrink-0 snap-start text-center md:w-[92px]"
             >
               <span className="relative block aspect-[4/5] overflow-hidden rounded-xl bg-[#fff3f5] shadow-[0_2px_9px_rgba(225,20,80,0.18)]">
-                <Image src={categoryDetails[category].image} alt="" fill sizes="58px" className="object-cover object-top" />
+                <Image
+                  src={previewImages[(categoryImageOffsets[category] + index) % previewImages.length]}
+                  alt=""
+                  fill
+                  sizes="58px"
+                  className="object-cover object-top"
+                />
               </span>
               <span className="mt-1 block min-h-5 whitespace-normal break-words px-0.5 font-sans text-[8px] font-bold uppercase leading-[1.15] text-[#333] md:mt-2 md:min-h-6 md:text-[10px]">
                 {label}

@@ -3,17 +3,9 @@ import { creatorServices } from "@/data/homepage";
 import { CreatorServiceCard } from "./CreatorServiceCard";
 import { sectionHeadingClass } from "./sectionHeadingStyle";
 
-const creatorServiceImages: Record<string, string> = {
-  photography: "/instagram/2.jpg",
-  branding: "/instagram/4.jpg",
-  "marketplace-growth": "/instagram/6.jpg",
-};
-
 export function CreatorMarketplaceSection() {
-  const [featuredService, ...sideServices] = creatorServices;
-
   return (
-    <section id="launch-with-hanket" className="bg-[#fff8f3] pt-7 pb-9 md:pt-10 md:pb-12">
+    <section id="launch-with-hanket" className="bg-[#f1f3f5] pt-7 pb-9 md:pt-10 md:pb-12">
       <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14">
         <header className="mb-5 flex flex-col gap-3 md:mb-8 md:flex-row md:items-end md:justify-between">
           <div>
@@ -29,25 +21,13 @@ export function CreatorMarketplaceSection() {
           </Link>
         </header>
 
-        <div className="grid gap-4 md:grid-cols-[1.1fr_1fr] md:gap-6 lg:gap-8">
-          {featuredService ? (
+        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-1 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible lg:gap-8">
+          {creatorServices.map((service) => (
             <CreatorServiceCard
-              service={featuredService}
-              image={creatorServiceImages[featuredService.slug]}
-              featured
+              key={service.slug}
+              service={service}
             />
-          ) : null}
-
-          <div className="flex gap-4 overflow-x-auto no-scrollbar md:grid md:grid-rows-2 md:overflow-visible">
-            {sideServices.map((service) => (
-              <CreatorServiceCard
-                key={service.slug}
-                service={service}
-                image={creatorServiceImages[service.slug]}
-                className="md:w-full"
-              />
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>

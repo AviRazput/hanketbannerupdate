@@ -17,6 +17,9 @@ export function InstagramSection() {
           <p className="font-sans text-[22px] font-black uppercase leading-none tracking-normal text-[#222]">
             Instagram
           </p>
+          <p className="mt-2 font-sans text-[12px] font-bold tracking-[0.12em] text-[#756d65]">
+            @hanketstudio
+          </p>
         </div>
       </div>
     </section>

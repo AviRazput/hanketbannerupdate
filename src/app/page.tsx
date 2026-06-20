@@ -6,6 +6,8 @@ import { CategoriesSection } from "../components/home/CategoriesSection";
 import { TrendingNowSection } from "../components/home/TrendingNowSection";
 import { NewArrivalsSection } from "../components/home/NewArrivalsSection";
 import { BestsellersSection } from "../components/home/BestsellersSection";
+import { CreatorMarketplaceSection } from "../components/home/CreatorMarketplaceSection";
+import { TrustStrip } from "../components/home/TrustStrip";
 // import { WhyHanketSection } from "../components/home/WhyHanketSection";
 import { InstagramSection } from "../components/home/InstagramSection";
 
@@ -19,7 +21,9 @@ export default function Home() {
       <TrendingNowSection />
       <NewArrivalsSection />
       <BestsellersSection />
+      <CreatorMarketplaceSection />
       {/* <WhyHanketSection /> */}
+      <TrustStrip />
       <InstagramSection />
     </SiteLayout>
   );
