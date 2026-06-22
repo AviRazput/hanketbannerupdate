@@ -149,8 +149,8 @@ function getTransition(source: InteractionSource) {
   return { duration: TRANSITION_MANUAL_S, ease: EASE_SNAP };
 }
 
-export function Hero() {
-  const [category, setCategory] = useState("Women");
+export function Hero({ initialCategory = "Home" }: { initialCategory?: string }) {
+  const [category, setCategory] = useState(initialCategory);
   const slides = categoryHeroSlides[category] ?? defaultHeroSlides;
   const slideCount = slides.length;
 
@@ -160,6 +160,11 @@ export function Hero() {
   );
 
   const lastUserActionRef = useRef(0);
+
+  useEffect(() => {
+    setCategory(initialCategory);
+    dispatch({ type: "reset" });
+  }, [initialCategory]);
 
   useEffect(() => {
     const onCategoryChange = (event: Event) => {
@@ -309,7 +314,7 @@ export function Hero() {
       {/* Mobile */}
       <div className="md:hidden relative w-full pb-2 px-0">
         <div
-          className="relative w-full max-h-[calc(100dvh-350px)] overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white"
+          className="relative w-full max-h-[calc(100dvh-350px)] overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white sm:aspect-[16/9]"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
@@ -340,8 +345,20 @@ export function Hero() {
                     priority={isInitial}
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
-                    sizes="100vw"
-                    className="object-cover object-center pointer-events-none select-none"
+                    sizes="(max-width: 639px) 100vw, 0px"
+                    className="object-cover object-center pointer-events-none select-none sm:hidden"
+                    style={{ filter: slide.imageFilter }}
+                    draggable={false}
+                  />
+                  <Image
+                    src={desktopSrc ?? mobileSrc}
+                    alt={slide.imageAlt}
+                    fill
+                    priority={isInitial}
+                    fetchPriority={isInitial ? "high" : "auto"}
+                    unoptimized
+                    sizes="(min-width: 640px) and (max-width: 767px) 100vw, 0px"
+                    className="hidden object-cover object-center pointer-events-none select-none sm:block"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />

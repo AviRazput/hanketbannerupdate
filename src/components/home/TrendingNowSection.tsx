@@ -1,20 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
-import { trendingItems } from "@/data/homepage";
+import { categories, marketplaceHeadings, typeHref } from "@/data/categories";
 import { HorizontalScrollRow } from "./HorizontalScrollRow";
 import { sectionHeadingClass } from "./sectionHeadingStyle";
 
 const MOBILE_GRID_PAGE_SIZE = 4;
-const trendingImages = [
-  "/instagram/2.jpg",
-  "/instagram/4.jpg",
-  "/catogery/women.jpg",
-  "/catogery/glam.jpg",
-  "/instagram/6.jpg",
-  "/instagram/1.jpg",
-  "/instagram/7.jpg",
-  "/instagram/8.jpg",
-] as const;
+export type TrendingSectionItem = { slug: string; name: string; image: string; href: string };
+
+const defaultTrendingItems: TrendingSectionItem[] = categories.slice(0, 8).flatMap((category) => {
+  const subcategory = category.subcategories[0];
+  const type = subcategory?.types[0];
+  return subcategory && type
+    ? [{
+        slug: `${category.slug}-${subcategory.slug}-${type.slug}`,
+        name: type.name,
+        image: type.image,
+        href: typeHref(category.slug, subcategory.slug, type.slug),
+      }]
+    : [];
+});
 
 function chunkBy<T>(items: readonly T[], size: number): T[][] {
   const pages: T[][] = [];
@@ -24,15 +28,21 @@ function chunkBy<T>(items: readonly T[], size: number): T[][] {
   return pages;
 }
 
-export function TrendingNowSection() {
-  const mobilePages = chunkBy(trendingItems, MOBILE_GRID_PAGE_SIZE);
+export function TrendingNowSection({
+  title = marketplaceHeadings.trendingNow,
+  items = defaultTrendingItems,
+}: {
+  title?: string;
+  items?: TrendingSectionItem[];
+}) {
+  const mobilePages = chunkBy(items, MOBILE_GRID_PAGE_SIZE);
 
   return (
-    <section className="bg-white pt-7 pb-8 md:pt-9 md:pb-10">
+    <section className="bg-white py-3 md:pt-9 md:pb-10">
       <div className="mx-auto w-full max-w-[1920px] px-0 sm:px-6 lg:px-10 xl:px-14">
         <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
-            Trending Now
+            {title}
           </h2>
         </div>
 
@@ -46,14 +56,13 @@ export function TrendingNowSection() {
               key={pageIndex}
               className="grid w-full min-w-full shrink-0 snap-start grid-cols-2 gap-3 px-1"
             >
-              {page.map((item, i) => {
-                const index = pageIndex * MOBILE_GRID_PAGE_SIZE + i;
+              {page.map((item) => {
                 return (
                   <TrendingCard
                     key={item.slug}
                     href={item.href}
-                    title={item.label}
-                    image={trendingImages[index % trendingImages.length]}
+                    title={item.name}
+                    image={item.image}
                     className="w-full"
                   />
                 );
@@ -68,12 +77,12 @@ export function TrendingNowSection() {
             arrowTop="50%"
             scrollClassName="flex justify-start gap-5 overflow-x-auto no-scrollbar scroll-smooth pb-1 lg:gap-7"
           >
-            {trendingItems.map((item, i) => (
+            {items.map((item) => (
               <TrendingCard
                 key={item.slug}
                 href={item.href}
-                title={item.label}
-                image={trendingImages[i % trendingImages.length]}
+                title={item.name}
+                image={item.image}
                 className="w-[245px] lg:w-[285px] xl:w-[310px]"
               />
             ))}

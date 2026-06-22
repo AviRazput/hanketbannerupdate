@@ -5,7 +5,7 @@ import { sectionHeadingClass } from "./sectionHeadingStyle";
 
 export function CreatorMarketplaceSection() {
   return (
-    <section id="launch-with-hanket" className="bg-[#f1f3f5] pt-7 pb-9 md:pt-10 md:pb-12">
+    <section id="launch-with-hanket" className="bg-white py-3 md:pt-10 md:pb-12">
       <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14">
         <header className="mb-5 flex flex-col gap-3 md:mb-8 md:flex-row md:items-end md:justify-between">
           <div>

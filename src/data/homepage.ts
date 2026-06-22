@@ -163,19 +163,19 @@ export const creatorServices = [
     slug: "photography",
     title: "Photography",
     description: "Premium product shoots for emerging fashion brands.",
-    image: "/Creator Marketplace/Photography.jpg",
+    image: "/Creator Marketplace/Photography Real.jpg",
   },
   {
     slug: "branding",
     title: "Branding",
     description: "Identity, packaging, and storytelling for your label.",
-    image: "/Creator Marketplace/Branding.jpg",
+    image: "/Creator Marketplace/Branding Real.jpg",
   },
   {
     slug: "marketplace-growth",
     title: "Marketplace Growth",
     description: "Listing, SEO, and launch support on Hanket.",
-    image: "/Creator Marketplace/Marketplace Growth Updated.jpg",
+    image: "/Creator Marketplace/Marketplace Growth Real.jpg",
   },
 ] as const;
 

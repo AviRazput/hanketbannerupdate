@@ -2,6 +2,7 @@ const utilityItems = [
   { label: "Verified Brands", icon: "shield" },
   { label: "Secure Payments", icon: "lock" },
   { label: "Easy Returns", icon: "returns" },
+  { label: "Nationwide Delivery", icon: "delivery" },
 ] as const;
 
 function UtilityIcon({ icon }: { icon: (typeof utilityItems)[number]["icon"] }) {
@@ -25,6 +26,17 @@ function UtilityIcon({ icon }: { icon: (typeof utilityItems)[number]["icon"] }) 
     );
   }
 
+  if (icon === "delivery") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" aria-hidden>
+        <path d="M3 6h11v11H3z" />
+        <path d="M14 10h4l3 3v4h-7z" />
+        <circle cx="7" cy="18" r="2" />
+        <circle cx="18" cy="18" r="2" />
+      </svg>
+    );
+  }
+
   return (
     <svg className={className} viewBox="0 0 24 24" aria-hidden>
       <path d="M20 7v5h-5" />
@@ -37,7 +49,7 @@ function UtilityIcon({ icon }: { icon: (typeof utilityItems)[number]["icon"] }) 
 
 export function TopBar() {
   return (
-    <div className="hidden border-b border-[#ededed] bg-white text-[#222] md:block">
+    <div className="hidden border-b border-[#f2d7e0] bg-[#fff3f7] text-[#222] md:block">
       <div className="mx-auto flex min-h-[34px] max-w-[1920px] items-center justify-between gap-8 px-0 sm:px-6 lg:px-10 xl:px-14">
         <div className="flex items-center gap-8">
           {utilityItems.map((item) => (

@@ -25,11 +25,13 @@ export function HorizontalScrollRow({
   children,
   arrowTop = "42%",
   arrowInset = false,
+  showArrows = true,
   scrollClassName = "flex justify-center gap-2 sm:gap-4 md:gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-1",
 }: {
   children: ReactNode;
   arrowTop?: string;
   arrowInset?: boolean;
+  showArrows?: boolean;
   scrollClassName?: string;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -78,7 +80,7 @@ export function HorizontalScrollRow({
         {children}
       </div>
 
-      {mounted ? (
+      {mounted && showArrows ? (
         <>
           <button
             type="button"

@@ -13,6 +13,36 @@ export const defaultHeroSlides: HeroSlide[] = [
     mobileImageSrc: "/hero_section_banner/banner5/mobile.png",
     imageAlt: "Hanket hero banner 5",
   },
+  {
+    id: "hero-banner-6",
+    imageSrc: "/hero_section_banner/banner6/pc.png",
+    mobileImageSrc: "/hero_section_banner/banner6/mobile.png",
+    imageAlt: "Hanket marketplace edit",
+  },
+  {
+    id: "home-men-edit",
+    imageSrc: "/category-pages/men/banner/banner2/pc.png",
+    mobileImageSrc: "/category-pages/men/banner/banner2/mobile.png",
+    imageAlt: "Hanket men edit",
+  },
+  {
+    id: "home-kids-edit",
+    imageSrc: "/category-pages/kids/banner/banner1/pc.png",
+    mobileImageSrc: "/category-pages/kids/banner/banner1/mobile.png",
+    imageAlt: "Hanket kids edit",
+  },
+  {
+    id: "home-glam-edit",
+    imageSrc: "/category-pages/glam/banner/banner1/pc.png",
+    mobileImageSrc: "/category-pages/glam/banner/banner1/mobile.png",
+    imageAlt: "Hanket glam edit",
+  },
+  {
+    id: "home-footwear-edit",
+    imageSrc: "/category-pages/footwear/banner/banner1/pc.png",
+    mobileImageSrc: "/category-pages/footwear/banner/banner1/mobile.png",
+    imageAlt: "Hanket footwear edit",
+  },
 ];
 
 export const categoryHeroSlides: Record<string, HeroSlide[]> = {
@@ -96,4 +126,4 @@ export const categoryHeroSlides: Record<string, HeroSlide[]> = {
   ],
 };
 
-export const heroSlides = categoryHeroSlides.Women ?? defaultHeroSlides;
+export const heroSlides = defaultHeroSlides;

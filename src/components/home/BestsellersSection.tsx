@@ -26,7 +26,7 @@ export function BestsellersSection() {
   const products = mainCollection.slice(0, 6);
 
   return (
-    <section className="bg-white pt-7 pb-8 md:pt-9 md:pb-10">
+    <section className="bg-white py-3 md:pt-9 md:pb-10">
       <div className="mx-auto w-full max-w-[1920px] px-0 sm:px-6 lg:px-10 xl:px-14">
         <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>

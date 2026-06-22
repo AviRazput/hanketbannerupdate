@@ -1,6 +1,6 @@
 "use client";
 
-import { topCategories } from "@/data/topCategories";
+import { categories, categoryHref, marketplaceHeadings } from "@/data/categories";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -65,7 +65,7 @@ export function FeaturedCategories() {
     <section className="py-10 md:py-14 bg-white border-t border-flat-border">
       <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="font-sans text-[1.25rem] md:text-[1.375rem] font-medium text-flat-text tracking-tight mb-6 md:mb-8">
-          Top Categories
+          {marketplaceHeadings.topCategories}
         </h2>
 
         <div className="flex items-center gap-4 md:gap-5">
@@ -89,24 +89,24 @@ export function FeaturedCategories() {
             ref={scrollRef}
             className="flex flex-1 min-w-0 gap-4 md:gap-5 overflow-x-auto no-scrollbar scroll-smooth"
           >
-            {topCategories.map((cat) => (
+            {categories.map((category) => (
               <Link
-                key={cat.slug}
-                href={cat.href}
+                key={category.slug}
+                href={categoryHref(category.slug)}
                 data-category-card
                 className="group shrink-0 w-[112px] sm:w-[132px] md:w-[148px] lg:w-[168px]"
               >
                 <div className="relative aspect-square overflow-hidden bg-[#f5f5f5] mb-2.5 md:mb-3">
                   <Image
-                    src={cat.image}
-                    alt={cat.label}
+                    src={category.image}
+                    alt={category.name}
                     fill
                     sizes="(max-width: 640px) 120px, 168px"
                     className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
                 <span className="block font-sans text-[0.8125rem] md:text-[0.875rem] text-flat-text leading-snug">
-                  {cat.label}
+                  {category.name}
                 </span>
               </Link>
             ))}

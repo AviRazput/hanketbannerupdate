@@ -1,130 +1,61 @@
 "use client";
 
+import { categories, categoryHref, subcategoryHref } from "@/data/categories";
+import { categoryCardImages } from "@/data/categoryCardImages";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const categoryDetails = {
-  Women: {
-    href: "/search?category=women",
-    image: "/catogery/women.jpg",
-    items: ["Ethnic Wear", "Western Wear", "Dresses", "Co-ords", "Tops & Shirts", "Bottom Wear", "Plus Size", "Maternity"],
-  },
-  Men: {
-    href: "/search?category=men",
-    image: "/catogery/men.jpg",
-    items: ["Shirts", "T-Shirts", "Ethnic Wear", "Co-ords", "Jeans & Trousers", "Jackets & Blazers"],
-  },
-  Kids: {
-    href: "/search?category=kids",
-    image: "/catogery/kids.jpg",
-    items: ["Boys Wear", "Girls Wear", "Baby Wear", "Ethnic Wear", "Party Wear"],
-  },
-  Glam: {
-    href: "/search?category=glam",
-    image: "/catogery/glam.jpg",
-    items: ["Makeup", "Skincare", "Haircare", "Fragrances", "Beauty Tools", "Wellness"],
-  },
-  "Home Decor": {
-    href: "/search?category=home-decor",
-    image: "/catogery/homedecor.jpg",
-    items: ["Wall Decor", "Home Furnishings", "Lighting", "Decorative Accents", "Kitchen & Dining", "Handmade Decor"],
-  },
-  "Wedding & Occasion": {
-    href: "/search?category=wedding-occasion",
-    image: "/catogery/women.jpg",
-    items: ["Bridal Wear", "Groom Wear", "Bridesmaid Collection", "Wedding Guest Outfits", "Festive Wear", "Wedding Accessories"],
-  },
-  Footwear: {
-    href: "/search?type=footwear",
-    image: "/catogery/x.jpg",
-    items: ["Women Footwear", "Men Footwear", "Kids Footwear", "Sneakers", "Heels", "Flats", "Boots"],
-  },
-  Accessories: {
-    href: "/search?type=accessories",
-    image: "/catogery/x.jpg",
-    items: ["Handbags", "Wallets", "Backpacks", "Watches", "Sunglasses", "Belts", "Scarves", "Tech Accessories"],
-  },
-  Jewellery: {
-    href: "/search?type=jewelry",
-    image: "/catogery/JEWELRY.jpg",
-    items: ["Fashion Jewellery", "Fine Jewellery", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewellery"],
-  },
-};
+export function MobileHomeTop({ initialCategorySlug = "" }: { initialCategorySlug?: string }) {
+  const [categorySlug, setCategorySlug] = useState(initialCategorySlug);
+  const category = categories.find((item) => item.slug === categorySlug);
 
-const previewImages = [
-  "/instagram/2.jpg",
-  "/instagram/4.jpg",
-  "/instagram/6.jpg",
-  "/instagram/7.jpg",
-  "/instagram/9.jpg",
-  "/instagram/10.jpg",
-  "/instagram/3.jpg",
-  "/instagram/5.jpg",
-  "/instagram/1.jpg",
-  "/instagram/8.jpg",
-  "/catogery/men.jpg",
-  "/catogery/kids.jpg",
-  "/catogery/glam.jpg",
-  "/catogery/JEWELRY.jpg",
-  "/catogery/homedecor.jpg",
-  "/Creator Marketplace/Photography.jpg",
-  "/Creator Marketplace/Branding.jpg",
-  "/Creator Marketplace/Marketplace Growth Updated.jpg",
-] as const;
-
-const categoryImageOffsets: Record<keyof typeof categoryDetails, number> = {
-  Women: 0,
-  Men: 8,
-  Kids: 10,
-  Glam: 4,
-  "Home Decor": 14,
-  "Wedding & Occasion": 1,
-  Footwear: 7,
-  Accessories: 12,
-  Jewellery: 13,
-};
-
-function itemHref(parentHref: string, label: string) {
-  const separator = parentHref.includes("?") ? "&" : "?";
-  const slug = label.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-");
-  return `${parentHref}${separator}subcategory=${encodeURIComponent(slug)}`;
-}
-
-export function MobileHomeTop() {
-  const [category, setCategory] = useState<keyof typeof categoryDetails>("Women");
+  useEffect(() => {
+    setCategorySlug(initialCategorySlug);
+  }, [initialCategorySlug]);
 
   useEffect(() => {
     const onCategoryChange = (event: Event) => {
-      const selected = (event as CustomEvent<string>).detail;
-      if (selected in categoryDetails) setCategory(selected as keyof typeof categoryDetails);
+      const selectedName = (event as CustomEvent<string>).detail;
+      const selected = categories.find((item) => item.name === selectedName);
+      if (selected) setCategorySlug(selected.slug);
     };
-
     window.addEventListener("hanket:mobile-category", onCategoryChange);
     return () => window.removeEventListener("hanket:mobile-category", onCategoryChange);
   }, []);
 
   return (
     <section className="bg-white pb-2 md:hidden">
-      <div className="mx-auto w-full max-w-[1920px] overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory px-2 pt-2 sm:px-6 md:pt-4 lg:px-10 xl:px-14">
-        <div className="flex min-w-max gap-2.5 pr-3 md:gap-5 md:pr-0">
-          {categoryDetails[category].items.map((label, index) => (
-            <Link
-              key={label}
-              href={itemHref(categoryDetails[category].href, label)}
-              className="w-[58px] shrink-0 snap-start text-center md:w-[92px]"
-            >
+      <div className="mx-auto w-full max-w-[1920px] overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory px-2 pt-2 sm:px-6">
+        <div className="flex min-w-max gap-2.5 pr-3">
+          {(category
+            ? category.subcategories.map((subcategory) => ({
+                slug: subcategory.slug,
+                name: subcategory.name,
+                image: subcategory.image,
+                href: subcategoryHref(category.slug, subcategory.slug),
+              }))
+            : categories.map((item) => ({
+                slug: item.slug,
+                name: item.name,
+                image: item.image,
+                href: categoryHref(item.slug),
+              })))
+            .map((item) => ({
+              ...item,
+              image: category ? item.image : categoryCardImages[item.slug] ?? item.image,
+            }))
+            .map((item) => (
+            <Link key={item.slug} href={item.href} className="w-[58px] shrink-0 snap-start text-center">
               <span className="relative block aspect-[4/5] overflow-hidden rounded-xl bg-[#fff3f5] shadow-[0_2px_9px_rgba(225,20,80,0.18)]">
-                <Image
-                  src={previewImages[(categoryImageOffsets[category] + index) % previewImages.length]}
-                  alt=""
-                  fill
-                  sizes="58px"
-                  className="object-cover object-top"
-                />
+                {item.image.startsWith("http") ? (
+                  <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
+                ) : (
+                  <Image src={item.image} alt="" fill sizes="58px" className="object-cover object-top" />
+                )}
               </span>
-              <span className="mt-1 block min-h-5 whitespace-normal break-words px-0.5 font-sans text-[8px] font-bold uppercase leading-[1.15] text-[#333] md:mt-2 md:min-h-6 md:text-[10px]">
-                {label}
+              <span className="mt-1 block min-h-5 px-0.5 font-sans text-[8px] font-bold uppercase leading-[1.15] text-[#333]">
+                {item.name}
               </span>
             </Link>
           ))}

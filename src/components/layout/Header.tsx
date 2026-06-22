@@ -1,9 +1,9 @@
 "use client";
 
 import { useAuthDrawer } from "@/components/auth/AuthDrawerContext";
-import { mainNav } from "@/data/homepage";
+import { categories, categoryHref, subcategoryHref } from "@/data/categories";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const searchInputBase =
@@ -179,27 +179,20 @@ function CountBadge({ count }: { count: number }) {
   );
 }
 
-const categoryNav = mainNav;
-const mobileCategoryNav = [
-  { label: "Women", href: "/search?category=women" },
-  { label: "Men", href: "/search?category=men" },
-  { label: "Kids", href: "/search?category=kids" },
-  { label: "Glam", href: "/search?category=glam" },
-  { label: "Accessories", href: "/search?type=accessories" },
-  { label: "Jewellery", href: "/search?type=jewelry" },
-];
-
-const homeCategoryLabels: Record<string, string> = {
-  WOMEN: "Women",
-  MEN: "Men",
-  KIDS: "Kids",
-  GLAM: "Glam",
-  "HOME DECOR": "Home Decor",
-  "WEDDING & OCCASION": "Wedding & Occasion",
-  FOOTWEAR: "Footwear",
-  JEWELLERY: "Jewellery",
-  ACCESSORIES: "Accessories",
-};
+const categoryNav = categories.map((category) => ({
+  label: category.name.toUpperCase(),
+  name: category.name,
+  href: categoryHref(category.slug),
+  dropdownItems: category.subcategories.map((subcategory) => ({
+    label: subcategory.name,
+    href: subcategoryHref(category.slug, subcategory.slug),
+    types: subcategory.types.map((type) => ({
+      label: type.name,
+      href: `${subcategoryHref(category.slug, subcategory.slug)}/${type.slug}`,
+    })),
+  })),
+}));
+const mobileCategoryNav = categoryNav.map(({ name, href }) => ({ label: name, href }));
 
 function BrandLogo({ variant = "desktop" }: { variant?: "desktop" | "mobile" | "drawer" }) {
   const isMobile = variant === "mobile";
@@ -218,42 +211,15 @@ function BrandLogo({ variant = "desktop" }: { variant?: "desktop" | "mobile" | "
   );
 }
 
-const navSubcategories: Record<string, string[]> = {
-  WOMEN: ["Ethnic Wear", "Western Wear", "Dresses", "Co-ords", "Tops & Shirts", "Bottom Wear", "Plus Size", "Maternity"],
-  MEN: ["Shirts", "T-Shirts", "Ethnic Wear", "Co-ords", "Jeans & Trousers", "Jackets & Blazers"],
-  KIDS: ["Boys Wear", "Girls Wear", "Baby Wear", "Ethnic Wear", "Party Wear"],
-  GLAM: ["Makeup", "Skincare", "Haircare", "Fragrances", "Beauty Tools", "Wellness"],
-  "HOME DECOR": ["Wall Decor", "Home Furnishings", "Lighting", "Decorative Accents", "Kitchen & Dining", "Handmade Decor"],
-  "WEDDING & OCCASION": [
-    "Bridal Wear",
-    "Groom Wear",
-    "Bridesmaid Collection",
-    "Wedding Guest Outfits",
-    "Festive Wear",
-    "Wedding Accessories",
-  ],
-  FOOTWEAR: ["Women Footwear", "Men Footwear", "Kids Footwear", "Sneakers", "Heels", "Flats", "Boots"],
-  JEWELLERY: ["Fashion Jewellery", "Fine Jewellery", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewellery"],
-  ACCESSORIES: ["Handbags", "Wallets", "Backpacks", "Watches", "Sunglasses", "Belts", "Scarves", "Tech Accessories"],
-};
-
-function getNavSubcategories(item: (typeof mainNav)[number]) {
-  return navSubcategories[item.label] ?? item.dropdownItems?.map((subItem) => subItem.label) ?? [];
-}
-
-function subcategoryHref(parentHref: string, label: string) {
-  const separator = parentHref.includes("?") ? "&" : "?";
-  const slug = label.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-");
-  return `${parentHref}${separator}subcategory=${encodeURIComponent(slug)}`;
+function getNavSubcategories(item: (typeof categoryNav)[number]) {
+  return item.dropdownItems;
 }
 
 export function Header() {
   const { openAuthDrawer } = useAuthDrawer();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const mobileSearchInputRef = useRef<HTMLInputElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileHomeCategory, setMobileHomeCategory] = useState("Women");
   const [searchQuery, setSearchQuery] = useState("");
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const drawerLinks = categoryNav;
@@ -275,25 +241,8 @@ export function Header() {
     openAuthDrawer("sign-in");
   };
 
-  const selectMobileHomeCategory = (category: string) => {
-    setMobileHomeCategory(category);
-    window.dispatchEvent(new CustomEvent("hanket:mobile-category", { detail: category }));
-  };
-
   const isNavActive = (href: string) => {
-    if (pathname !== "/search") return false;
-
-    const [, queryString] = href.split("?");
-    if (!queryString) return false;
-
-    const itemParams = new URLSearchParams(queryString);
-    const itemCategory = itemParams.get("category");
-    const itemType = itemParams.get("type");
-
-    return (
-      (itemCategory && itemCategory === searchParams.get("category")) ||
-      (itemType && itemType === searchParams.get("type"))
-    );
+    return pathname === href || pathname.startsWith(`${href}/`);
   };
 
   useEffect(() => {
@@ -346,30 +295,16 @@ export function Header() {
           </div>
 
           <nav
-            className="mt-1 flex w-full items-center justify-between gap-2 overflow-hidden px-1 pb-1 pt-1"
+            className="no-scrollbar mt-1 flex w-full items-center justify-start gap-4 overflow-x-auto scroll-smooth px-1 pb-1 pt-1"
             aria-label="Mobile category navigation"
           >
             {mobileCategoryNav.map((item) => {
-              const isHomeSelector = pathname === "/";
               const className = [
                 "shrink-0 border-b py-1 text-center font-sans text-[13px] font-medium leading-none text-[#222] transition-colors hover:text-flat-pink",
-                isHomeSelector && mobileHomeCategory === item.label
-                  ? "border-flat-pink text-flat-pink"
-                  : !isHomeSelector && isNavActive(item.href)
-                    ? "border-flat-text text-flat-text"
-                    : "border-transparent",
+                isNavActive(item.href) ? "border-flat-text text-flat-text" : "border-transparent",
               ].join(" ");
 
-              return isHomeSelector ? (
-                <button
-                  key={item.label}
-                  type="button"
-                  onClick={() => selectMobileHomeCategory(item.label)}
-                  className={className}
-                >
-                  {item.label}
-                </button>
-              ) : (
+              return (
                 <Link key={item.label} href={item.href} className={className}>
                   {item.label}
                 </Link>
@@ -436,15 +371,14 @@ export function Header() {
 
           <div className="relative flex items-center py-1.5 lg:py-2 overflow-visible before:absolute before:left-1/2 before:top-0 before:h-px before:w-screen before:-translate-x-1/2 before:bg-[#ededed]">
             <nav className="-mx-3 flex w-full min-w-0 items-center justify-start gap-1 overflow-visible xl:-mx-4">
-              {categoryNav.map((item) => (
+              {categoryNav.map((item, itemIndex) => (
                 <div key={item.label} className="relative group shrink-0 py-0.5">
                   {pathname === "/" ? (
-                  <button
-                    type="button"
-                    onClick={() => selectMobileHomeCategory(homeCategoryLabels[item.label] ?? item.label)}
+                  <Link
+                    href={item.href}
                     className={[
                       "flex items-center gap-1 border-b px-3 py-2 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:px-4 xl:text-[12px]",
-                      mobileHomeCategory === (homeCategoryLabels[item.label] ?? item.label)
+                      isNavActive(item.href)
                         ? "border-flat-pink text-flat-pink"
                         : "border-transparent text-[#222] hover:bg-[#f7f7f7] hover:text-flat-pink",
                     ].join(" ")}
@@ -455,7 +389,7 @@ export function Header() {
                         ▼
                       </span>
                     )}
-                  </button>
+                  </Link>
                   ) : (
                     <Link
                       href={item.href}
@@ -472,22 +406,51 @@ export function Header() {
                   )}
 
                   {getNavSubcategories(item).length > 0 && (
-                    <div className="absolute left-0 top-full pt-1.5 w-48 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 ease-out z-50">
-                      <div className="bg-white/98 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100/80 overflow-hidden p-1">
-                        {getNavSubcategories(item).map((label) => (
-                          <Link
-                            key={label}
-                            href={subcategoryHref(item.href, label)}
-                            className="group/item flex items-center justify-between px-3 py-1.5 rounded-none font-sans text-[11px] lg:text-[12px] font-semibold uppercase text-[#333] hover:bg-flat-pink/5 hover:text-flat-pink transition-all duration-200"
+                    <div
+                      className={[
+                        "absolute top-full max-w-[calc(100vw-3rem)] pt-1.5 opacity-0 translate-y-1 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 ease-out z-50",
+                        itemIndex >= 4 ? "right-0" : "left-0",
+                      ].join(" ")}
+                      style={{ width: `${getNavSubcategories(item).length * 220}px` }}
+                    >
+                      <div
+                        className="overflow-y-auto border border-[#eeeeF4] bg-white shadow-[0_10px_26px_rgba(35,28,50,0.12)]"
+                        style={{ maxHeight: "min(560px, calc(100vh - 150px))" }}
+                      >
+                        <div
+                          className="grid gap-0"
+                          style={{
+                            gridTemplateColumns: `repeat(${getNavSubcategories(item).length}, minmax(0, 1fr))`,
+                          }}
+                        >
+                        {getNavSubcategories(item).map((subcategory, subcategoryIndex) => (
+                          <div
+                            key={subcategory.href}
+                            className={[
+                              "min-w-0 px-5 py-5 align-top",
+                              subcategoryIndex % 2 === 1 ? "bg-[#f7f7fb]" : "bg-white",
+                            ].join(" ")}
                           >
-                            <span className="transform group-hover/item:translate-x-1 transition-transform duration-200">
-                              {label}
-                            </span>
-                            <span className="opacity-0 group-hover/item:opacity-100 -translate-x-1 group-hover/item:translate-x-0 transition-all duration-200 text-flat-pink text-xs">
-                              →
-                            </span>
-                          </Link>
+                            <Link
+                              href={subcategory.href}
+                              className="mb-4 block font-sans text-[14px] font-semibold leading-snug text-flat-pink transition-colors hover:text-[#d7194b] lg:text-[15px]"
+                            >
+                              {subcategory.label}
+                            </Link>
+                            <div className="flex flex-col gap-2.5">
+                              {subcategory.types.map((type) => (
+                                <Link
+                                  key={type.href}
+                                  href={type.href}
+                                  className="font-sans text-[13px] font-normal leading-[1.35] text-[#626477] transition-colors hover:text-flat-pink lg:text-[14px]"
+                                >
+                                  {type.label}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
                         ))}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -510,7 +473,7 @@ export function Header() {
 
       <div
         className={[
-          "fixed top-0 left-0 h-full w-[300px] bg-flat-bg z-[70] transition-transform duration-300 ease-out flex flex-col border-r border-flat-border md:hidden",
+          "fixed top-0 left-0 h-dvh w-[300px] bg-flat-bg z-[70] transition-transform duration-300 ease-out flex min-h-0 flex-col border-r border-flat-border md:hidden",
           mobileOpen ? "translate-x-0" : "-translate-x-full",
         ].join(" ")}
       >
@@ -525,7 +488,7 @@ export function Header() {
             ✕
           </button>
         </div>
-        <nav className="flex flex-col flex-1 overflow-y-auto p-6 pb-10">
+        <nav className="no-scrollbar flex min-h-0 flex-1 touch-pan-y flex-col overflow-y-auto overscroll-contain p-6 pb-28">
           <form
             className="mb-6"
             onSubmit={(e) => {
@@ -563,16 +526,50 @@ export function Header() {
                     </button>
                     {openSubmenus[item.label] && (
                       <div className="flex flex-col gap-1.5 pl-4 mt-1.5 mb-1.5 border-l border-gray-200">
-                        {getNavSubcategories(item).map((label) => (
-                          <Link
-                            key={label}
-                            href={subcategoryHref(item.href, label)}
-                            onClick={() => setMobileOpen(false)}
-                            className="font-sans text-[14px] font-semibold uppercase tracking-[0.03em] text-flat-text/80 hover:text-flat-pink transition-colors"
-                          >
-                            {label}
-                          </Link>
-                        ))}
+                        {getNavSubcategories(item).map((subcategory) => {
+                          const submenuKey = `${item.label}:${subcategory.label}`;
+                          const isSubmenuOpen = openSubmenus[submenuKey];
+
+                          return (
+                            <div key={subcategory.href} className="flex flex-col">
+                              <div className="flex items-center justify-between gap-2">
+                                <Link
+                                  href={subcategory.href}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="min-w-0 flex-1 font-sans text-[14px] font-semibold uppercase tracking-[0.03em] text-flat-text/80 transition-colors hover:text-flat-pink"
+                                >
+                                  {subcategory.label}
+                                </Link>
+                                {subcategory.types.length > 0 ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleSubmenu(submenuKey)}
+                                    className="flex h-7 w-7 shrink-0 items-center justify-center text-[9px] text-gray-400"
+                                    aria-label={`${isSubmenuOpen ? "Close" : "Open"} ${subcategory.label}`}
+                                    aria-expanded={isSubmenuOpen}
+                                  >
+                                    <span className={`transition-transform duration-200 ${isSubmenuOpen ? "rotate-180" : ""}`}>â–¼</span>
+                                  </button>
+                                ) : null}
+                              </div>
+
+                              {isSubmenuOpen ? (
+                                <div className="mt-1.5 flex flex-col gap-2 border-l border-gray-200 pl-3">
+                                  {subcategory.types.map((type) => (
+                                    <Link
+                                      key={type.href}
+                                      href={type.href}
+                                      onClick={() => setMobileOpen(false)}
+                                      className="font-sans text-[12px] font-medium leading-snug text-flat-text/65 transition-colors hover:text-flat-pink"
+                                    >
+                                      {type.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              ) : null}
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>

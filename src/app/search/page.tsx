@@ -2,17 +2,13 @@ import { SiteLayout } from "../../components/layout/SiteLayout";
 import { mainCollection } from "../../data/products";
 import Image from "next/image";
 import Link from "next/link";
+import { categories } from "@/data/categories";
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-const categoryLabels: Record<string, string> = {
-  women: "WOMEN",
-  men: "MEN",
-  kids: "KIDS",
-  glam: "GLAM",
-  "home-decor": "HOME DECOR",
-  "wedding-occasion": "WEDDING & OCCASION",
-};
+const categoryLabels: Record<string, string> = Object.fromEntries(
+  categories.map((category) => [category.slug, category.name.toUpperCase()]),
+);
 
 const typeLabels: Record<string, string> = {
   footwear: "FOOTWEAR",
@@ -20,22 +16,11 @@ const typeLabels: Record<string, string> = {
   accessories: "ACCESSORIES",
 };
 
-const categoryBanners: Record<string, string> = {
-  women: "/category-pages/women/banner/banner2/pc.jpeg",
-  men: "/category-pages/men/banner/banner2/pc.png",
-  kids: "/category-pages/kids/banner/banner1/pc.png",
-  glam: "/category-pages/glam/banner/banner1/pc.png",
-  "home-decor": "/banner10.jpg",
-  "wedding-occasion": "/category-pages/wedding-occasion/banner/banner1/pc.png",
-};
+const categoryBanners: Record<string, string> = Object.fromEntries(
+  categories.map((category) => [category.slug, category.image]),
+);
 
-const categoryMobileBanners: Record<string, string> = {
-  women: "/category-pages/women/banner/banner2/mobile.jpeg",
-  men: "/category-pages/men/banner/banner2/mobile.png",
-  kids: "/category-pages/kids/banner/banner1/mobile.png",
-  glam: "/category-pages/glam/banner/banner1/mobile.png",
-  "wedding-occasion": "/category-pages/wedding-occasion/banner/banner1/mobile.png",
-};
+const categoryMobileBanners = categoryBanners;
 
 const typeBanners: Record<string, string> = {
   footwear: "/category-pages/footwear/banner/banner1/pc.png",
@@ -49,40 +34,9 @@ const typeMobileBanners: Record<string, string> = {
 
 const sizes = ["XS", "S", "M", "L", "XL"];
 
-const categoryOptions: Record<string, string[]> = {
-  women: [
-    "Ethnic Wear",
-    "Western Wear",
-    "Dresses",
-    "Co-ords",
-    "Tops & Shirts",
-    "Bottom Wear",
-    "Plus Size",
-    "Maternity",
-  ],
-  men: ["Shirts", "T-Shirts", "Ethnic Wear", "Co-ords", "Jeans & Trousers", "Jackets & Blazers"],
-  kids: ["Boys Wear", "Girls Wear", "Baby Wear", "Ethnic Wear", "Party Wear"],
-  glam: ["Makeup", "Skincare", "Haircare", "Fragrances", "Beauty Tools", "Wellness"],
-  "home-decor": [
-    "Wall Decor",
-    "Home Furnishings",
-    "Lighting",
-    "Decorative Accents",
-    "Kitchen & Dining",
-    "Handmade Decor",
-  ],
-  "wedding-occasion": [
-    "Bridal Wear",
-    "Groom Wear",
-    "Bridesmaid Collection",
-    "Wedding Guest Outfits",
-    "Festive Wear",
-    "Wedding Accessories",
-  ],
-  footwear: ["Women Footwear", "Men Footwear", "Kids Footwear", "Sneakers", "Heels", "Flats", "Boots"],
-  jewelry: ["Fashion Jewellery", "Fine Jewellery", "Earrings", "Necklaces", "Rings", "Bracelets", "Bridal Jewellery"],
-  accessories: ["Handbags", "Wallets", "Backpacks", "Watches", "Sunglasses", "Belts", "Scarves", "Tech Accessories"],
-};
+const categoryOptions: Record<string, string[]> = Object.fromEntries(
+  categories.map((category) => [category.slug, category.subcategories.map((subcategory) => subcategory.name)]),
+);
 
 const brandOptions = ["Vishudh", "Royal Export", "KALINI", "FFU", "SURUKH", "AKRITIK", "PANIT", "KAVINDI"];
 const colorOptions = ["Pink", "Green", "Navy Blue", "Black", "Mustard", "Brown", "Yellow"];
@@ -115,13 +69,17 @@ function productOldPrice(index: number) {
 export default async function SearchPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
   const category = firstParam(params.category);
+  const subcategory = firstParam(params.subcategory);
   const type = firstParam(params.type);
-  const title = (type && typeLabels[type]) || (category && categoryLabels[category]) || "SHOP";
-  const bannerImage = (type && typeBanners[type]) || (category && categoryBanners[category]) || "/banner.png";
+  const activeCategory = categories.find((item) => item.slug === category);
+  const activeSubcategory = activeCategory?.subcategories.find((item) => item.slug === subcategory);
+  const activeType = activeSubcategory?.types.find((item) => item.slug === type);
+  const title = activeType?.name.toUpperCase() || activeSubcategory?.name.toUpperCase() || (type && typeLabels[type]) || (category && categoryLabels[category]) || "SHOP";
+  const bannerImage = activeSubcategory?.image || (type && typeBanners[type]) || (category && categoryBanners[category]) || "/banner.png";
   const mobileBannerImage =
     (type && typeMobileBanners[type]) || (category && categoryMobileBanners[category]) || bannerImage;
   const activeCategoryKey = type || category || "women";
-  const activeCategoryOptions = categoryOptions[activeCategoryKey] || categoryOptions.women;
+  const activeCategoryOptions = activeSubcategory?.types.map((item) => item.name) || categoryOptions[activeCategoryKey] || categoryOptions.women;
   const products = [...mainCollection, ...mainCollection].slice(0, 12);
 
   return (
