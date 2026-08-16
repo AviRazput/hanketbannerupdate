@@ -57,7 +57,7 @@ export function ShopByOccasion() {
                 alt={item.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <h3 className="absolute inset-x-0 bottom-2.5 md:bottom-6 px-1 text-center font-serif text-[13px] sm:text-[16px] md:text-[1.25rem] font-medium text-white drop-shadow-md leading-tight">
