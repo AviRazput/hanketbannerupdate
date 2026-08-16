@@ -5,14 +5,15 @@ export type MarketplaceCategory = { name: string; slug: string; image: string; s
 const slugify = (name: string) =>
   name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-const makeTypes = (image: string, names: string[]): CategoryType[] =>
-  names.map((name) => ({ name, slug: slugify(name), image }));
-
-const subcategory = (name: string, image: string, typeNames: string[]): Subcategory => ({
+const subcategory = (name: string, image: string, typeNames: string[], customTypeImages?: Record<string, string>): Subcategory => ({
   name,
   slug: slugify(name),
   image,
-  types: makeTypes(image, typeNames),
+  types: typeNames.map((typeName) => ({
+    name: typeName,
+    slug: slugify(typeName),
+    image: customTypeImages?.[slugify(typeName)] ?? image,
+  })),
 });
 
 export const categories: MarketplaceCategory[] = [
@@ -21,13 +22,13 @@ export const categories: MarketplaceCategory[] = [
     slug: "women",
     image: "/category-pages/women/banner/banner2/pc.jpeg",
     subcategories: [
-      subcategory("Indian Wear", "/category-pages/women/subcategories/indian-wear.jpg", ["Suit Sets", "Kurtas & Kurtis", "Sarees", "Ethnic Dresses", "Lehengas", "Co-ord Sets", "Dress Materials", "Dupattas", "Blouses", "Palazzos", "Bottom Wear", "Ethnic Jackets"]),
-      subcategory("Western Wear", "/category-pages/women/subcategories/western-wear.jpg", ["Dresses", "Tops", "T-Shirts", "Shirts", "Bottoms", "Jeans & Jeggings", "Skirts", "Co-ord Sets", "Jumpsuits", "Gowns", "Jackets", "Sweatshirts & Hoodies", "Cardigans", "Plus Size", "Maternity Wear"]),
-      subcategory("Footwear", "/category-pages/women/subcategories/footwear.jpg", ["Heels", "Flats", "Sandals", "Sneakers", "Boots", "Sports Shoes", "Loafers", "Ethnic Footwear", "Ballerinas"]),
-      subcategory("Lingerie & Sleepwear", "/category-pages/women/subcategories/sleepwear.jpg", ["Bras", "Underwear", "Shapewear", "Sleepwear", "Camisoles", "Thermals", "Swimwear"]),
-      subcategory("Bags", "/category-pages/women/subcategories/bags.jpg", ["Handbags", "Sling Bags", "Tote Bags", "Backpacks", "Satchels", "Wallets", "Clutches", "Mini Bags", "Laptop Bags", "Travel Bags"]),
-      subcategory("Jewellery", "/category-pages/women/subcategories/jewellery.jpg", ["Earrings", "Necklaces", "Rings", "Bracelets", "Anklets", "Fashion Jewellery", "Fine Jewellery", "Bridal Jewellery"]),
-      subcategory("Sports & Activewear", "/category-pages/women/subcategories/activewear.jpg", ["Sports Bras", "Tanks & Tees", "Jackets", "Hoodies", "Leggings", "Shorts", "Track Pants", "Activewear Co-ord Sets", "Sports Shoes"]),
+      subcategory("Indian Wear", "/category-pages/women/shop-by-category/indian-wear.jpg", ["Suit Sets", "Kurtas & Kurtis", "Sarees", "Ethnic Dresses", "Lehengas", "Co-ord Sets", "Dress Materials", "Dupattas", "Blouses", "Palazzos", "Bottom Wear", "Ethnic Jackets"], { "suit-sets": "/category-pages/women/shopbyedit/Suitsets.jpg" }),
+      subcategory("Western Wear", "/category-pages/women/shop-by-category/western-wear.jpg", ["Dresses", "Tops", "T-Shirts", "Shirts", "Bottoms", "Jeans & Jeggings", "Skirts", "Co-ord Sets", "Jumpsuits", "Gowns", "Jackets", "Sweatshirts & Hoodies", "Cardigans", "Plus Size", "Maternity Wear"], { "dresses": "/category-pages/women/shopbyedit/dress.jpg" }),
+      subcategory("Footwear", "/category-pages/women/shop-by-category/footwear.jpg", ["Heels", "Flats", "Sandals", "Sneakers", "Boots", "Sports Shoes", "Loafers", "Ethnic Footwear", "Ballerinas"], { "heels": "/category-pages/women/shopbyedit/heels.jpg" }),
+      subcategory("Lingerie & Sleepwear", "/category-pages/women/shop-by-category/nightdress.jpg", ["Bras", "Underwear", "Shapewear", "Sleepwear", "Camisoles", "Thermals", "Swimwear"], { "bras": "/category-pages/women/shopbyedit/bras.jpg" }),
+      subcategory("Bags", "/category-pages/women/shop-by-category/Bags.jpg", ["Handbags", "Sling Bags", "Tote Bags", "Backpacks", "Satchels", "Wallets", "Clutches", "Mini Bags", "Laptop Bags", "Travel Bags"], { "handbags": "/category-pages/women/shopbyedit/handbag.jpg" }),
+      subcategory("Jewellery", "/category-pages/women/shop-by-category/jewellery.jpg", ["Earrings", "Necklaces", "Rings", "Bracelets", "Anklets", "Fashion Jewellery", "Fine Jewellery", "Bridal Jewellery"], { "earrings": "/category-pages/women/shopbyedit/earing.jpg" }),
+      subcategory("Sports & Activewear", "/category-pages/women/shop-by-category/sports.jpg", ["Sports Bras", "Tanks & Tees", "Jackets", "Hoodies", "Leggings", "Shorts", "Track Pants", "Activewear Co-ord Sets", "Sports Shoes"], { "sports-bras": "/category-pages/women/shopbyedit/sportbras.jpg" }),
     ],
   },
   {

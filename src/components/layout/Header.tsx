@@ -241,7 +241,10 @@ export function Header() {
     openAuthDrawer("sign-in");
   };
 
-  const isNavActive = (href: string) => {
+  const isNavActive = (href: string, label?: string) => {
+    if (pathname === "/" && label && label.toLowerCase() === "women") {
+      return true;
+    }
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
@@ -301,7 +304,7 @@ export function Header() {
             {mobileCategoryNav.map((item) => {
               const className = [
                 "shrink-0 border-b py-1 text-center font-sans text-[13px] font-medium leading-none text-[#222] transition-colors hover:text-flat-pink",
-                isNavActive(item.href) ? "border-flat-text text-flat-text" : "border-transparent",
+                isNavActive(item.href, item.label) ? "border-flat-text text-flat-text" : "border-transparent",
               ].join(" ");
 
               return (
@@ -378,7 +381,7 @@ export function Header() {
                     href={item.href}
                     className={[
                       "flex items-center gap-1 border-b px-3 py-2 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:px-4 xl:text-[12px]",
-                      isNavActive(item.href)
+                      isNavActive(item.href, item.label)
                         ? "border-flat-pink text-flat-pink"
                         : "border-transparent text-[#222] hover:bg-[#f7f7f7] hover:text-flat-pink",
                     ].join(" ")}
@@ -395,7 +398,7 @@ export function Header() {
                       href={item.href}
                       className={[
                         "flex items-center gap-1 border-b px-3 py-2 text-[10px] font-bold tracking-[0.04em] transition-colors whitespace-nowrap lg:gap-1.5 lg:text-[11px] lg:tracking-[0.06em] xl:px-4 xl:text-[12px]",
-                        isNavActive(item.href)
+                        isNavActive(item.href, item.label)
                           ? "border-flat-pink text-flat-pink"
                           : "border-transparent text-[#222] hover:bg-[#f7f7f7] hover:text-flat-pink",
                       ].join(" ")}
@@ -516,7 +519,7 @@ export function Header() {
                       onClick={() => toggleSubmenu(item.label)}
                       className={[
                         "w-full flex items-center justify-between py-1 font-sans text-[17px] font-bold uppercase tracking-[0.06em] hover:text-flat-pink transition-colors text-left",
-                        isNavActive(item.href) ? "text-flat-pink" : "text-flat-text",
+                        isNavActive(item.href, item.label) ? "text-flat-pink" : "text-flat-text",
                       ].join(" ")}
                     >
                       <span>{item.label}</span>
@@ -579,7 +582,7 @@ export function Header() {
                     onClick={() => setMobileOpen(false)}
                     className={[
                       "py-1 font-sans text-[17px] font-bold uppercase tracking-[0.06em] hover:text-flat-pink transition-colors",
-                      isNavActive(item.href) ? "text-flat-pink" : "text-flat-text",
+                      isNavActive(item.href, item.label) ? "text-flat-pink" : "text-flat-text",
                     ].join(" ")}
                   >
                     {item.label}

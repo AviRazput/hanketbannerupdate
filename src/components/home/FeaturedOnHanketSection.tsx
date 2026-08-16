@@ -75,10 +75,10 @@ export function FeaturedOnHanketSection({
               className="group block w-[34vw] max-w-[120px] shrink-0 snap-start text-center sm:w-[140px] sm:max-w-none md:w-[150px] lg:w-[160px] xl:w-[170px]"
             >
               <span className="relative block aspect-square overflow-hidden rounded-full border-[3px] border-white bg-[#f5f1ec] shadow-[0_8px_20px_rgba(0,0,0,0.14)] ring-1 ring-black/5 transition-transform duration-500 group-hover:-translate-y-1">
-                {categoryCardImages[item.slug]?.startsWith("http") ? (
-                  <img src={categoryCardImages[item.slug]} alt={item.name} className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]" />
+                {(!items && categoryCardImages[item.slug]?.startsWith("http")) || (items && item.image.startsWith("http")) ? (
+                  <img src={items ? item.image : categoryCardImages[item.slug]} alt={item.name} className={`absolute inset-0 h-full w-full object-cover ${item.slug === "indian-wear" ? "object-top" : "object-center"} transition-transform duration-700 group-hover:scale-[1.06]`} />
                 ) : (
-                  <Image src={categoryCardImages[item.slug] ?? item.image} alt={item.name} fill unoptimized sizes="(max-width: 639px) 34vw, 170px" className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]" />
+                  <Image src={items ? item.image : (categoryCardImages[item.slug] ?? item.image)} alt={item.name} fill unoptimized sizes="(max-width: 639px) 34vw, 170px" className={`object-cover ${item.slug === "indian-wear" ? "object-top" : "object-center"} transition-transform duration-700 group-hover:scale-[1.06]`} />
                 )}
               </span>
               <h3 className="mt-4 px-1 font-sans text-[14px] font-medium leading-tight text-[#333] sm:text-[16px] md:text-[18px]">{item.name}</h3>

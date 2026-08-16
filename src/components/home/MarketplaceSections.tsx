@@ -1,11 +1,11 @@
 import type { CategoryProduct } from "@/data/categoryProducts";
 import { BestsellersSection } from "./BestsellersSection";
 import { CategoriesSection, type CategorySectionItem } from "./CategoriesSection";
-import { CreatorMarketplaceSection } from "./CreatorMarketplaceSection";
 import { FeaturedOnHanketSection } from "./FeaturedOnHanketSection";
 import { InstagramSection } from "./InstagramSection";
 import { NewArrivalsSection } from "./NewArrivalsSection";
 import { TrendingNowSection, type TrendingSectionItem } from "./TrendingNowSection";
+import { ShopByOccasion } from "./ShopByOccasion";
 
 type MarketplaceSectionsProps = {
   categoryTitle?: string;
@@ -46,6 +46,8 @@ export function MarketplaceSections({
 
       {showEditSection ? <CategoriesSection title={editTitle} items={editItems} /> : null}
 
+      <ShopByOccasion />
+
       {showTrendingSection ? <TrendingNowSection title={trendingTitle} items={trendingItems} /> : null}
 
       <NewArrivalsSection title={newArrivalsTitle} products={newArrivalProducts} />
@@ -53,7 +55,6 @@ export function MarketplaceSections({
       {showExtendedSections ? (
         <>
           <BestsellersSection />
-          <CreatorMarketplaceSection />
           <InstagramSection />
         </>
       ) : null}
