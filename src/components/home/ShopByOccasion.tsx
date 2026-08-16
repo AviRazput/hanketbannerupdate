@@ -20,7 +20,7 @@ const occasions = [
   },
   {
     title: "Wedding",
-    image: "/category-pages/women/Shop-By-Occasion/wedding.jpg",
+    image: "/category-pages/women/Shop-By-Occasion/wedding_ai.jpg",
     className: "col-span-2 row-span-1",
   },
   {
