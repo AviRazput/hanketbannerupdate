@@ -5,9 +5,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { categoryHeroSlides, defaultHeroSlides, type HeroSlide } from "../../data/heroSlides";
 
-const AUTO_SLIDE_MS = 6000;
+const AUTO_SLIDE_MS = 3000;
 /** Skip auto-advance for this long after any manual navigation (arrows/dots). */
-const MANUAL_PAUSE_MS = 7500;
+const MANUAL_PAUSE_MS = 4500;
 const TRANSITION_AUTO_S = 1.05;
 const TRANSITION_MANUAL_S = 0.42;
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
