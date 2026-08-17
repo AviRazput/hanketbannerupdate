@@ -47,7 +47,7 @@ export function MobileHomeTop({ initialCategorySlug = "" }: { initialCategorySlu
             }))
             .map((item) => (
             <Link key={item.slug} href={item.href} className="w-[58px] shrink-0 snap-start text-center">
-              <span className="relative block aspect-[4/5] overflow-hidden rounded-xl bg-[#fff3f5] shadow-[0_2px_9px_rgba(225,20,80,0.18)]">
+              <span className="relative block aspect-[4/5] overflow-hidden rounded-xl bg-white ring-1 ring-black/10 shadow-sm">
                 {item.image.startsWith("http") ? (
                   <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
                 ) : (
