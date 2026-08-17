@@ -96,11 +96,7 @@ export function FeaturedOnHanketSection({
             </Link>
           ))}
         </HorizontalScrollRow>
-        {variant === "categories" ? (
-          <div className="mt-8 flex justify-center md:mt-10">
-            <Link href="/search" className="inline-flex h-12 min-w-[190px] items-center justify-center rounded-[4px] border border-[#333] px-8 font-sans text-[15px] font-medium text-[#222] transition-colors hover:bg-[#222] hover:text-white">View All</Link>
-          </div>
-        ) : null}
+
       </div>
     </section>
   );

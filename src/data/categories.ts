@@ -22,7 +22,7 @@ export const categories: MarketplaceCategory[] = [
     slug: "women",
     image: "/category-pages/women/banner/banner2/pc.jpeg",
     subcategories: [
-      subcategory("Indian Wear", "/category-pages/women/shop-by-category/indian-wear.jpg", ["Suit Sets", "Kurtas & Kurtis", "Sarees", "Ethnic Dresses", "Lehengas", "Co-ord Sets", "Dress Materials", "Dupattas", "Blouses", "Palazzos", "Bottom Wear", "Ethnic Jackets"], { "suit-sets": "/category-pages/women/shopbyedit/Suitsets.jpg" }),
+      subcategory("Indian Wear", "/category-pages/women/shop-by-category/indian-wear1.jpg", ["Suit Sets", "Kurtas & Kurtis", "Sarees", "Ethnic Dresses", "Lehengas", "Co-ord Sets", "Dress Materials", "Dupattas", "Blouses", "Palazzos", "Bottom Wear", "Ethnic Jackets"], { "suit-sets": "/category-pages/women/shopbyedit/Suitsets.jpg" }),
       subcategory("Western Wear", "/category-pages/women/shop-by-category/western-wear.jpg", ["Dresses", "Tops", "T-Shirts", "Shirts", "Bottoms", "Jeans & Jeggings", "Skirts", "Co-ord Sets", "Jumpsuits", "Gowns", "Jackets", "Sweatshirts & Hoodies", "Cardigans", "Plus Size", "Maternity Wear"], { "dresses": "/category-pages/women/shopbyedit/dress.jpg" }),
       subcategory("Footwear", "/category-pages/women/shop-by-category/footwear.jpg", ["Heels", "Flats", "Sandals", "Sneakers", "Boots", "Sports Shoes", "Loafers", "Ethnic Footwear", "Ballerinas"], { "heels": "/category-pages/women/shopbyedit/heels.jpg" }),
       subcategory("Lingerie & Sleepwear", "/category-pages/women/shop-by-category/nightdress.jpg", ["Bras", "Underwear", "Shapewear", "Sleepwear", "Camisoles", "Thermals", "Swimwear"], { "bras": "/category-pages/women/shopbyedit/bras.jpg" }),

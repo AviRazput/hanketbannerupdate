@@ -5,17 +5,17 @@ import { sectionHeadingClass } from "./sectionHeadingStyle";
 const occasions = [
   {
     title: "Festive Celebrations",
-    image: "/category-pages/women/Shop-By-Occasion/festival celebration.jpg",
+    image: "/category-pages/women/Shop-By-Occasion/festive_celebration_ai_full_1786948672099.jpg",
     className: "col-span-2 row-span-2",
   },
   {
     title: "Lehnga",
-    image: "/category-pages/women/Shop-By-Occasion/lehnga.jpg",
+    image: "/category-pages/women/Shop-By-Occasion/lehnga_ai_full_1786948933813.jpg",
     className: "col-span-2 row-span-1",
   },
   {
     title: "Mehndi Set",
-    image: "/category-pages/women/Shop-By-Occasion/mehndi.jpg",
+    image: "/category-pages/women/Shop-By-Occasion/mehndi_ai_full_1786949303370.jpg",
     className: "col-span-2 row-span-1",
   },
   {
@@ -25,12 +25,12 @@ const occasions = [
   },
   {
     title: "Reception",
-    image: "/category-pages/women/Shop-By-Occasion/reception.jpg",
+    image: "/category-pages/women/Shop-By-Occasion/reception_ai_full_1786949387693.jpg",
     className: "col-span-1 row-span-1",
   },
   {
     title: "Sangeet",
-    image: "/category-pages/women/Shop-By-Occasion/sangeet.jpg",
+    image: "/category-pages/women/Shop-By-Occasion/sangeet_ai_full_1786949525597.jpg",
     className: "col-span-1 row-span-1",
   },
 ];
