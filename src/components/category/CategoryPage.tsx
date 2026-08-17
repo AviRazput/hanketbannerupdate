@@ -94,14 +94,7 @@ export function CategoryPage({ category, subcategory, type }: CategoryPageProps)
     <div className="bg-white">
       <MobileHomeTop initialCategorySlug={category.slug} />
 
-      <div className="mx-auto w-full max-w-[1920px] px-3 sm:px-6 lg:px-10 xl:px-14">
-        <nav className="flex gap-2 overflow-x-auto py-3 font-sans text-[10px] uppercase tracking-[0.12em] text-flat-muted sm:text-[11px]">
-          <Link href="/">Home</Link><span>/</span>
-          <Link href={categoryHref(category.slug)}>{category.name}</Link>
-          {subcategory ? <><span>/</span><Link href={subcategoryHref(category.slug, subcategory.slug)}>{subcategory.name}</Link></> : null}
-          {type ? <><span>/</span><span className="text-flat-text">{type.name}</span></> : null}
-        </nav>
-      </div>
+
 
       <Hero initialCategory={category.name} />
 
