@@ -129,7 +129,7 @@ function HeroDots({
 
 const slideVariants = {
   initial: (source: InteractionSource) => {
-    if (source === "auto") return { opacity: 0, x: "0%" };
+    if (source === "auto") return { opacity: 1, x: "100%" };
     return { opacity: 1, x: source === "manual-next" ? "100%" : "-100%" };
   },
   animate: {
@@ -137,14 +137,14 @@ const slideVariants = {
     x: "0%",
   },
   exit: (source: InteractionSource) => {
-    if (source === "auto") return { opacity: 0, x: "0%" };
+    if (source === "auto") return { opacity: 1, x: "-100%" };
     return { opacity: 1, x: source === "manual-next" ? "-100%" : "100%" };
   },
 };
 
 function getTransition(source: InteractionSource) {
   if (source === "auto") {
-    return { duration: TRANSITION_AUTO_S, ease: EASE };
+    return { duration: 0.6, ease: EASE_SNAP };
   }
   return { duration: TRANSITION_MANUAL_S, ease: EASE_SNAP };
 }
