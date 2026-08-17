@@ -37,9 +37,9 @@ const occasions = [
 
 export function ShopByOccasion() {
   return (
-    <section className="bg-white py-6 md:pt-10 md:pb-12">
-      <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-10 xl:px-14">
-        <div className="mb-6 md:mb-8 text-center md:text-left">
+    <section className="bg-white py-3 md:pt-9 md:pb-10">
+      <div className="mx-auto w-full max-w-[1920px] px-3 sm:px-6 lg:px-10 xl:px-14">
+        <div className="mb-5 md:mb-7">
           <h2 className={sectionHeadingClass}>
             Shop By Occasion
           </h2>
