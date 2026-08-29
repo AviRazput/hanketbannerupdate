@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteLayout } from "../../../components/layout/SiteLayout";
-import { mainCollection } from "../../../data/products";
+import { categoryProducts } from "../../../data/categoryProducts";
+import { notFound } from "next/navigation";
 
 const sizes = ["S", "M", "L", "XL", "XXL"];
 
@@ -40,7 +41,7 @@ const reviewRows = [
 ];
 
 function findProduct(slug: string) {
-  return mainCollection.find((item) => item.id === slug) ?? mainCollection[0];
+  return categoryProducts.find((item) => item.id === slug) ?? categoryProducts[0];
 }
 
 function rupeePrice(price: string) {
@@ -92,12 +93,20 @@ export default async function ProductDetailPage({
 }) {
   const { slug } = await params;
   const product = findProduct(decodeURIComponent(slug));
+  
+  if (!product) {
+    return notFound();
+  }
+
   const gallery = [
-    product.img1,
-    product.img2,
-    ...mainCollection.filter((item) => item.id !== product.id).slice(0, 6).map((item) => item.img1),
+    product.image,
+    product.image,
+    ...categoryProducts.filter((item) => item.id !== product.id && item.category === product.category).slice(0, 6).map((item) => item.image),
   ];
-  const similarProducts = mainCollection.filter((item) => item.id !== product.id).concat(mainCollection).slice(0, 12);
+  const similarProducts = categoryProducts
+    .filter((item) => item.id !== product.id && item.category === product.category)
+    .concat(categoryProducts.filter((item) => item.id !== product.id && item.category !== product.category))
+    .slice(0, 12);
   const price = rupeePrice(product.price);
   const oldPrice = oldRupeePrice(product.price);
 
@@ -105,14 +114,14 @@ export default async function ProductDetailPage({
     <SiteLayout>
       <section className="bg-white">
         <div className="w-full px-3 py-3 sm:px-5 md:px-6 lg:px-9 lg:py-8">
-          <nav className="mb-4 hidden items-center gap-2 font-sans text-[13px] text-[#17233d] lg:flex">
+          <nav className="mb-4 hidden items-center gap-2 font-sans text-[13px] text-[#17233d] lg:flex uppercase">
             <Link href="/" className="hover:text-flat-pink">Home</Link>
             <span>/</span>
-            <Link href="/search?category=women" className="hover:text-flat-pink">Clothing</Link>
+            <Link href={`/category/${product.category}`} className="hover:text-flat-pink">{product.category.replace("-", " ")}</Link>
             <span>/</span>
-            <Link href="/search?category=women" className="hover:text-flat-pink">Women Clothing</Link>
+            <Link href={`/category/${product.category}/${product.subcategory}`} className="hover:text-flat-pink">{product.subcategory.replace("-", " ")}</Link>
             <span>/</span>
-            <span className="font-bold text-[#0f172a]">{product.title}</span>
+            <span className="font-bold text-[#0f172a]">{product.name}</span>
           </nav>
 
           <div className="grid gap-6 lg:grid-cols-[minmax(0,58%)_minmax(360px,42%)] xl:gap-9">
@@ -120,7 +129,7 @@ export default async function ProductDetailPage({
               <div className="md:hidden">
                 <div
                   className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto scroll-smooth rounded-b-xl"
-                  aria-label={`${product.title} product images`}
+                  aria-label={`${product.name} product images`}
                 >
                   {gallery.slice(0, 5).map((src, index) => (
                     <div
@@ -129,7 +138,7 @@ export default async function ProductDetailPage({
                     >
                       <Image
                         src={src}
-                        alt={`${product.title} view ${index + 1}`}
+                        alt={`${product.name} view ${index + 1}`}
                         fill
                         priority={index === 0}
                         sizes="100vw"
@@ -165,7 +174,7 @@ export default async function ProductDetailPage({
                   <div key={`${src}-${index}`} className="relative aspect-[3/4] overflow-hidden bg-[#f6f6f6]">
                     <Image
                       src={src}
-                      alt={`${product.title} view ${index + 1}`}
+                      alt={`${product.name} view ${index + 1}`}
                       fill
                       priority={index < 2}
                       sizes="(max-width: 1024px) 50vw, 30vw"
@@ -190,10 +199,10 @@ export default async function ProductDetailPage({
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h1 className="font-sans text-[20px] font-bold leading-tight text-[#17233d] md:text-[25px]">
-                      {product.title}
+                      {product.name}
                     </h1>
                     <p className="mt-1 font-sans text-[15px] leading-snug text-[#777b8b] md:text-[20px]">
-                      {product.meta} curated marketplace style
+                      {product.brand} curated marketplace style
                     </p>
                   </div>
                   <button
@@ -358,8 +367,8 @@ export default async function ProductDetailPage({
                 <Link key={`${item.id}-${index}`} href={`/product/${item.id}`} className="group block min-w-0">
                   <div className="relative aspect-[3/4] overflow-hidden bg-[#f6f6f6]">
                     <Image
-                      src={item.img1}
-                      alt={item.title}
+                      src={item.image}
+                      alt={item.name}
                       fill
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                       className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
@@ -369,8 +378,8 @@ export default async function ProductDetailPage({
                     </span>
                   </div>
                   <div className="border border-t-0 border-[#e5e5e5] px-3 py-3">
-                    <h3 className="truncate font-sans text-[15px] font-bold text-[#17233d]">{item.title}</h3>
-                    <p className="mt-1 truncate font-sans text-[13px] text-[#526071]">{item.meta}</p>
+                    <h3 className="truncate font-sans text-[15px] font-bold text-[#17233d]">{item.name}</h3>
+                    <p className="mt-1 truncate font-sans text-[13px] text-[#526071]">{item.brand}</p>
                     <div className="mt-2 flex flex-wrap items-center gap-1.5 font-sans text-[13px]">
                       <span className="font-bold text-[#17233d]">{rupeePrice(item.price)}</span>
                       <span className="text-[#777b8b] line-through">{oldRupeePrice(item.price)}</span>

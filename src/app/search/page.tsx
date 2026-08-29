@@ -1,5 +1,5 @@
 import { SiteLayout } from "../../components/layout/SiteLayout";
-import { mainCollection } from "../../data/products";
+import { filterCategoryProducts, categoryProducts } from "@/data/categoryProducts";
 import Image from "next/image";
 import Link from "next/link";
 import { categories } from "@/data/categories";
@@ -56,16 +56,6 @@ function firstParam(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
 }
 
-function productPrice(index: number) {
-  const prices = ["₹2,499", "₹3,299", "₹1,899", "₹4,250", "₹999", "₹5,499", "₹1,299", "₹2,750"];
-  return prices[index % prices.length];
-}
-
-function productOldPrice(index: number) {
-  const prices = ["₹3,499", "₹4,299", "₹2,599", "₹5,999", "₹1,599", "₹7,299", "₹1,999", "₹3,750"];
-  return prices[index % prices.length];
-}
-
 export default async function SearchPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
   const category = firstParam(params.category);
@@ -80,7 +70,22 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
     (type && typeMobileBanners[type]) || (category && categoryMobileBanners[category]) || bannerImage;
   const activeCategoryKey = type || category || "women";
   const activeCategoryOptions = activeSubcategory?.types.map((item) => item.name) || categoryOptions[activeCategoryKey] || categoryOptions.women;
-  const products = [...mainCollection, ...mainCollection].slice(0, 12);
+  
+  const filteredProducts = filterCategoryProducts({
+    category: category,
+    subcategory: subcategory,
+    type: type,
+  });
+
+  const productsToDisplay = filteredProducts.length > 0 ? filteredProducts : categoryProducts;
+
+  const products = productsToDisplay.map((p) => ({
+    id: p.id,
+    title: p.name,
+    meta: p.brand,
+    price: p.price,
+    img1: p.image,
+  })).slice(0, 16);
 
   return (
     <SiteLayout>
@@ -208,25 +213,6 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
                 ))}
               </div>
 
-              <div className="relative mb-4 aspect-[4/3] min-h-[132px] overflow-hidden bg-[#f4efe9] sm:aspect-[16/5] sm:min-h-[150px] lg:mb-6">
-                <Image
-                  src={mobileBannerImage}
-                  alt={`${title} collection banner`}
-                  fill
-                  priority
-                  sizes="100vw"
-                  className="object-cover object-center sm:hidden"
-                />
-                <Image
-                  src={bannerImage}
-                  alt={`${title} collection banner`}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 75vw"
-                  className="hidden object-cover object-center sm:block"
-                />
-              </div>
-
               <div className="mb-4 flex flex-row items-end justify-between gap-3 border-b border-flat-text pb-3 sm:mb-5 sm:items-center sm:pb-4">
                 <div>
                   <h1 className="font-sans text-[15px] font-semibold uppercase tracking-[0.08em] text-flat-text sm:text-[18px]">
@@ -271,8 +257,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
                       {product.meta} curated for {title.toLowerCase()} edits
                     </p>
                     <div className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 font-sans text-[11px] sm:mt-2 sm:gap-2 sm:text-[13px]">
-                      <span className="font-semibold text-flat-text">{productPrice(index)}</span>
-                      <span className="text-flat-muted line-through">{productOldPrice(index)}</span>
+                      <span className="font-semibold text-flat-text">{product.price}</span>
                       <span className="font-semibold text-flat-pink">{index % 2 === 0 ? "25%" : "15%"} OFF</span>
                     </div>
                   </Link>

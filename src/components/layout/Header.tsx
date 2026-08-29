@@ -198,14 +198,11 @@ function BrandLogo({ variant = "desktop" }: { variant?: "desktop" | "mobile" | "
   const isMobile = variant === "mobile";
 
   return (
-    <span className={isMobile ? "relative block h-8 w-[120px] overflow-hidden" : "relative block h-12 w-[180px] overflow-hidden"}>
+    <span className={isMobile ? "relative block h-10 w-[160px]" : "relative block h-14 w-[240px]"}>
       <img
-        src="/hanketlogo/logohanket.png"
+        src="/hanketlogonew.png"
         alt="Hanket"
-        className={[
-          "absolute block h-auto max-w-none",
-          isMobile ? "-left-10 -top-[90px] w-[200px]" : "-left-[60px] -top-[135px] w-[300px]",
-        ].join(" ")}
+        className="w-full h-full object-contain object-left"
       />
     </span>
   );

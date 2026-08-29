@@ -31,7 +31,7 @@ export function CategoryPage({ category, subcategory, type }: CategoryPageProps)
   const generatedProducts: CategoryProduct[] = sourceSubcategories.flatMap((subcategoryItem, subcategoryIndex) => {
     const sourceTypes = type
       ? subcategoryItem.types.filter((typeItem) => typeItem.slug === type.slug)
-      : subcategoryItem.types.slice(0, 3);
+      : subcategoryItem.types.slice(0, 8); // Take more items to ensure we have enough clothes
 
     return sourceTypes.map((typeItem, typeIndex) => ({
       id: `showcase-${category.slug}-${subcategoryItem.slug}-${typeItem.slug}`,
@@ -53,9 +53,33 @@ export function CategoryPage({ category, subcategory, type }: CategoryPageProps)
         product,
       ]),
     ).values(),
-  ).slice(0, 12);
-  const newArrivals = showcaseProducts.filter((product) => product.isNewArrival).slice(0, 8);
-  const trendingProducts = showcaseProducts.filter((product) => product.isTrending).slice(0, 8);
+  );
+  
+  const excludeFromHome = ['jewellery', 'bags', 'footwear', 'lingerie-and-sleepwear', 'accessories'];
+  const isHomeCategory = !subcategory && !type && category.slug === 'women';
+  
+  const validProducts = showcaseProducts.filter(product => 
+    !(isHomeCategory && excludeFromHome.includes(product.subcategory))
+  );
+
+  let newArrivals = validProducts.filter((product) => product.isNewArrival).slice(0, 8);
+  if (isHomeCategory) {
+    const desiredNewArrivalSlugs = ['lehengas', 'sarees', 'suit-sets', 'jeans-and-jeggings'];
+    const newArrivalImages: Record<string, string> = {
+      'suit-sets': '/category-pages/women/new-arrivals/womeneditsuit.jpg',
+      'lehengas': '/category-pages/women/new-arrivals/womeneditlehnga.jpg',
+      'sarees': '/category-pages/women/new-arrivals/saree.jpg',
+      'jeans-and-jeggings': '/category-pages/women/new-arrivals/womeneditjeans.jpg',
+    };
+    newArrivals = desiredNewArrivalSlugs
+      .map(slug => validProducts.find(product => product.type === slug))
+      .filter(Boolean)
+      .map(product => ({
+        ...product!,
+        image: newArrivalImages[product!.type] || product!.image
+      }));
+  }
+  const trendingProducts = validProducts.filter((product) => product.isTrending).slice(0, 8);
 
   const categoryItems: CategorySectionItem[] = subcategory
     ? subcategory.types.map((item) => ({
