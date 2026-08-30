@@ -19,7 +19,11 @@ type MarketplaceSectionsProps = {
   showTrendingSection?: boolean;
   newArrivalsTitle?: string;
   newArrivalProducts?: CategoryProduct[];
+  showNewArrivalsSection?: boolean;
   showExtendedSections?: boolean;
+  showShopByOccasion?: boolean;
+  categorySlug?: string;
+  children?: React.ReactNode;
 };
 
 export function MarketplaceSections({
@@ -34,7 +38,11 @@ export function MarketplaceSections({
   showTrendingSection = true,
   newArrivalsTitle,
   newArrivalProducts,
+  showNewArrivalsSection = true,
   showExtendedSections = true,
+  showShopByOccasion = false,
+  categorySlug,
+  children,
 }: MarketplaceSectionsProps) {
   return (
     <>
@@ -46,11 +54,13 @@ export function MarketplaceSections({
 
       {showEditSection ? <CategoriesSection title={editTitle} items={editItems} /> : null}
 
-      <ShopByOccasion />
+      {showShopByOccasion && <ShopByOccasion categorySlug={categorySlug} />}
 
       {showTrendingSection ? <TrendingNowSection title={trendingTitle} items={trendingItems} /> : null}
 
-      <NewArrivalsSection title={newArrivalsTitle} products={newArrivalProducts} />
+      {showNewArrivalsSection && <NewArrivalsSection title={newArrivalsTitle} products={newArrivalProducts} />}
+
+      {children}
 
       {showExtendedSections ? (
         <>

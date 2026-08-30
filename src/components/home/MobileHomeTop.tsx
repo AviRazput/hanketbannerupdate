@@ -29,11 +29,13 @@ export function MobileHomeTop({ initialCategorySlug = "" }: { initialCategorySlu
       <div className="mx-auto w-full max-w-[1920px] overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory px-2 pt-2 sm:px-6">
         <div className="flex min-w-max gap-2.5 pr-3">
           {(category
-            ? category.subcategories.map((subcategory) => ({
+            ? category.subcategories
+                .filter(subcategory => !(category.slug === 'men' && ['footwear', 'watches', 'bags-and-wallets', 'accessories'].includes(subcategory.slug)))
+                .map((subcategory) => ({
                 slug: subcategory.slug,
                 name: subcategory.name,
                 image: subcategory.image,
-                href: subcategoryHref(category.slug, subcategory.slug),
+                href: `/search?category=${category.slug}&subcategory=${subcategory.slug}`,
               }))
             : categories.map((item) => ({
                 slug: item.slug,

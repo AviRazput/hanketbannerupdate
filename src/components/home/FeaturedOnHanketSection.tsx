@@ -76,16 +76,16 @@ export function FeaturedOnHanketSection({
             >
               <span className="relative block aspect-square overflow-hidden rounded-full border-[3px] border-white bg-[#f5f1ec] shadow-[0_8px_20px_rgba(0,0,0,0.14)] ring-1 ring-black/5 transition-transform duration-500 group-hover:-translate-y-1">
                 {(!items && categoryCardImages[item.slug]?.startsWith("http")) || (items && item.image.startsWith("http")) ? (
-                  <img src={items ? item.image : categoryCardImages[item.slug]} alt={item.name} className={`absolute inset-0 h-full w-full object-cover ${item.slug === "indian-wear" ? "object-top" : "object-center"} transition-transform duration-700 group-hover:scale-[1.06]`} />
+                  <img src={items ? item.image : categoryCardImages[item.slug]} alt={item.name} className={`absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]`} />
                 ) : (
-                  <Image src={items ? item.image : (categoryCardImages[item.slug] ?? item.image)} alt={item.name} fill unoptimized sizes="(max-width: 639px) 34vw, 170px" className={`object-cover ${item.slug === "indian-wear" ? "object-top" : "object-center"} transition-transform duration-700 group-hover:scale-[1.06]`} />
+                  <Image src={items ? item.image : (categoryCardImages[item.slug] ?? item.image)} alt={item.name} fill unoptimized sizes="(max-width: 639px) 34vw, 170px" className={`object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]`} />
                 )}
               </span>
               <h3 className="mt-4 px-1 font-sans text-[14px] font-medium leading-tight text-[#333] sm:text-[16px] md:text-[18px]">{item.name}</h3>
             </Link>
           ) : (
             <Link key={item.slug} href={`/search?brand=${item.slug}`} className="group relative block aspect-[3/4] w-[78vw] max-w-[290px] shrink-0 snap-start overflow-hidden rounded-[24px] bg-white shadow-[0_12px_32px_rgba(43,35,29,0.08)] transition-shadow duration-300 hover:shadow-[0_18px_45px_rgba(43,35,29,0.16)] sm:w-auto sm:max-w-none sm:shrink md:border md:border-white/80 md:shadow-[0_18px_55px_rgba(43,35,29,0.12)]">
-              <Image src={item.image} alt={item.name} fill unoptimized sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw" className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]" />
+              <Image src={item.image} alt={item.name} fill unoptimized sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw" className={`transition-transform duration-700 ease-out group-hover:scale-[1.06] ${item.slug === "party-edit" ? "object-contain bg-[#1a1a1a]" : "object-cover"}`} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/18 to-transparent" />
               <div className="absolute inset-0 opacity-0 ring-1 ring-inset ring-white/35 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="absolute inset-x-0 bottom-0 z-10 p-4 text-white md:p-5">
