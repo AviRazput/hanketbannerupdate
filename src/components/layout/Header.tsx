@@ -239,6 +239,7 @@ export function Header() {
   };
 
   const isNavActive = (href: string, label?: string) => {
+    if (pathname === "/") return href === "/";
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
