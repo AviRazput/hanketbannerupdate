@@ -14,8 +14,14 @@ export type CategoryProduct = {
 // Yahan par aap apne real products add kar sakte hain.
 // Format: ["Product Name", "Brand", "Price", "Image URL", "category slug", "subcategory slug", "type slug"]
 const productSeeds: (readonly [string, string, string, string, string, string, string])[] = [
-  // Example:
-  // ["Midnight Blue Anarkali", "Biba", "₹3,499", "/instagram/4.jpg", "women", "indian-wear", "suit-sets"],
+  ["Midnight Blue Anarkali", "Biba", "₹3,499", "/instagram/4.jpg", "women", "indian-wear", "suit-sets"],
+  ["Casual Oxford Shirt", "Polo", "₹1,999", "/instagram/2.jpg", "men", "shirts", "casual-shirts"],
+  ["Bridal Lehenga", "Sabyasachi", "₹2,499", "/instagram/6.jpg", "wedding-occasion", "bridal", "bridal-lehengas"],
+  ["Kids Denim Jacket", "H&M", "₹1,299", "/instagram/7.jpg", "kids", "boys", "shirts"],
+  ["Gold Plated Jhumkas", "Kalyan", "₹899", "/catogery/JEWELRY.jpg", "jewelry", "fashion-jewelry", "earrings"],
+  ["Running Shoes", "Nike", "₹4,999", "/instagram/8.jpg", "footwear", "men", "sports-shoes"],
+  ["Matte Lipstick Set", "MAC", "₹2,199", "/catogery/glam.jpg", "glam", "makeup", "lips"],
+  ["Cotton Bedsheet", "Bombay Dyeing", "₹1,499", "/catogery/homedecor.jpg", "home-decor", "home-furnishings", "bedsheets"],
 ];
 
 export const categoryProducts: CategoryProduct[] = productSeeds.map((product, index) => ({

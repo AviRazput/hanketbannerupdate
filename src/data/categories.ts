@@ -27,8 +27,8 @@ export const categories: MarketplaceCategory[] = [
       subcategory("Jewellery", "/category-pages/women/shop-by-category/jewellery.jpg", ["Earrings", "Necklaces", "Rings", "Bracelets", "Anklets", "Fashion Jewellery", "Fine Jewellery", "Bridal Jewellery"], { "earrings": "/category-pages/women/shopbyedit/earing.jpg" }),
       subcategory("Bags", "/category-pages/women/shop-by-category/Bags.jpg", ["Handbags", "Sling Bags", "Tote Bags", "Backpacks", "Satchels", "Wallets", "Clutches", "Mini Bags", "Laptop Bags", "Travel Bags"], { "handbags": "/category-pages/women/shopbyedit/handbag.jpg" }),
       subcategory("Footwear", "/category-pages/women/shop-by-category/footwear.jpg", ["Heels", "Flats", "Sandals", "Sneakers", "Boots", "Sports Shoes", "Loafers", "Ethnic Footwear", "Ballerinas"], { "heels": "/category-pages/women/shopbyedit/heels.jpg" }),
-      subcategory("Lingerie & Sleepwear", "/category-pages/women/shop-by-category/nightdress.jpg", ["Bras", "Underwear", "Shapewear", "Sleepwear", "Camisoles", "Thermals", "Swimwear"], { "bras": "/category-pages/women/shopbyedit/bras.jpg" }),
-      subcategory("Sports & Activewear", "/category-pages/women/shop-by-category/sports.jpg", ["Sports Bras", "Tanks & Tees", "Jackets", "Hoodies", "Leggings", "Shorts", "Track Pants", "Activewear Co-ord Sets", "Sports Shoes"], { "sports-bras": "/category-pages/women/shopbyedit/sportbras.jpg" }),
+      subcategory("Sleepwear & Loungewear", "/category-pages/women/shop-by-category/nightdress.jpg", ["Sleepwear", "Thermals", "Innerwear", "Shapewear", "Loungewear"]),
+      subcategory("Sports & Activewear", "/category-pages/women/shop-by-category/sports.jpg", ["Tanks & Tees", "Jackets", "Hoodies", "Leggings", "Shorts", "Track Pants", "Activewear Co-ord Sets", "Sports Shoes"]),
     ],
   },
   {

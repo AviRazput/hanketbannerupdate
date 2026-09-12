@@ -39,7 +39,7 @@ export const topCategories: TopCategory[] = [
       "Jeans & Leggings",
       "Ethnic Wear",
       "Western Wear",
-      "Lingerie & Sleepwear",
+      "Sleepwear & Loungewear",
     ],
   },
   {

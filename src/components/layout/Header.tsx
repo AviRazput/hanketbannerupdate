@@ -239,9 +239,6 @@ export function Header() {
   };
 
   const isNavActive = (href: string, label?: string) => {
-    if (pathname === "/" && label && label.toLowerCase() === "women") {
-      return true;
-    }
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
