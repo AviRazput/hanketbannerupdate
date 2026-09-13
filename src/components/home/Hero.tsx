@@ -312,9 +312,9 @@ export function Hero({ initialCategory = "Home" }: { initialCategory?: string })
   return (
     <section className="bg-white w-full min-w-0">
       {/* Mobile */}
-      <div className="md:hidden relative w-full pb-2 px-0">
+      <div className="md:hidden relative w-full pb-0 px-0">
         <div
-          className="relative w-full max-h-[calc(100dvh-350px)] overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white sm:aspect-[16/9]"
+          className="relative w-full overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white sm:aspect-[16/9]"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div

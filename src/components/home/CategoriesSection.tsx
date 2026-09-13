@@ -16,10 +16,10 @@ export type CategorySectionItem = {
 const editImages: Record<string, string> = {
   "summer-escape": "/instagram/4.jpg",
   "wedding-guest": "/instagram/2.jpg",
-  "everyday-luxury": "/instagram/6.jpg",
-  "resort-wear": "/instagram/7.jpg",
+  "everyday-edit": "/instagram/6.jpg",
+  "resort-stories": "/instagram/7.jpg",
   "festive-edit": "/catogery/JEWELRY.jpg",
-  "street-culture": "/instagram/8.jpg",
+  "city-statement": "/instagram/8.jpg",
 };
 
 const defaultItems: CategorySectionItem[] = homeCategories.map((edit) => ({
@@ -71,9 +71,6 @@ export function CategoriesSection({
                 <h3 className="font-sans text-[12px] font-black uppercase leading-tight tracking-[0.08em] text-[#191714] sm:text-[13px] md:text-[14px]">
                   {item.name}
                 </h3>
-                <p className="mt-1.5 min-h-[28px] font-sans text-[10px] font-semibold uppercase leading-snug tracking-[0.08em] text-[#786f66]">
-                  {item.description}
-                </p>
                 <span className="mt-2 inline-flex items-center border-b border-[#191714] pb-0.5 font-sans text-[10px] font-black uppercase tracking-[0.16em] text-[#191714]">
                   Shop Now
                 </span>

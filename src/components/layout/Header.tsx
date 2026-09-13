@@ -298,7 +298,7 @@ export function Header() {
           >
             {mobileCategoryNav.map((item) => {
               const className = [
-                "shrink-0 border-b py-1 text-center font-sans text-[13px] font-medium leading-none text-[#222] transition-colors hover:text-flat-pink",
+                "shrink-0 whitespace-nowrap border-b py-1 text-center font-sans text-[13px] font-medium leading-none text-[#222] transition-colors hover:text-flat-pink",
                 isNavActive(item.href, item.label) ? "border-flat-text text-flat-text" : "border-transparent",
               ].join(" ");
 

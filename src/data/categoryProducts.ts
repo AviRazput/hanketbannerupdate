@@ -14,14 +14,14 @@ export type CategoryProduct = {
 // Yahan par aap apne real products add kar sakte hain.
 // Format: ["Product Name", "Brand", "Price", "Image URL", "category slug", "subcategory slug", "type slug"]
 const productSeeds: (readonly [string, string, string, string, string, string, string])[] = [
-  ["Midnight Blue Anarkali", "Biba", "₹3,499", "/instagram/4.jpg", "women", "indian-wear", "suit-sets"],
-  ["Casual Oxford Shirt", "Polo", "₹1,999", "/instagram/2.jpg", "men", "shirts", "casual-shirts"],
-  ["Bridal Lehenga", "Sabyasachi", "₹2,499", "/instagram/6.jpg", "wedding-occasion", "bridal", "bridal-lehengas"],
-  ["Kids Denim Jacket", "H&M", "₹1,299", "/instagram/7.jpg", "kids", "boys", "shirts"],
-  ["Gold Plated Jhumkas", "Kalyan", "₹899", "/catogery/JEWELRY.jpg", "jewelry", "fashion-jewelry", "earrings"],
-  ["Running Shoes", "Nike", "₹4,999", "/instagram/8.jpg", "footwear", "men", "sports-shoes"],
-  ["Matte Lipstick Set", "MAC", "₹2,199", "/catogery/glam.jpg", "glam", "makeup", "lips"],
-  ["Cotton Bedsheet", "Bombay Dyeing", "₹1,499", "/catogery/homedecor.jpg", "home-decor", "home-furnishings", "bedsheets"],
+  ["Hand-Embroidered Anarkali Set", "Aurelia Studio", "₹3,490", "/instagram/4.jpg", "women", "indian-wear", "suit-sets"],
+  ["Relaxed Textured Oxford Shirt", "North & Loom", "₹1,890", "/instagram/2.jpg", "men", "shirts", "casual-shirts"],
+  ["Zari Embroidered Bridal Lehenga", "Veya Atelier", "₹7,990", "/instagram/6.jpg", "wedding-occasion", "bridal", "bridal-lehengas"],
+  ["Washed Denim Overshirt", "Little Loom Co.", "₹1,290", "/instagram/7.jpg", "kids", "boys", "shirts"],
+  ["Handcrafted Pearl Drop Earrings", "VÉRA", "₹890", "/catogery/JEWELRY.jpg", "jewelry", "fashion-jewelry", "earrings"],
+  ["Linen Tie-Waist Midi Dress", "MIRAÉ", "₹2,890", "/instagram/8.jpg", "women", "western-wear", "dresses"],
+  ["Hydrating Lip Tint Set", "LUMIÈRE BEAUTY", "₹1,890", "/catogery/glam.jpg", "glam", "makeup", "lips"],
+  ["Textured Cotton Cushion Cover", "ARLO HOME", "₹690", "/catogery/homedecor.jpg", "home-decor", "home-furnishings", "cushions"],
 ];
 
 export const categoryProducts: CategoryProduct[] = productSeeds.map((product, index) => ({

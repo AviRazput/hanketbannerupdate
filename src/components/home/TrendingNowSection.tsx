@@ -1,23 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
-import { categories, marketplaceHeadings, typeHref } from "@/data/categories";
+import { marketplaceHeadings, typeHref, findType } from "@/data/categories";
 import { HorizontalScrollRow } from "./HorizontalScrollRow";
 import { sectionHeadingClass } from "./sectionHeadingStyle";
 
 const MOBILE_GRID_PAGE_SIZE = 4;
 export type TrendingSectionItem = { slug: string; name: string; image: string; href: string };
 
-const defaultTrendingItems: TrendingSectionItem[] = categories.slice(0, 8).flatMap((category) => {
-  const subcategory = category.subcategories[0];
-  const type = subcategory?.types[0];
-  return subcategory && type
-    ? [{
-        slug: `${category.slug}-${subcategory.slug}-${type.slug}`,
-        name: type.name,
-        image: type.image,
-        href: typeHref(category.slug, subcategory.slug, type.slug),
-      }]
-    : [];
+const customTrendingData = [
+  { title: "Embroidered Sets", cat: "women", sub: "indian-wear", type: "suit-sets" },
+  { title: "Statement Shirts", cat: "men", sub: "shirts", type: "printed-shirts" },
+  { title: "Mini Streetwear", cat: "kids", sub: "boys", type: "t-shirts" },
+  { title: "Skin Rituals", cat: "glam", sub: "skincare", type: "face" },
+  { title: "Soft Home Layers", cat: "home-decor", sub: "home-furnishings", type: "cushions" },
+  { title: "Bridal Details", cat: "wedding-occasion", sub: "bridal", type: "bridal-lehengas" },
+  { title: "Occasion Heels", cat: "footwear", sub: "women", type: "heels" },
+  { title: "Everyday Gold", cat: "jewelry", sub: "fashion-jewelry", type: "earrings" },
+];
+
+const defaultTrendingItems: TrendingSectionItem[] = customTrendingData.map((item) => {
+  const typeObj = findType(item.cat, item.sub, item.type);
+  return {
+    slug: `${item.cat}-${item.sub}-${item.type}`,
+    name: item.title,
+    image: typeObj?.image || "/banner6.png",
+    href: typeHref(item.cat, item.sub, item.type),
+  };
 });
 
 function chunkBy<T>(items: readonly T[], size: number): T[][] {

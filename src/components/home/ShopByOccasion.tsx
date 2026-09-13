@@ -70,32 +70,38 @@ const menOccasions = [
 
 const mixedCollections = [
   {
-    title: "Women's Collection",
+    title: "FESTIVE & CELEBRATION",
+    description: "Looks made for memorable moments",
     image: "/category-pages/women/Shop-By-Occasion/festive_celebration_ai_full_1786948672099.jpg",
     className: "col-span-2 row-span-2",
   },
   {
-    title: "Men's Edit",
+    title: "MEN'S OCCASION",
+    description: "Refined styles for every celebration",
     image: "/category-pages/men/Shop-By-Occasion/men_wedding.jpg",
     className: "col-span-2 row-span-1",
   },
   {
-    title: "Kids",
+    title: "LITTLE OCCASIONS",
+    description: "Special styles for little moments",
     image: "/catogery/kids.jpg",
     className: "col-span-2 row-span-1",
   },
   {
-    title: "Accessories",
+    title: "ACCESSORY EDIT",
+    description: "Finishing touches that make the look",
     image: "/catogery/JEWELRY.jpg",
     className: "col-span-2 row-span-1",
   },
   {
-    title: "Footwear",
+    title: "THE SHOE EDIT",
+    description: "Statement footwear for every occasion",
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
     className: "col-span-1 row-span-1",
   },
   {
-    title: "Home Decor",
+    title: "HOME & HOST",
+    description: "Thoughtful pieces for beautiful spaces",
     image: "/catogery/homedecor.jpg",
     className: "col-span-1 row-span-1",
   },
