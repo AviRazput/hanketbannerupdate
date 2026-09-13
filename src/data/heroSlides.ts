@@ -43,6 +43,21 @@ export const defaultHeroSlides: HeroSlide[] = [
     mobileImageSrc: "/category-pages/footwear/banner/banner1/mobile.png",
     imageAlt: "Hanket footwear edit",
   },
+  {
+    id: "home-mix",
+    imageSrc: "/mix.png",
+    imageAlt: "Hanket mix banner",
+  },
+  {
+    id: "home-women",
+    imageSrc: "/women.png",
+    imageAlt: "Hanket women banner",
+  },
+  {
+    id: "home-kids",
+    imageSrc: "/Kids banner image.png",
+    imageAlt: "Hanket kids banner",
+  },
 ];
 
 export const categoryHeroSlides: Record<string, HeroSlide[]> = {
@@ -54,7 +69,7 @@ export const categoryHeroSlides: Record<string, HeroSlide[]> = {
       imageAlt: "The Wedding Edit",
     },
     {
-      id: "women-banner2",
+      id: "women-banner2-old",
       imageSrc: "/category-pages/women/banner/banner2/pc.jpeg",
       mobileImageSrc: "/category-pages/women/banner/banner2/mobile.jpeg",
       imageAlt: "Women banner2",
@@ -70,6 +85,16 @@ export const categoryHeroSlides: Record<string, HeroSlide[]> = {
       imageSrc: "/category-pages/women/banner/banner5/pc.png",
       mobileImageSrc: "/category-pages/women/banner/banner5/mobile.png",
       imageAlt: "Women banner5",
+    },
+    {
+      id: "women-banner1",
+      imageSrc: "/women.png",
+      imageAlt: "Women banner 1",
+    },
+    {
+      id: "women-banner2",
+      imageSrc: "/women (2).png",
+      imageAlt: "Women banner 2",
     },
   ],
   Men: [
@@ -88,16 +113,41 @@ export const categoryHeroSlides: Record<string, HeroSlide[]> = {
   ],
   Kids: [
     {
-      id: "kids-banner1",
+      id: "kids-banner1-old",
       imageSrc: "/category-pages/kids/banner/banner1/pc.png",
       mobileImageSrc: "/category-pages/kids/banner/banner1/mobile.png",
+      imageAlt: "Kids banner 1 old",
+    },
+    {
+      id: "kids-banner2-old",
+      imageSrc: "/category-pages/kids/banner/banner2/pc.png?v=2",
+      mobileImageSrc: "/category-pages/kids/banner/banner2/mobile.png",
+      imageAlt: "Kids banner 2 old",
+    },
+    {
+      id: "kids-banner1",
+      imageSrc: "/kids.png",
       imageAlt: "Kids banner 1",
     },
     {
       id: "kids-banner2",
-      imageSrc: "/category-pages/kids/banner/banner2/pc.png?v=2",
-      mobileImageSrc: "/category-pages/kids/banner/banner2/mobile.png",
+      imageSrc: "/Kids banner image.png",
       imageAlt: "Kids banner 2",
+    },
+    {
+      id: "kids-banner3",
+      imageSrc: "/KIDS IMAGE 3.png",
+      imageAlt: "Kids banner 3",
+    },
+    {
+      id: "kids-banner4",
+      imageSrc: "/image 4 kids.png",
+      imageAlt: "Kids banner 4",
+    },
+    {
+      id: "kids-banner5",
+      imageSrc: "/Image 2 kids.png",
+      imageAlt: "Kids banner 5",
     },
   ],
   Glam: [
