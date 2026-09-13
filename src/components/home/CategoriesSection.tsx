@@ -71,6 +71,9 @@ export function CategoriesSection({
                 <h3 className="font-sans text-[12px] font-black uppercase leading-tight tracking-[0.08em] text-[#191714] sm:text-[13px] md:text-[14px]">
                   {item.name}
                 </h3>
+                <p className="mt-1.5 min-h-[28px] font-sans text-[10px] font-semibold uppercase leading-snug tracking-[0.08em] text-[#786f66]">
+                  {item.description}
+                </p>
                 <span className="mt-2 inline-flex items-center border-b border-[#191714] pb-0.5 font-sans text-[10px] font-black uppercase tracking-[0.16em] text-[#191714]">
                   Shop Now
                 </span>
