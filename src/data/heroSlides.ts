@@ -10,7 +10,7 @@ export const defaultHeroSlides: HeroSlide[] = [
   {
     id: "hero-banner-5",
     imageSrc: "/hero_section_banner/banner5/pc.png",
-    mobileImageSrc: "/hero_section_banner/banner5/mobile.png",
+    mobileImageSrc: "/mobile_banner/1.png",
     imageAlt: "Hanket hero banner 5",
   },
   {
