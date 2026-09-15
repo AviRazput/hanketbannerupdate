@@ -58,6 +58,42 @@ export const defaultHeroSlides: HeroSlide[] = [
     imageSrc: "/Kids banner image.png",
     imageAlt: "Hanket kids banner",
   },
+  {
+    id: "hero-kids-2",
+    imageSrc: "/kids2.png",
+    mobileImageSrc: "/mobile_banner/2.png",
+    imageAlt: "Hanket kids banner 2",
+  },
+  {
+    id: "hero-kids-3",
+    imageSrc: "/kids3.png",
+    mobileImageSrc: "/mobile_banner/3.png",
+    imageAlt: "Hanket kids banner 3",
+  },
+  {
+    id: "hero-kids-4",
+    imageSrc: "/kids4.png",
+    mobileImageSrc: "/mobile_banner/4.png",
+    imageAlt: "Hanket kids banner 4",
+  },
+  {
+    id: "hero-women-2",
+    imageSrc: "/women2.png",
+    mobileImageSrc: "/mobile_banner/Image 5.png",
+    imageAlt: "Hanket women banner 2",
+  },
+  {
+    id: "hero-women-3",
+    imageSrc: "/women3.png",
+    mobileImageSrc: "/mobile_banner/6.png",
+    imageAlt: "Hanket women banner 3",
+  },
+  {
+    id: "hero-mix-7",
+    imageSrc: "/mix.png",
+    mobileImageSrc: "/mobile_banner/7.png",
+    imageAlt: "Hanket mix banner",
+  }
 ];
 
 export const categoryHeroSlides: Record<string, HeroSlide[]> = {
