@@ -149,9 +149,7 @@ function getTransition(source: InteractionSource) {
   return { duration: TRANSITION_MANUAL_S, ease: EASE_SNAP };
 }
 
-export function Hero({ initialCategory = "Home" }: { initialCategory?: string }) {
-  const [category, setCategory] = useState(initialCategory);
-  const slides = categoryHeroSlides[category] ?? defaultHeroSlides;
+function HeroCarousel({ slides, isMobileView }: { slides: HeroSlide[]; isMobileView: boolean }) {
   const slideCount = slides.length;
 
   const [{ active, interactionSource }, dispatch] = useReducer(
@@ -162,20 +160,8 @@ export function Hero({ initialCategory = "Home" }: { initialCategory?: string })
   const lastUserActionRef = useRef(0);
 
   useEffect(() => {
-    setCategory(initialCategory);
     dispatch({ type: "reset" });
-  }, [initialCategory]);
-
-  useEffect(() => {
-    const onCategoryChange = (event: Event) => {
-      const selected = (event as CustomEvent<string>).detail;
-      setCategory(selected);
-      dispatch({ type: "reset" });
-    };
-
-    window.addEventListener("hanket:mobile-category", onCategoryChange);
-    return () => window.removeEventListener("hanket:mobile-category", onCategoryChange);
-  }, []);
+  }, [slides]);
 
   const goPrev = useCallback(() => {
     if (slideCount === 0) return;
@@ -309,12 +295,10 @@ export function Hero({ initialCategory = "Home" }: { initialCategory?: string })
   const mobileSrc = slide?.mobileImageSrc ?? slide?.imageSrc ?? null;
   const isInitial = active === 0;
 
-  return (
-    <section className="bg-white w-full min-w-0">
-      {/* Mobile */}
-      <div className="md:hidden relative w-full pb-0 px-0">
+  if (isMobileView) {
+    return (
         <div
-          className="relative w-full overflow-hidden rounded-[24px] touch-pan-y aspect-[4/5] bg-white sm:aspect-[16/9]"
+          className="relative w-full overflow-hidden touch-pan-y aspect-[4/5] bg-white sm:aspect-[16/9]"
           style={{ touchAction: "pan-y" }}
         >
           <motion.div
@@ -345,20 +329,8 @@ export function Hero({ initialCategory = "Home" }: { initialCategory?: string })
                     priority={isInitial}
                     fetchPriority={isInitial ? "high" : "auto"}
                     unoptimized
-                    sizes="(max-width: 639px) 100vw, 0px"
-                    className="object-cover object-center pointer-events-none select-none sm:hidden"
-                    style={{ filter: slide.imageFilter }}
-                    draggable={false}
-                  />
-                  <Image
-                    src={desktopSrc ?? mobileSrc}
-                    alt={slide.imageAlt}
-                    fill
-                    priority={isInitial}
-                    fetchPriority={isInitial ? "high" : "auto"}
-                    unoptimized
-                    sizes="(min-width: 640px) and (max-width: 767px) 100vw, 0px"
-                    className="hidden object-cover object-center pointer-events-none select-none sm:block"
+                    sizes="(max-width: 767px) 100vw, 0px"
+                    className="object-cover object-center pointer-events-none select-none"
                     style={{ filter: slide.imageFilter }}
                     draggable={false}
                   />
@@ -367,11 +339,10 @@ export function Hero({ initialCategory = "Home" }: { initialCategory?: string })
             </AnimatePresence>
           </motion.div>
         </div>
+    );
+  }
 
-      </div>
-
-      {/* Desktop */}
-      <div className="mx-auto hidden w-full max-w-[1920px] md:block mb-2 px-0 sm:px-6 lg:mb-3 lg:px-10 xl:px-14">
+  return (
         <div
           className="relative group w-full overflow-hidden rounded-[24px] bg-white"
           style={{ aspectRatio: "3 / 1" }}
@@ -430,6 +401,40 @@ export function Hero({ initialCategory = "Home" }: { initialCategory?: string })
             </>
           )}
         </div>
+  );
+}
+
+export function Hero({ initialCategory = "Home" }: { initialCategory?: string }) {
+  const [category, setCategory] = useState(initialCategory);
+
+  useEffect(() => {
+    setCategory(initialCategory);
+  }, [initialCategory]);
+
+  useEffect(() => {
+    const onCategoryChange = (event: Event) => {
+      const selected = (event as CustomEvent<string>).detail;
+      setCategory(selected);
+    };
+
+    window.addEventListener("hanket:mobile-category", onCategoryChange);
+    return () => window.removeEventListener("hanket:mobile-category", onCategoryChange);
+  }, []);
+
+  const allSlides = categoryHeroSlides[category] ?? defaultHeroSlides;
+  const desktopSlides = allSlides;
+  const mobileSlides = allSlides.filter((s: any) => !s.hideOnMobile);
+
+  return (
+    <section className="bg-white w-full min-w-0">
+      {/* Mobile */}
+      <div className="md:hidden relative w-full pb-0 px-0">
+        <HeroCarousel slides={mobileSlides} isMobileView={true} />
+      </div>
+
+      {/* Desktop */}
+      <div className="mx-auto hidden w-full max-w-[1920px] md:block mb-2 px-0 sm:px-6 lg:mb-3 lg:px-10 xl:px-14">
+        <HeroCarousel slides={desktopSlides} isMobileView={false} />
       </div>
     </section>
   );

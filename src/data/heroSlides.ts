@@ -4,212 +4,234 @@ export type HeroSlide = {
   mobileImageSrc?: string;
   imageAlt: string;
   imageFilter?: string;
+  hideOnMobile?: boolean;
 };
 
 export const defaultHeroSlides: HeroSlide[] = [
+  // Women
   {
-    id: "hero-banner-5",
-    imageSrc: "/hero_section_banner/banner5/pc.png",
-    mobileImageSrc: "/mobile_banner/1.png",
-    imageAlt: "Hanket hero banner 5",
+    id: "home-women-banner1",
+    imageSrc: "/category-pages/women/banner/banner1/pc.png",
+    mobileImageSrc: "/category-pages/women/banner/banner1/mobile.png",
+    imageAlt: "Hanket Women Banner 1",
   },
   {
-    id: "hero-banner-6",
-    imageSrc: "/hero_section_banner/banner6/pc.png",
-    mobileImageSrc: "/hero_section_banner/banner6/mobile.png",
-    imageAlt: "Hanket marketplace edit",
+    id: "home-women-banner2",
+    imageSrc: "/category-pages/women/banner/banner2/pc.jpeg",
+    mobileImageSrc: "/category-pages/women/banner/banner2/mobile.jpeg",
+    imageAlt: "Hanket Women Banner 2",
   },
   {
-    id: "home-men-edit",
-    imageSrc: "/category-pages/men/banner/banner2/pc.png",
-    mobileImageSrc: "/category-pages/men/banner/banner2/mobile.png",
-    imageAlt: "Hanket men edit",
+    id: "home-women-banner3",
+    imageSrc: "/category-pages/women/banner/banner3/pc.png",
+    mobileImageSrc: "/category-pages/women/banner/banner3/mobile.png",
+    imageAlt: "Hanket Women Banner 3",
   },
   {
-    id: "home-kids-edit",
+    id: "home-women-banner5",
+    imageSrc: "/category-pages/women/banner/banner5/pc.png",
+    mobileImageSrc: "/category-pages/women/banner/banner5/mobile.png",
+    imageAlt: "Hanket Women Banner 5",
+  },
+  {
+    id: "home-women-banner6",
+    imageSrc: "/category-pages/women/banner/banner6/women2.png",
+    mobileImageSrc: "/category-pages/women/banner/banner6/mobile.png",
+    imageAlt: "Hanket Women Banner 6",
+  },
+  {
+    id: "home-women-banner7",
+    imageSrc: "/category-pages/women/banner/banner7/pc.png",
+    mobileImageSrc: "/category-pages/women/banner/banner7/mobile.png",
+    imageAlt: "Hanket Women Banner 7",
+  },
+  
+  // Kids
+  {
+    id: "home-kids-banner1",
     imageSrc: "/category-pages/kids/banner/banner1/pc.png",
     mobileImageSrc: "/category-pages/kids/banner/banner1/mobile.png",
-    imageAlt: "Hanket kids edit",
+    imageAlt: "Hanket Kids Banner 1",
   },
   {
-    id: "home-glam-edit",
+    id: "home-kids-banner2",
+    imageSrc: "/category-pages/kids/banner/banner2/pc.png",
+    mobileImageSrc: "/category-pages/kids/banner/banner2/mobile.png",
+    imageAlt: "Hanket Kids Banner 2",
+  },
+  {
+    id: "home-kids-banner3",
+    imageSrc: "/category-pages/kids/banner/banner3/pc.png",
+    mobileImageSrc: "/category-pages/kids/banner/banner3/mobile.png",
+    imageAlt: "Hanket Kids Banner 3",
+  },
+  {
+    id: "home-kids-banner4",
+    imageSrc: "/category-pages/kids/banner/banner4/pc.png",
+    mobileImageSrc: "/category-pages/kids/banner/banner4/mobile.png",
+    imageAlt: "Hanket Kids Banner 4",
+  },
+  {
+    id: "home-kids-banner5",
+    imageSrc: "/category-pages/kids/banner/banner5/pc.png",
+    mobileImageSrc: "/category-pages/kids/banner/banner5/mobile.png",
+    imageAlt: "Hanket Kids Banner 5",
+  },
+  {
+    id: "home-kids-banner6",
+    imageSrc: "/category-pages/kids/banner/banner6/pc.png",
+    mobileImageSrc: "/category-pages/kids/banner/banner6/mobile.png",
+    imageAlt: "Hanket Kids Banner 6",
+  },
+
+  // Men
+  {
+    id: "home-men-banner2",
+    imageSrc: "/category-pages/men/banner/banner2/pc.png",
+    mobileImageSrc: "/category-pages/men/banner/banner2/mobile.png",
+    imageAlt: "Hanket Men Banner 2",
+  },
+  {
+    id: "home-men-banner3",
+    imageSrc: "/category-pages/men/banner/banner3/pc.png",
+    mobileImageSrc: "/category-pages/men/banner/banner3/mobile.png",
+    imageAlt: "Hanket Men Banner 3",
+  },
+
+  // Others
+  {
+    id: "home-glam-banner1",
     imageSrc: "/category-pages/glam/banner/banner1/pc.png",
     mobileImageSrc: "/category-pages/glam/banner/banner1/mobile.png",
-    imageAlt: "Hanket glam edit",
+    imageAlt: "Hanket Glam Banner 1",
   },
   {
-    id: "home-footwear-edit",
+    id: "home-footwear-banner1",
     imageSrc: "/category-pages/footwear/banner/banner1/pc.png",
     mobileImageSrc: "/category-pages/footwear/banner/banner1/mobile.png",
-    imageAlt: "Hanket footwear edit",
+    imageAlt: "Hanket Footwear Banner 1",
   },
   {
-    id: "home-mix",
-    imageSrc: "/mix.png",
-    imageAlt: "Hanket mix banner",
+    id: "home-wedding-banner1",
+    imageSrc: "/category-pages/wedding-occasion/banner/banner1/pc.png",
+    mobileImageSrc: "/category-pages/wedding-occasion/banner/banner1/mobile.png",
+    imageAlt: "Hanket Wedding Occasion Banner 1",
   },
-  {
-    id: "home-women",
-    imageSrc: "/women.png",
-    imageAlt: "Hanket women banner",
-  },
-  {
-    id: "home-kids",
-    imageSrc: "/Kids banner image.png",
-    imageAlt: "Hanket kids banner",
-  },
-  {
-    id: "hero-kids-2",
-    imageSrc: "/kids2.png",
-    mobileImageSrc: "/mobile_banner/2.png",
-    imageAlt: "Hanket kids banner 2",
-  },
-  {
-    id: "hero-kids-3",
-    imageSrc: "/kids3.png",
-    mobileImageSrc: "/mobile_banner/3.png",
-    imageAlt: "Hanket kids banner 3",
-  },
-  {
-    id: "hero-kids-4",
-    imageSrc: "/kids4.png",
-    mobileImageSrc: "/mobile_banner/4.png",
-    imageAlt: "Hanket kids banner 4",
-  },
-  {
-    id: "hero-women-2",
-    imageSrc: "/women2.png",
-    mobileImageSrc: "/mobile_banner/Image 5.png",
-    imageAlt: "Hanket women banner 2",
-  },
-  {
-    id: "hero-women-3",
-    imageSrc: "/women3.png",
-    mobileImageSrc: "/mobile_banner/6.png",
-    imageAlt: "Hanket women banner 3",
-  },
-  {
-    id: "hero-mix-7",
-    imageSrc: "/mix.png",
-    mobileImageSrc: "/mobile_banner/7.png",
-    imageAlt: "Hanket mix banner",
-  }
 ];
 
 export const categoryHeroSlides: Record<string, HeroSlide[]> = {
   Women: [
     {
-      id: "women-wedding-edit",
-      imageSrc: "/category-pages/wedding-occasion/banner/banner1/pc.png",
-      mobileImageSrc: "/category-pages/wedding-occasion/banner/banner1/mobile.png",
-      imageAlt: "The Wedding Edit",
+      id: "women-banner1",
+      imageSrc: "/category-pages/women/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/women/banner/banner1/mobile.png",
+      imageAlt: "Hanket Women Banner 1",
     },
     {
-      id: "women-banner2-old",
+      id: "women-banner2",
       imageSrc: "/category-pages/women/banner/banner2/pc.jpeg",
       mobileImageSrc: "/category-pages/women/banner/banner2/mobile.jpeg",
-      imageAlt: "Women banner2",
+      imageAlt: "Hanket Women Banner 2",
     },
     {
       id: "women-banner3",
       imageSrc: "/category-pages/women/banner/banner3/pc.png",
       mobileImageSrc: "/category-pages/women/banner/banner3/mobile.png",
-      imageAlt: "Women banner3",
+      imageAlt: "Hanket Women Banner 3",
     },
     {
       id: "women-banner5",
       imageSrc: "/category-pages/women/banner/banner5/pc.png",
       mobileImageSrc: "/category-pages/women/banner/banner5/mobile.png",
-      imageAlt: "Women banner5",
+      imageAlt: "Hanket Women Banner 5",
     },
     {
-      id: "women-banner1",
-      imageSrc: "/women.png",
-      imageAlt: "Women banner 1",
+      id: "women-banner6",
+      imageSrc: "/category-pages/women/banner/banner6/women2.png",
+      mobileImageSrc: "/category-pages/women/banner/banner6/mobile.png",
+      imageAlt: "Hanket Women Banner 6",
     },
     {
-      id: "women-banner2",
-      imageSrc: "/women (2).png",
-      imageAlt: "Women banner 2",
+      id: "women-banner7",
+      imageSrc: "/category-pages/women/banner/banner7/pc.png",
+      mobileImageSrc: "/category-pages/women/banner/banner7/mobile.png",
+      imageAlt: "Hanket Women Banner 7",
+    }
+  ],
+  Kids: [
+    {
+      id: "kids-banner1",
+      imageSrc: "/category-pages/kids/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/banner1/mobile.png",
+      imageAlt: "Hanket Kids Banner 1",
     },
+    {
+      id: "kids-banner2",
+      imageSrc: "/category-pages/kids/banner/banner2/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/banner2/mobile.png",
+      imageAlt: "Hanket Kids Banner 2",
+    },
+    {
+      id: "kids-banner3",
+      imageSrc: "/category-pages/kids/banner/banner3/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/banner3/mobile.png",
+      imageAlt: "Hanket Kids Banner 3",
+    },
+    {
+      id: "kids-banner4",
+      imageSrc: "/category-pages/kids/banner/banner4/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/banner4/mobile.png",
+      imageAlt: "Hanket Kids Banner 4",
+    },
+    {
+      id: "kids-banner5",
+      imageSrc: "/category-pages/kids/banner/banner5/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/banner5/mobile.png",
+      imageAlt: "Hanket Kids Banner 5",
+    },
+    {
+      id: "kids-banner6",
+      imageSrc: "/category-pages/kids/banner/banner6/pc.png",
+      mobileImageSrc: "/category-pages/kids/banner/banner6/mobile.png",
+      imageAlt: "Hanket Kids Banner 6",
+    }
   ],
   Men: [
     {
       id: "men-banner2",
       imageSrc: "/category-pages/men/banner/banner2/pc.png",
       mobileImageSrc: "/category-pages/men/banner/banner2/mobile.png",
-      imageAlt: "Men banner 2",
+      imageAlt: "Hanket Men Banner 2",
     },
     {
       id: "men-banner3",
       imageSrc: "/category-pages/men/banner/banner3/pc.png",
       mobileImageSrc: "/category-pages/men/banner/banner3/mobile.png",
-      imageAlt: "Men banner 3",
-    },
-  ],
-  Kids: [
-    {
-      id: "kids-banner1-old",
-      imageSrc: "/category-pages/kids/banner/banner1/pc.png",
-      mobileImageSrc: "/category-pages/kids/banner/banner1/mobile.png",
-      imageAlt: "Kids banner 1 old",
-    },
-    {
-      id: "kids-banner2-old",
-      imageSrc: "/category-pages/kids/banner/banner2/pc.png?v=2",
-      mobileImageSrc: "/category-pages/kids/banner/banner2/mobile.png",
-      imageAlt: "Kids banner 2 old",
-    },
-    {
-      id: "kids-banner1",
-      imageSrc: "/kids.png",
-      imageAlt: "Kids banner 1",
-    },
-    {
-      id: "kids-banner2",
-      imageSrc: "/Kids banner image.png",
-      imageAlt: "Kids banner 2",
-    },
-    {
-      id: "kids-banner3",
-      imageSrc: "/KIDS IMAGE 3.png",
-      imageAlt: "Kids banner 3",
-    },
-    {
-      id: "kids-banner4",
-      imageSrc: "/image 4 kids.png",
-      imageAlt: "Kids banner 4",
-    },
-    {
-      id: "kids-banner5",
-      imageSrc: "/Image 2 kids.png",
-      imageAlt: "Kids banner 5",
-    },
-  ],
-  Glam: [
-    {
-      id: "glam-banner1",
-      imageSrc: "/category-pages/glam/banner/banner1/pc.png",
-      mobileImageSrc: "/category-pages/glam/banner/banner1/mobile.png",
-      imageAlt: "Glam banner",
+      imageAlt: "Hanket Men Banner 3",
     },
   ],
   "Wedding & Occasion": [
     {
-      id: "wedding-occasion-banner1",
+      id: "wedding-banner1",
       imageSrc: "/category-pages/wedding-occasion/banner/banner1/pc.png",
       mobileImageSrc: "/category-pages/wedding-occasion/banner/banner1/mobile.png",
-      imageAlt: "Wedding and occasion banner",
-    },
+      imageAlt: "Hanket Wedding Occasion Banner 1",
+    }
   ],
   Footwear: [
     {
       id: "footwear-banner1",
       imageSrc: "/category-pages/footwear/banner/banner1/pc.png",
       mobileImageSrc: "/category-pages/footwear/banner/banner1/mobile.png",
-      imageAlt: "Footwear banner",
-    },
+      imageAlt: "Hanket Footwear Banner 1",
+    }
   ],
+  Glam: [
+    {
+      id: "glam-banner1",
+      imageSrc: "/category-pages/glam/banner/banner1/pc.png",
+      mobileImageSrc: "/category-pages/glam/banner/banner1/mobile.png",
+      imageAlt: "Hanket Glam Banner 1",
+    }
+  ]
 };
-
-export const heroSlides = defaultHeroSlides;
